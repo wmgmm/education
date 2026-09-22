@@ -1,6 +1,6 @@
 import React from 'react';
 import MissionCard from './MissionCard.jsx';
-import { MISSIONS, HERO_IMAGE } from '../data/missions.js';
+import { MISSIONS, HERO_IMAGE, APPS } from '../data/missions.js';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -35,7 +35,18 @@ export default function MissionGallery({ progress }) {
       </div>
 
       <div className="evidence-section__header">
-        <h1 className="evidence-section__title">BUILD THE STAFF BRIEFING PACK</h1>
+        <div className="evidence-section__lead">
+          <h1 className="evidence-section__title">BUILD THE STAFF BRIEFING PACK</h1>
+          {/* The three sign-ins beside the title, so nobody hunts for a tab. */}
+          <nav className="tool-links" aria-label="Open your tools">
+            {[APPS.copilot, APPS.gemini, APPS.notebook].map(app => (
+              <a key={app.name} className="tool-link" href={app.url} target="_blank" rel="noopener noreferrer" title={app.note}>
+                <img src={`${BASE}logos/${app.logo}`} alt="" />
+                <span>{app.name}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
         {completedCount === main.length ? (
           <p className="mission-progress-line mission-progress-line--done">
             All {main.length} complete. &ldquo;The briefing pack exists. The real

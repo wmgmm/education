@@ -311,3 +311,22 @@ every new cascade line reachable); Chrome with motion off: four click-through ru
 endings, key 4 picks the earned option, the three voice classes render (yellow, dim italic,
 bold), no console errors; title card animates in front. File is about 1,060 lines. Committed and
 pushed on Matt's ask.
+
+Gallery header (Matt): three sign-in pills beside BUILD THE STAFF BRIEFING PACK, Copilot,
+Gemini and Notebook, from `APPS` (logo, url, note as the tooltip), new tab. Markup in
+`MissionGallery.jsx` (`evidence-section__lead`, `tool-links`, `tool-link`), styles appended to
+`styles.css` (hairline grey pill, blue on hover, 18px logo). Logos were already doctor-checked.
+While probing at 390px: the renamed wordmark (AI IN THE WORKPLACE PART 2: EDUCATION EDITION)
+was `white-space: nowrap` and overflowed phones since the morning's rename; a phone-width rule
+now lets it wrap. Not committed.
+Adventure title screen (Matt): the chase is now its own screen, THE MATTS PRESENT banner, the
+animation across the full terminal column (width measured from `columns()`, 40 to 120), then
+BEGIN; page 1 (the mainframe's intro) is an ordinary scene after it, so the animation is not
+sitting above the story. RESTART, PLAY AGAIN and START A NEW TERM return to the title screen.
+Not committed.
+Adventure text flow (Matt: lines wrapped early, short of the yellow rule): story lines stay
+short in the source, and `flow()` in `print()` joins a line onto the next when it does not end
+a sentence (dropping a repeated "> MAINFRAME:" prefix), so text runs to the full column and
+wraps only where the screen does. Banner rules and title-card frames are exempt. Walked all
+paths: no stray prefix. Not committed.
+Committed and pushed on Matt's ask (gallery pills, wordmark wrap, adventure title screen and flow).

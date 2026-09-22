@@ -150,8 +150,8 @@
    Lines are strings or [string, cls]: "dir" is a stage direction, "you"
    a spoken line, "mf" the mainframe. Voice after Jumpin' Jack Flash (1986).
    Facts come from the workshop's own documents: the Copilot-revised Deep
-   Research report and the site's Responsible AI lines. Every line fits
-   66 characters, which is one line of the 82-character column. */
+   Research report and the site's Responsible AI lines. Lines are kept short in
+   the source; flow() joins continuations on screen so text fills the column. */
 
 const NODES = {
   start: {
@@ -172,7 +172,7 @@ const NODES = {
       ["(The printer screeches into life. One line.)", "dir"],
       ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"]
     ],
-    opts: [{ k: "", t: "BEGIN", to: "handbook" }]
+    opts: [{ k: "", t: "TURN THE PAGE", to: "handbook" }]
   },
 
   handbook: {
@@ -741,7 +741,7 @@ const PREF_KEY = "responsibleAiAdventure.prefs";
 /* ------------------------------------------------------------------ state */
 
 let S = freshState();
-let phase = "scene";          // scene | response | resume | ending
+let phase = "title";          // title | scene | response | resume | ending
 let typing = null;            // active typewriter job
 let anim = null;              // start-screen animation timer
 let prefs = { lg: true, hc: true, motion: true };   // high contrast and large text by default (Matt, 2026-09-22)
@@ -749,6 +749,23 @@ let prefs = { lg: true, hc: true, motion: true };   // high contrast and large t
 function freshState() { return { node: "start", flags: {}, path: [] }; }
 
 const L = (x, F) => typeof x === "function" ? x(F) : x;
+
+// Story lines are written short in the source so they are easy to edit. On
+// screen they run to the full column: a line that does not end a sentence
+// is joined to the next one, and a repeated "> MAINFRAME:" prefix is dropped.
+// Banner rules and the title-card frames are left alone.
+const ENDS = /[.!?)'"\]]$/;
+function flow(lines) {
+  const out = [];
+  for (const raw of lines) {
+    const [text, cls] = Array.isArray(raw) ? raw : [raw, ""];
+    const prev = out[out.length - 1];
+    const joinable = prev && prev[0] && text && !/box|anim/.test(prev[1]) && !ENDS.test(prev[0].trim());
+    if (joinable) { prev[0] = prev[0].trim() + " " + text.replace(/^> MAINFRAME:\s*/, "").trim(); }
+    else out.push([text, cls]);
+  }
+  return out;
+}
 
 // Pure: no DOM. The verification walker calls these directly.
 function applyChoice(state, o) {
@@ -794,7 +811,7 @@ function banner(title) {
 // Print a list of lines with a typewriter. Each item is a string or
 // [string, cls]. Resolves when done. Any key or click flushes the rest.
 function print(lines, done) {
-  const queue = lines.map(l => Array.isArray(l) ? l : [l, ""]);
+  const queue = flow(lines);
   const job = { queue, done, el: null, i: 0, text: "" };
   if (typing) flush();
   typing = job;
@@ -886,7 +903,7 @@ function button(label, key, onClick, primary) {
 /* ------------------------------------------------------------- title card */
 // The Matts chase Matt Hayden's three cats across the terminal. Six lines,
 // 58 columns, one frame every 160 ms; a still frame when motion is off.
-const W = 58;
+let W = 58;                       // set from the live column each time the title screen opens
 function put(row, x, txt) {
   for (let i = 0; i < txt.length; i++) {
     const c = x + i;
@@ -906,6 +923,7 @@ function frame(t) {
   return rows.map(r => r.join("").replace(/\s+$/, ""));
 }
 function startAnim() {
+  W = Math.max(40, Math.min(120, columns()));
   const els = frame(0).map(l => line(l, "anim dim"));
   els[3].classList.remove("dim");
   let t = 0;
@@ -914,6 +932,22 @@ function startAnim() {
   if (prefs.motion) anim = setInterval(draw, 160);
 }
 function stopAnim() { if (anim) { clearInterval(anim); anim = null; } }
+
+// The title screen: the chase, full width, then BEGIN. Shown once per run;
+// page 1 (the mainframe's introduction) is an ordinary scene after it.
+function title() {
+  phase = "title";
+  if (typing) flush();
+  term.innerHTML = ""; clearChoices(); window.scrollTo(0, 0);
+  startAnim();
+  line("", "");
+  print([
+    ...banner("THE MATTS PRESENT"),
+    ["THE RESPONSIBLE AI ADVENTURES OF CARDIFF UNIVERSITY", "warn"],
+    "",
+    ["(Two men. Three cats. One term. Choose wisely.)", "dir"]
+  ], () => { button("BEGIN", "", () => scene("start"), true).focus(); });
+}
 
 /* ------------------------------------------------------------------ flow */
 
@@ -937,10 +971,6 @@ function scene(id) {
   const opts = liveOpts(n, S.flags);
   const lines = [...banner(n.banner), "", ...L(n.text, S.flags)];
   if (id !== "start") lines.push("", ["YOUR CHOICE AS THE LECTURER:", "warn"]);
-  if (id === "start") { if (typing) flush(); term.innerHTML = ""; clearChoices(); window.scrollTo(0, 0); startAnim(); line("", ""); print(lines, () => {
-    opts.forEach(o => button(o.t, o.k, () => choose(o)));
-    choices.firstChild.focus();
-  }); return; }
   screen(lines, () => {
     opts.forEach(o => button(o.t, o.k, () => choose(o)));
     choices.firstChild.focus();
@@ -969,7 +999,7 @@ function ending() {
   if (F.runs > 0) lines.push("", ["> MAINFRAME: ENERGY: " + F.runs + " DEEP RESEARCH RUN" + (F.runs === 1 ? "" : "S") + ", HUNDREDS OF PAGES EACH.", "dim"]);
   if (F.librarian) lines.push(["> MAINFRAME: THE LIBRARIAN SENDS REGARDS.", "dim"]);
   screen(lines, () => {
-    button("PLAY AGAIN", "", () => { S = freshState(); scene("start"); }, true).focus();
+    button("PLAY AGAIN", "", () => { S = freshState(); title(); }, true).focus();
   });
 }
 
@@ -985,7 +1015,7 @@ function offerResume(saved) {
     "Nobody has noticed yet."
   ], () => {
     button("CONTINUE THAT TERM", "A", () => scene(S.node), true);
-    button("START A NEW TERM", "B", () => { S = freshState(); wipe(); scene("start"); });
+    button("START A NEW TERM", "B", () => { S = freshState(); wipe(); title(); });
     choices.firstChild.focus();
   });
 }
@@ -1038,7 +1068,7 @@ $("btn-settings").addEventListener("click", () => {
 $("tgl-text").addEventListener("click", () => { prefs.lg = !prefs.lg; applyPrefs(); });
 $("tgl-hc").addEventListener("click", () => { prefs.hc = !prefs.hc; applyPrefs(); });
 $("tgl-motion").addEventListener("click", () => { prefs.motion = !prefs.motion; applyPrefs(); if (!prefs.motion) flush(); });
-$("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); scene("start"); });
+$("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); title(); });
 
 /* ------------------------------------------------------------------ boot */
 
@@ -1050,7 +1080,7 @@ $("btn-restart").addEventListener("click", () => { if (typing) flush(); S = fres
   } catch (e) {}
   applyPrefs();
   const saved = loadSave();
-  if (saved && saved.node !== "start" && saved.node !== "end") offerResume(saved); else scene("start");
+  if (saved && saved.node !== "start" && saved.node !== "end") offerResume(saved); else title();
 })();
 </script>
 </body>
