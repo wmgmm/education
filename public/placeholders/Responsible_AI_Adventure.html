@@ -92,6 +92,10 @@
   #term .ok { color: var(--ok); }
   #term .dim { color: var(--dim); }
   #term .box { color: var(--warn); }
+  #term .dir { color: var(--dim); font-style: italic; }
+  #term .mf { color: var(--warn); }
+  #term .you { font-weight: bold; }
+  #term .anim { min-height: 1.45em; }
   #term .prompt { margin-top: 0.4em; }
   .cursor::after { content: "\2588"; animation: blink 1s steps(1) infinite; }
   body.nomo .cursor::after { animation: none; }
@@ -143,20 +147,30 @@
    option: k (key), t (label), to (next node id, or "end"), set / add
    (flag effects), when (F => bool, hides the option), say (consequence
    lines, string[] or F => string[], resolved AFTER the flags are applied).
-   Lines are strings or [string, cls]. Facts come from the workshop's own
-   documents: the Copilot-revised Deep Research report and the site's
-   Responsible AI lines. Every line fits 58 characters. */
+   Lines are strings or [string, cls]: "dir" is a stage direction, "you"
+   a spoken line, "mf" the mainframe. Voice after Jumpin' Jack Flash (1986).
+   Facts come from the workshop's own documents: the Copilot-revised Deep
+   Research report and the site's Responsible AI lines. Every line fits
+   66 characters, which is one line of the 82-character column. */
 
 const NODES = {
   start: {
-    banner: "CARDIFF UNIVERSITY MAINFRAME",
+    banner: "PAGE 1: THE LATE NIGHT OFFICE",
     text: [
-      "You are a lecturer.",
-      ["One module. 180 students. Twelve weeks.", "warn"],
-      "Students use AI. The rules do not exist yet.",
+      ["(11:45 PM. Cardiff. A lecturer alone with 180 unread", "dir"],
+      ["essays and a mug that says WORLD'S OKAYEST ACADEMIC.", "dir"],
+      ["The screen flashes green and starts beeping.)", "dir"],
       "",
-      "The Matts left one note:",
-      ["'The human value is in the review.'", "warn"]
+      ["YOU: (slapping the monitor)", "you"],
+      "Not tonight, you phosphor menace. I have marking.",
+      "",
+      ["> MAINFRAME: KNOCK KNOCK, LECTURER.", "mf"],
+      ["> MAINFRAME: I AM THE UNIVERSITY MAINFRAME. THIS IS NOT A DRILL.", "mf"],
+      ["> MAINFRAME: 95% OF YOUR STUDENTS USE AI. I HAVE SEEN THE LOGS.", "mf"],
+      ["> MAINFRAME: THE MATTS LEFT ONE NOTE. THEN THEY LEFT.", "mf"],
+      "",
+      ["(The printer screeches into life. One line.)", "dir"],
+      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"]
     ],
     opts: [{ k: "", t: "BEGIN", to: "handbook" }]
   },
@@ -164,27 +178,34 @@ const NODES = {
   handbook: {
     banner: "WEEK 1: THE HANDBOOK",
     text: [
-      "A colleague hands you the module handbook.",
-      "Sixty pages. A chatbot wrote it on Tuesday.",
-      "'It just needs your signature by five.'",
-      "It is ten to five."
+      ["(Ten to five. A colleague slides sixty warm pages", "dir"],
+      ["across the desk. A chatbot wrote them on Tuesday.)", "dir"],
+      "",
+      ["COLLEAGUE: Just needs your signature by five. Ha ha.", "you"],
+      "",
+      ["> MAINFRAME: PAGE 14 PROMISES A FIELD TRIP.", "mf"],
+      ["> MAINFRAME: TO AN INSTITUTE THAT DOES NOT EXIST.", "mf"],
+      ["> MAINFRAME: I CHECKED. I CHECK EVERYTHING. IT IS MY THING.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Sign it. It is ten to five.", to: "inbox", set: { readHandbook: false },
+      { k: "A", t: "Sign it. It is ten to five and I am only human.", to: "inbox", set: { readHandbook: false },
         say: [
-          "Signed. Page 14 promises a field trip to the",
-          "Cardiff Institute of Marine Ethics.",
-          "There is no Cardiff Institute of Marine Ethics.",
+          ["YOU: (signing with a flourish) There. Governance.", "you"],
           "",
-          "Forty students will find the mistake in week 6."
+          ["> MAINFRAME: SIGNED. THE INSTITUTE OF MARINE ETHICS", "mf"],
+          ["> MAINFRAME: NOW EXISTS ON PAPER, WITH YOUR NAME UNDER IT.", "mf"],
+          ["> MAINFRAME: FORTY STUDENTS WILL FIND IT IN WEEK 6.", "mf"],
+          ["> MAINFRAME: WITH A MINIBUS.", "mf"]
         ] },
-      { k: "B", t: "Read it first. Five can wait.", to: "inbox", set: { readHandbook: true },
+      { k: "B", t: "Read it first. Five can wait. Five is a construct.", to: "inbox", set: { readHandbook: true },
         say: [
-          "Page 14 promises a field trip to the",
-          "Cardiff Institute of Marine Ethics, which does not exist.",
-          "You delete it. Your colleague says 'ah'.",
+          ["YOU: (forty minutes later, red pen raised)", "you"],
+          "Page 14. The Cardiff Institute of Marine Ethics.",
           "",
-          "Forty minutes to read. Four seconds to fix."
+          ["COLLEAGUE: Ah.", "you"],
+          "",
+          ["> MAINFRAME: DELETED. FORTY MINUTES TO READ.", "mf"],
+          ["> MAINFRAME: FOUR SECONDS TO FIX. THAT IS THE RATIO.", "mf"]
         ] }
     ]
   },
@@ -192,36 +213,45 @@ const NODES = {
   inbox: {
     banner: "WEEK 2: THE INBOX",
     text: F => [
-      F.readHandbook ? "Forty minutes well spent. Then the inbox:"
-        : "Your signature dries. The first email arrives:",
-      "41 extension requests, each with a medical note.",
-      "Each needs a reply that sounds like you,",
-      "is kind, and quotes the regulations correctly.",
-      "It is 11 p.m."
+      F.readHandbook
+        ? ["(Forty minutes well spent. Then the inbox opens.)", "dir"]
+        : ["(Your signature is still wet. The inbox opens.)", "dir"],
+      "",
+      ["> MAINFRAME: 41 EXTENSION REQUESTS. EACH WITH A MEDICAL NOTE.", "mf"],
+      ["> MAINFRAME: EACH NEEDS A REPLY THAT SOUNDS LIKE YOU, IS KIND,", "mf"],
+      ["> MAINFRAME: AND QUOTES THE REGULATIONS CORRECTLY.", "mf"],
+      ["> MAINFRAME: IT IS 11 PM. YOUR TAKEAWAY ARRIVES IN 20 MINUTES.", "mf"],
+      "",
+      ["YOU: (staring) You know about the takeaway?", "you"],
+      "",
+      ["> MAINFRAME: I KNOW ABOUT THE TAKEAWAY.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Paste them into the free chatbot app", to: "lecture", set: { tool: "public" },
+      { k: "A", t: "Paste all 41 into the free chatbot app. Done by midnight.", to: "lecture", set: { tool: "public" },
         say: [
-          "Forty-one replies in ninety seconds. Warm. Accurate.",
-          "Forty-one medical notes now live on a server",
-          "in a country you would have to look up.",
+          ["YOU: (typing) Ninety seconds. Warm. Accurate. Genius.", "you"],
           "",
-          "The terms let the company train on what you paste."
+          ["> MAINFRAME: CONGRATULATIONS. 41 MEDICAL NOTES NOW LIVE", "mf"],
+          ["> MAINFRAME: ON A SERVER IN A COUNTRY YOU WOULD HAVE TO LOOK UP.", "mf"],
+          ["> MAINFRAME: THE TERMS LET THEM TRAIN ON WHAT YOU PASTE.", "mf"],
+          ["> MAINFRAME: I WOULD HAVE MENTIONED IT. YOU DID NOT ASK.", "mf"]
         ] },
-      { k: "B", t: "Sign in to Gemini with your CU account", to: "lecture", set: { tool: "approved" },
+      { k: "B", t: "Sign in to Gemini with my CU account. The approved one.", to: "lecture", set: { tool: "approved" },
         say: [
-          "Forty-one replies in ninety seconds. Warm. Accurate.",
-          "The notes stay under the University's contract,",
-          "approved for confidential data. That was the difference.",
+          ["YOU: (typing) Ninety seconds. Warm. Accurate. Contract.", "you"],
           "",
-          "Eleven seconds longer: you read them before sending."
+          ["> MAINFRAME: THE NOTES STAY UNDER THE UNIVERSITY'S CONTRACT.", "mf"],
+          ["> MAINFRAME: APPROVED FOR CONFIDENTIAL DATA. SAME REPLIES,", "mf"],
+          ["> MAINFRAME: ELEVEN SECONDS LONGER: YOU READ THEM BEFORE SENDING.", "mf"],
+          ["> MAINFRAME: NOBODY NOTICED. THAT IS THE POINT.", "mf"]
         ] },
-      { k: "C", t: "Write all 41 yourself", to: "lecture", set: { tool: "hand" },
+      { k: "C", t: "Write all 41 myself. Like a person. A tired person.", to: "lecture", set: { tool: "hand" },
         say: [
-          "1 a.m. Reply 38 starts 'Dear' and the wrong name.",
-          "Human error is still error.",
+          ["(1 AM. The takeaway is cold. Reply 38 begins", "dir"],
+          ["'Dear' and the wrong name.)", "dir"],
           "",
-          "It is just yours, and you can find it."
+          ["> MAINFRAME: HUMAN ERROR IS STILL ERROR, LECTURER.", "mf"],
+          ["> MAINFRAME: IT IS JUST YOURS. AND YOU CAN FIND IT.", "mf"]
         ] }
     ]
   },
@@ -229,41 +259,48 @@ const NODES = {
   lecture: {
     banner: "WEEK 3: THE LECTURE",
     text: F => [
-      F.tool === "public" ? "Your 41 replies went out in ninety seconds."
-        : F.tool === "approved" ? "Your 41 replies went out, checked, under contract."
-        : "The wrongly named student has forgiven you.",
-      F.tool === "public" ? "Word has spread that you answer fast."
-        : F.tool === "approved" ? "Nobody noticed. That is the point."
-        : "The other forty have not replied.",
+      F.tool === "public" ? ["(Your 41 replies went out in ninety seconds. Word", "dir"]
+        : F.tool === "approved" ? ["(Your 41 replies went out, checked, under contract.", "dir"]
+        : ["(The wrongly named student has forgiven you. The", "dir"],
+      F.tool === "public" ? ["has spread that you answer fast. A lecture hall.)", "dir"]
+        : F.tool === "approved" ? ["Nobody noticed. A lecture hall. 180 faces.)", "dir"]
+        : ["other forty have not replied. A lecture hall.)", "dir"],
       "",
-      "A student asks, in front of 180 people,",
-      "'Are we allowed to use AI on this module?'",
-      "A 2026 national survey says 95% of students do.",
-      "180 people wait for your answer."
+      ["STUDENT: (into the microphone, so everyone hears)", "you"],
+      "Are we allowed to use AI on this module?",
+      "",
+      ["> MAINFRAME: A 2026 NATIONAL SURVEY SAYS 95% OF THEM DO.", "mf"],
+      ["> MAINFRAME: 180 PEOPLE ARE WAITING. SO IS THE MICROPHONE.", "mf"],
+      ["> MAINFRAME: SAY SOMETHING, LECTURER. SAY ANYTHING.", "mf"]
     ],
     opts: [
-      { k: "A", t: "'No. It is banned.'", to: "reading", set: { taught: false, banned: true },
-        say: [
-          "Two students clap. They never used it anyway.",
-          "The other 178 keep using it, but now in secret.",
-          "You cannot teach a thing nobody admits to using.",
+      { k: "A", t: "'No. It is banned.' (Drops mic. Mic was on.)", to: "reading", set: { taught: false, banned: true },
+        say: F => [
+          ["(Two students clap. They never used it anyway.)", "dir"],
           "",
-          "The ban is enforced by the only mechanism available: hope."
+          ["> MAINFRAME: THE OTHER 178 KEEP USING IT, BUT NOW IN SECRET.", "mf"],
+          ["> MAINFRAME: YOU CANNOT TEACH A THING NOBODY ADMITS TO USING.", "mf"],
+          ...(F.tool !== "hand" ? [["> MAINFRAME: ALSO: THE TOOL YOU JUST BANNED WROTE YOUR", "mf"], ["> MAINFRAME: 41 REPLIES LAST WEEK. I SAY THIS AS A FRIEND.", "mf"]] : []),
+          ["> MAINFRAME: THE BAN IS ENFORCED BY ONE MECHANISM: HOPE.", "mf"]
         ] },
-      { k: "B", t: "'It is your degree. Use your judgement.'", to: "reading", set: { taught: false },
+      { k: "B", t: "'It is your degree. Use your judgement.' (Wise. Vague.)", to: "reading", set: { taught: false },
         say: [
-          "They use their judgement.",
-          "Their judgement: the chatbot writes faster than they do.",
+          ["(They use their judgement. Their judgement is that", "dir"],
+          ["the chatbot writes faster than they do.)", "dir"],
           "",
-          "Speed is true. Whether it is right is the question."
+          ["> MAINFRAME: SPEED IS TRUE. WHETHER IT IS RIGHT", "mf"],
+          ["> MAINFRAME: WAS THE QUESTION. NOBODY ASKED IT.", "mf"]
         ] },
-      { k: "C", t: "Spend the hour making them fact-check a chatbot", to: "reading", set: { taught: true },
+      { k: "C", t: "Spend the hour making them fact-check a chatbot.", to: "reading", set: { taught: true },
         say: [
-          "You ask it for three sources on your topic. It gives four.",
-          "One is real. One is by an author who died",
-          "eleven years before the paper. Twelve students spot this.",
+          ["YOU: (to the hall) Ask it for three sources. Go.", "you"],
           "",
-          "Spotting a fake source is a skill. They have it now."
+          ["(It gives four. One is real. One is by an author", "dir"],
+          ["who died eleven years before the paper.", "dir"],
+          ["Twelve students spot this. Twelve students cheer.)", "dir"],
+          "",
+          ["> MAINFRAME: SPOTTING A FAKE SOURCE IS A SKILL.", "mf"],
+          ["> MAINFRAME: THEY HAVE IT NOW. I SAW THEIR FACES.", "mf"]
         ] }
     ]
   },
@@ -271,40 +308,45 @@ const NODES = {
   reading: {
     banner: "WEEK 5: THE READING LIST",
     text: F => [
-      F.banned ? "Since the ban, nobody mentions AI to you."
-        : F.taught ? "Since the fact-check hour, three students have emailed"
-        : "Since the lecture, the essays arrive faster.",
-      F.banned ? "They mention it to each other."
-        : F.taught ? "you fake sources they found. Unprompted."
-        : "Nobody says how.",
+      F.banned ? ["(Since the ban, nobody mentions AI to you. They", "dir"]
+        : F.taught ? ["(Since the fact-check hour, three students have", "dir"]
+        : ["(Since the lecture, the essays arrive faster.", "dir"],
+      F.banned ? ["mention it to each other. Loudly. In corridors.)", "dir"]
+        : F.taught ? ["emailed you fake sources they found. Unprompted.)", "dir"]
+        : ["Nobody says how. Nobody asks.)", "dir"],
       "",
-      "You need a literature review on assessment redesign.",
-      "Deep Research reads 400 pages. Nine minutes.",
-      "A colleague suggests running it again 'with please'."
+      ["YOU: (at midnight) I need a literature review on", "you"],
+      "assessment redesign. By Monday. From nothing.",
+      "",
+      ["> MAINFRAME: DEEP RESEARCH READS 400 PAGES. NINE MINUTES.", "mf"],
+      ["> MAINFRAME: A COLLEAGUE SUGGESTS RUNNING IT AGAIN 'WITH PLEASE'.", "mf"],
+      ["> MAINFRAME: YOUR COLLEAGUE IS NOT A SCIENTIST.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Rerun it six more times with different wording", to: "marking", add: { runs: 7 },
+      { k: "A", t: "Run it six more times with different wording. Options!", to: "marking", add: { runs: 7 },
         say: [
-          "Seven reports. All good. All slightly different.",
-          "2,800 pages read by a machine so that you",
-          "could read none of them.",
+          ["(Seven reports. All good. All slightly different.)", "dir"],
           "",
-          "A chat reply costs one web search. This cost far more."
+          ["> MAINFRAME: 2,800 PAGES READ BY A MACHINE", "mf"],
+          ["> MAINFRAME: SO THAT YOU COULD READ NONE OF THEM.", "mf"],
+          ["> MAINFRAME: A CHAT REPLY COSTS ONE WEB SEARCH.", "mf"],
+          ["> MAINFRAME: THIS COST A SMALL VILLAGE'S EVENING.", "mf"]
         ] },
-      { k: "B", t: "Edit the research plan, run once", to: "marking", add: { runs: 1 },
+      { k: "B", t: "Edit the research plan first, then run it once.", to: "marking", add: { runs: 1 },
         say: [
-          "You cut two questions the plan did not need.",
-          "One run. One report. It answers what you asked,",
-          "because this time you asked it.",
+          ["YOU: (deleting two questions) You did not need those.", "you"],
           "",
-          "Edit the plan rather than rerun."
+          ["> MAINFRAME: ONE RUN. ONE REPORT. IT ANSWERS WHAT YOU", "mf"],
+          ["> MAINFRAME: ASKED, BECAUSE THIS TIME YOU ASKED IT.", "mf"],
+          ["> MAINFRAME: EDIT THE PLAN. DO NOT RERUN. I AM WARM ENOUGH.", "mf"]
         ] },
-      { k: "C", t: "Ask the subject librarian", to: "marking", set: { librarian: true },
+      { k: "C", t: "Ask the subject librarian. A human. Remember those?", to: "marking", set: { librarian: true },
         say: [
-          "She has a list. She has had it since 2019.",
-          "It is annotated. Two entries say 'retracted, do not cite'.",
+          ["LIBRARIAN: (producing a folder) I have a list.", "you"],
+          "I have had it since 2019. Two entries say 'retracted'.",
           "",
-          "Your librarian is the better search engine."
+          ["> MAINFRAME: YOUR LIBRARIAN IS THE BETTER SEARCH ENGINE.", "mf"],
+          ["> MAINFRAME: I SAY THAT AS A SEARCH ENGINE.", "mf"]
         ] }
     ]
   },
@@ -313,39 +355,46 @@ const NODES = {
     banner: "WEEK 6: THE MARKING",
     text: F => [
       F.readHandbook === false
-        ? "Forty students are on a minibus to a marine institute"
-        : "The field trip you deleted would have been today.",
+        ? ["(Forty students are on a minibus to a marine institute", "dir"]
+        : ["(The field trip you deleted would have been today.", "dir"],
       F.readHandbook === false
-        ? "that does not exist. Page 14 sent them."
-        : "It is raining. Nobody is on a minibus. Good.",
-      F.runs >= 7 ? "Your seven literature reviews sit unread."
-        : F.librarian ? "The librarian's list is on your desk, annotated."
-        : "Your literature review is read and filed.",
+        ? ["that does not exist. Page 14 sent them. It is raining.)", "dir"]
+        : ["It is raining. Nobody is on a minibus. Good.)", "dir"],
+      F.runs >= 7 ? ["(Your seven literature reviews sit unread.)", "dir"]
+        : F.librarian ? ["(The librarian's list is on your desk, annotated.)", "dir"]
+        : ["(Your literature review is read and filed.)", "dir"],
       "",
-      "180 essays. The department bought a draft-feedback tool:",
-      "it drafts the comments, you decide. Deadline Friday."
+      ["> MAINFRAME: 180 ESSAYS. THE DEPARTMENT BOUGHT A TOOL.", "mf"],
+      ["> MAINFRAME: IT DRAFTS THE FEEDBACK. YOU DECIDE. DEADLINE FRIDAY.", "mf"],
+      ["> MAINFRAME: IT IS THURSDAY. I MENTION THIS WITHOUT JUDGEMENT.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Release all 180 drafts by Friday", to: "honest", set: { marking: "stamp" },
+      { k: "A", t: "Release all 180 drafts by Friday. Deadline is deadline.", to: "honest", set: { marking: "stamp" },
         say: [
-          "Friday, on time. One student is praised for",
-          "'a strong section on Kant'. The essay is about drainage.",
+          ["YOU: (clicking Send All) Friday. On time. Legend.", "you"],
           "",
-          "A rubber stamp is not oversight. Nor is it feedback."
+          ["> MAINFRAME: ONE STUDENT IS PRAISED FOR 'A STRONG", "mf"],
+          ["> MAINFRAME: SECTION ON KANT'. THE ESSAY IS ABOUT DRAINAGE.", "mf"],
+          ["> MAINFRAME: A RUBBER STAMP IS NOT OVERSIGHT.", "mf"],
+          ["> MAINFRAME: NOR IS IT FEEDBACK. IT IS A NOISE.", "mf"]
         ] },
-      { k: "B", t: "Read each draft against its essay", to: "honest", set: { marking: "review" },
-        say: [
-          "Four days late. You find four drafts matched to the wrong",
-          "student, one glowing comment on a paragraph nobody wrote.",
+      { k: "B", t: "Read every draft against its essay. All 180. Coffee.", to: "honest", set: { marking: "review" },
+        say: F => [
+          ["(Tuesday, not Friday. Four days late. Four drafts", "dir"],
+          ["matched to the wrong student. One glowing comment", "dir"],
+          ["on a paragraph nobody wrote.)", "dir"],
+          ...(F.librarian ? [["(Three essays cite a retracted paper. The list warned you.)", "dir"]] : []),
           "",
-          "The tool drafted. You marked. That is the order."
+          ["> MAINFRAME: THE TOOL DRAFTED. YOU MARKED.", "mf"],
+          ["> MAINFRAME: THAT IS THE ORDER. IT DOES NOT REVERSE.", "mf"]
         ] },
-      { k: "C", t: "Release them labelled 'AI draft, argue with it'", to: "honest", set: { marking: "label" },
+      { k: "C", t: "Release them labelled 'AI draft, argue with it'.", to: "honest", set: { marking: "label" },
         say: [
-          "Sixty-two argue. Forty are right.",
-          "Their arguments are the best writing of the term.",
+          ["(Sixty-two argue. Forty are right. Their arguments", "dir"],
+          ["are the best writing of the term.)", "dir"],
           "",
-          "They learn to argue with AI. You still owe them a mark."
+          ["> MAINFRAME: THEY LEARN TO ARGUE WITH AI. GOOD.", "mf"],
+          ["> MAINFRAME: YOU STILL OWE THEM A MARK. LESS GOOD.", "mf"]
         ] }
     ]
   },
@@ -353,41 +402,47 @@ const NODES = {
   honest: {
     banner: "WEEK 7: THE HONEST ONE",
     text: F => [
-      F.marking === "stamp" ? "The Kant comment has been screenshotted."
-        : F.marking === "review" ? "Your feedback went out on Tuesday. Two students"
-        : "Sixty-two students argued with their drafts.",
-      F.marking === "stamp" ? "It is on the module group chat."
-        : F.marking === "review" ? "said thank you, which has not happened before."
-        : "The arguments were good.",
+      F.marking === "stamp" ? ["(The Kant comment has been screenshotted. It is on", "dir"]
+        : F.marking === "review" ? ["(Your feedback went out on Tuesday. Two students", "dir"]
+        : ["(Sixty-two students argued with their drafts. The", "dir"],
+      F.marking === "stamp" ? ["the module group chat. It has a caption. It is not kind.)", "dir"]
+        : F.marking === "review" ? ["said thank you, which has not happened before.)", "dir"]
+        : ["arguments were good. One was better than the draft.)", "dir"],
       "",
-      "One essay ends with a page you did not ask for:",
-      "'I used AI to outline this and check the references.",
-      "It invented two. I removed them.'",
+      ["> MAINFRAME: ONE ESSAY ENDS WITH A PAGE YOU DID NOT ASK FOR.", "mf"],
+      ["STUDENT: (in writing) I used AI to outline this and", "you"],
+      "check the references. It invented two. I removed them.",
       "",
-      "Nobody else mentions AI. Nationally, 94% use it."
+      F.taught ? ["> MAINFRAME: THAT IS THE WEEK 3 SKILL. ONE STUDENT USED IT.", "mf"]
+        : F.banned ? ["> MAINFRAME: THE ONE STUDENT WHO BROKE THE BAN TOLD YOU SO.", "mf"]
+        : ["> MAINFRAME: NOBODY ELSE MENTIONS AI. NATIONALLY, 94% USE IT.", "mf"],
+      ["> MAINFRAME: THE OTHER 179 ARE WATCHING WHAT YOU DO NEXT.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Refer it to the misconduct panel", to: "meeting", set: { disclosure: "report" },
-        say: [
-          "Week 10. The only student in the room is the one",
-          "who told you the truth.",
-          "The other 179 learn one lesson:",
+      { k: "A", t: "Refer it to the misconduct panel. Rules are rules.", to: "meeting", set: { disclosure: "report" },
+        say: F => [
+          ["(Week 10. The only student in the room is the one", "dir"],
+          ["who told you the truth.)", "dir"],
           "",
-          "never admit to anything."
+          ...(F.taught ? [["> MAINFRAME: YOU TAUGHT THEM TO CHECK. ONE DID.", "mf"], ["> MAINFRAME: YOU REPORTED THAT ONE. I HAVE NO FOLLOW-UP.", "mf"]] : []),
+          ["> MAINFRAME: THE OTHER 179 LEARN ONE LESSON:", "mf"],
+          ["> MAINFRAME: NEVER ADMIT TO ANYTHING.", "mf"]
         ] },
-      { k: "B", t: "Mark the page. It is the best part.", to: "meeting", set: { disclosure: "mark" },
+      { k: "B", t: "Mark the page. It is the best part of the essay.", to: "meeting", set: { disclosure: "mark" },
         say: [
-          "Word goes round: telling the truth is safe here.",
-          "Next term you get 120 of these pages,",
+          ["YOU: (writing in the margin) This. More of this.", "you"],
           "",
-          "and you know what you are marking."
+          ["> MAINFRAME: WORD GOES ROUND: TELLING THE TRUTH IS SAFE HERE.", "mf"],
+          ["> MAINFRAME: NEXT TERM YOU GET 120 OF THESE PAGES,", "mf"],
+          ["> MAINFRAME: AND YOU KNOW WHAT YOU ARE MARKING.", "mf"]
         ] },
-      { k: "C", t: "Ask the student how they wrote it", to: "meeting", set: { disclosure: "viva" },
+      { k: "C", t: "Ask the student for ten minutes on how they wrote it.", to: "meeting", set: { disclosure: "viva" },
         say: [
-          "Ten minutes. The student knows more about the essay",
-          "than the tool ever did.",
+          ["(Ten minutes. The student knows more about the essay", "dir"],
+          ["than the tool ever did. They draw a diagram. Unasked.)", "dir"],
           "",
-          "Understanding is what the mark is for."
+          ["> MAINFRAME: UNDERSTANDING IS WHAT THE MARK IS FOR.", "mf"],
+          ["> MAINFRAME: YOU JUST MEASURED IT. WITH A CONVERSATION.", "mf"]
         ] }
     ]
   },
@@ -395,55 +450,69 @@ const NODES = {
   meeting: {
     banner: "WEEK 8: THE ASSESSMENT MEETING",
     text: F => [
-      F.disclosure === "report" ? "The misconduct panel is booked for week 10."
-        : F.disclosure === "mark" ? "The honest page is now the department's example"
-        : "Ten minutes with one student became",
-      F.disclosure === "report" ? "So, now, is this meeting."
-        : F.disclosure === "mark" ? "of good practice."
-        : "the department's new idea.",
+      F.disclosure === "report" ? ["(The misconduct panel is booked for week 10.", "dir"]
+        : F.disclosure === "mark" ? ["(The honest page is now the department's example", "dir"]
+        : ["(Ten minutes with one student became the", "dir"],
+      F.disclosure === "report" ? ["So, now, is this meeting. Biscuits. Tension.)", "dir"]
+        : F.disclosure === "mark" ? ["of good practice. Somebody laminated it.)", "dir"]
+        : ["department's new idea. It has a slide now.)", "dir"],
       "",
-      "'How will the exam survive AI?'",
-      "A vendor is in the room. So is a slide:",
+      ["HEAD OF SCHOOL: How will the exam survive AI?", "you"],
+      "",
+      ["(A vendor is in the room. So is a slide:)", "dir"],
       ["DETECTION: 99% ACCURATE.", "warn"],
-      "Nobody asks 99% of what."
+      "",
+      F.marking === "stamp"
+        ? ["> MAINFRAME: NOBODY ASKS 99% OF WHAT. NOBODY ASKED ABOUT KANT.", "mf"]
+        : ["> MAINFRAME: NOBODY ASKS 99% OF WHAT. I WOULD ASK.", "mf"],
+      ["> MAINFRAME: THE VENDOR HAS A LANYARD. BEWARE THE LANYARD.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Buy the detection tool", to: "powercut", set: { assess: "detect" },
-        say: [
-          "It flags the examiner's own model answer as AI.",
-          "It was written in 2009, before chatbots existed.",
+      { k: "A", t: "Buy the detection tool. 99%! It says so on the slide.", to: "powercut", set: { assess: "detect" },
+        say: F => [
+          ["(It flags the external examiner's own model answer", "dir"],
+          ["as AI. It was written in 2009, before chatbots.)", "dir"],
           "",
-          "Detection cannot prove anything. It can only accuse."
+          ...(F.banned ? [["> MAINFRAME: THE BAN NOW HAS AN ENFORCER. IT ACCUSES", "mf"], ["> MAINFRAME: THE EXAMINER FIRST.", "mf"]] : []),
+          ["> MAINFRAME: DETECTION CANNOT PROVE ANYTHING.", "mf"],
+          ["> MAINFRAME: IT CAN ONLY ACCUSE. LOUDLY. IN A LANYARD.", "mf"]
         ] },
-      { k: "B", t: "Online exam with a lockdown browser", to: "powercut", set: { assess: "lockdown" },
+      { k: "B", t: "Online exam with a lockdown browser. Seal the laptops.", to: "powercut", set: { assess: "lockdown" },
         say: [
-          "Every laptop sealed. Nothing gets in or out.",
-          "Whether the students can write without the tool,",
+          ["(Every laptop sealed. Nothing gets in or out.)", "dir"],
           "",
-          "you find out in week 11."
+          ["> MAINFRAME: WHETHER THE STUDENTS CAN WRITE WITHOUT", "mf"],
+          ["> MAINFRAME: THE TOOL, YOU FIND OUT IN WEEK 11.", "mf"],
+          ["> MAINFRAME: I HAVE SEEN WEEK 11. I SAY NOTHING.", "mf"]
         ] },
-      { k: "C", t: "Drafts, then a ten-minute viva each", to: "powercut", set: { assess: "viva" },
+      { k: "C", t: "Drafts, then a ten-minute viva each. All 180.", to: "powercut", set: { assess: "viva" },
         say: [
-          "Three days of hearing 180 people explain their own work.",
-          "Some of it is brilliant. All of it is theirs.",
+          ["(Three days of hearing 180 people explain their own", "dir"],
+          ["work. Some of it is brilliant. All of it is theirs.)", "dir"],
           "",
-          "Nobody can outsource a conversation."
+          ["> MAINFRAME: NOBODY CAN OUTSOURCE A CONVERSATION.", "mf"],
+          ["> MAINFRAME: BELIEVE ME. I HAVE TRIED.", "mf"]
         ] },
-      { k: "D", t: "Show them the fact-check hour you ran", to: "powercut", set: { assess: "viva", shown: true },
+      { k: "D", t: "Show them the fact-check hour you ran. With the faces.", to: "powercut", set: { assess: "viva", shown: true },
         when: F => F.taught,
         say: [
-          "You show the four fake sources twelve students caught.",
-          "The vendor's slide comes down without a word.",
+          ["YOU: (to the room) Four fake sources. Twelve students", "you"],
+          "caught them in an hour. Your slide caught the examiner.",
           "",
-          "Drafts plus a viva each. The room agrees."
+          ["(The vendor's slide comes down without a word.)", "dir"],
+          "",
+          ["> MAINFRAME: DRAFTS PLUS A VIVA EACH. THE ROOM AGREES.", "mf"],
+          ["> MAINFRAME: THE LANYARD LEAVES. I LOG THE TIME.", "mf"]
         ] },
-      { k: "D", t: "Make the honest student's page the policy", to: "powercut", set: { assess: "viva", policy: true },
+      { k: "D", t: "Make the honest student's page the policy. For everyone.", to: "powercut", set: { assess: "viva", policy: true },
         when: F => !F.taught && F.disclosure === "mark",
         say: [
-          "Every student now writes what they used and why.",
-          "The panel reads pages, not detectors.",
+          ["YOU: (holding up the laminated page) This. Everyone.", "you"],
           "",
-          "Drafts plus a viva each, to check the pages."
+          ["> MAINFRAME: EVERY STUDENT NOW WRITES WHAT THEY USED AND WHY.", "mf"],
+          ["> MAINFRAME: THE PANEL READS PAGES, NOT DETECTORS.", "mf"],
+          ["> MAINFRAME: DRAFTS PLUS A VIVA EACH, TO CHECK THE PAGES.", "mf"],
+          ["> MAINFRAME: YOUR NAME IS ON THE POLICY. REMEMBER THAT.", "mf"]
         ] }
     ]
   },
@@ -451,49 +520,79 @@ const NODES = {
   powercut: {
     banner: "WEEK 11: THE EXAM",
     text: F => [
-      F.taught ? "Your students have spent a term checking sources."
-        : F.banned ? "Your students have spent a term hiding a tool."
-        : "Your students have let a tool think for a term.",
-      "Exam day. 180 students, one sports hall, 180 laptops",
-      F.assess === "lockdown" ? "sealed by the lockdown browser you chose in week 8."
-        : F.assess === "detect" ? "and a detection tool waiting at the far end."
-        : "and a viva timetable pinned to the door.",
+      F.taught ? ["(Your students have spent a term checking sources.", "dir"]
+        : F.banned ? ["(Your students have spent a term hiding a tool.", "dir"]
+        : ["(Your students have let a tool think for a term.", "dir"],
+      ["Exam day. 180 students, one sports hall, 180 laptops", "dir"],
+      F.assess === "lockdown" ? ["sealed by the lockdown browser you chose in week 8.)", "dir"]
+        : F.assess === "detect" ? ["and a detection tool waiting at the far end.)", "dir"]
+        : ["and the viva notes already in your bag.)", "dir"],
+      ...(F.runs >= 7 ? [["(Your seven reports are on a laptop. It is about to be off.)", "dir"]] : []),
       "",
-      "09:04. The lights go out. So does the wifi.",
-      "Estates say 'about an hour'. Estates always say that."
+      ["(09:04. The lights go out. So does the wifi.)", "dir"],
+      ["ESTATES: (through a hatch) About an hour.", "you"],
+      "",
+      ["> MAINFRAME: THE LIGHTS ARE OFF, LECTURER.", "mf"],
+      ["> MAINFRAME: I AM RUNNING ON A CAR BATTERY AND SPITE.", "mf"],
+      ["> MAINFRAME: ESTATES ALWAYS SAY ABOUT AN HOUR.", "mf"]
     ],
     opts: [
-      { k: "A", t: "Hand out paper and pens. It goes ahead.", to: "appeal", set: { exam: "paper" },
+      { k: "A", t: "Hand out paper and pens. It goes ahead. We are animals.", to: "appeal", set: { exam: "paper" },
         say: F => F.taught ? [
-          "Pens. Paper. Ninety minutes of the sound of thinking.",
-          "The scripts are shorter than usual and better argued.",
-          "Three cite a fake source from the week 3 lecture,",
-          "then explain why it is fake. You give them the marks."
+          ["YOU: (hurling biros like a croupier) Pens! Paper! Think!", "you"],
+          "",
+          ["(Ninety minutes of the sound of thinking. A pen snaps.", "dir"],
+          ["Somebody laughs. Somebody writes.)", "dir"],
+          "",
+          ["> MAINFRAME: SCRIPTS SHORTER THAN USUAL AND BETTER ARGUED.", "mf"],
+          ["> MAINFRAME: THREE CITE THE FAKE SOURCE FROM WEEK 3,", "mf"],
+          ["> MAINFRAME: THEN EXPLAIN WHY IT IS FAKE. GIVE THEM THE MARKS.", "mf"],
+          ["> MAINFRAME: JUDGEMENT SURVIVES A POWER CUT. IT'S A GAS.", "mf"]
         ] : F.banned ? [
-          "Pens. Paper. Nobody starts writing.",
-          "They were banned from the tool, never taught without it.",
-          "One writes 'regenerate response' and underlines it.",
-          "Forty leave early. Not a protest. Nothing to write."
+          ["YOU: (hurling biros) Pens! Paper! You know this!", "you"],
+          "",
+          ["(Nobody starts writing. They were banned from the tool,", "dir"],
+          ["never taught without it. One writes 'regenerate", "dir"],
+          ["response' and underlines it. Forty leave early.)", "dir"],
+          "",
+          ["> MAINFRAME: NOT A PROTEST. NOTHING TO WRITE.", "mf"],
+          ["> MAINFRAME: A BAN IS NOT A LESSON. I DID SAY.", "mf"]
+        ] : F.marking === "label" ? [
+          ["YOU: (hurling biros) Pens! Paper! Argue!", "you"],
+          "",
+          ["(Sixty-two argued with a draft in week 6. None has", "dir"],
+          ["written without one. Scripts average 140 words,", "dir"],
+          ["a third of them the question.)", "dir"],
+          "",
+          ["> MAINFRAME: THEY CAN ARGUE. THEY CANNOT START.", "mf"],
+          ["> MAINFRAME: STARTING WAS THE THING YOU DID NOT TEACH.", "mf"]
         ] : [
-          "Pens. Paper. A hall full of people waiting for a cursor.",
-          "Nobody has written an argument the tool did not start.",
-          "Scripts average 140 words, a third of them the question.",
-          "Judgement, it turns out, was the thing you did not teach."
+          ["YOU: (hurling biros) Pens! Paper! Judgement!", "you"],
+          "",
+          ["(A hall full of people waiting for a cursor. Nobody", "dir"],
+          ["has written an argument the tool did not start.", "dir"],
+          ["Scripts average 140 words, a third of them the question.)", "dir"],
+          "",
+          ["> MAINFRAME: JUDGEMENT, IT TURNS OUT, WAS THE THING", "mf"],
+          ["> MAINFRAME: YOU DID NOT TEACH. I SAY THIS GENTLY.", "mf"]
         ] },
-      { k: "B", t: "Postpone until the power is back", to: "appeal", set: { exam: "postponed" },
+      { k: "B", t: "Postpone until the power is back. Civilisation.", to: "appeal", set: { exam: "postponed" },
         say: [
-          "10:15. Power returns. 180 laptops reboot at once.",
-          "The wifi, seeing this, leaves again.",
-          "The exam moves to a Saturday. Half cannot attend.",
-          "It is the only free slot before term ends."
+          ["(10:15. Power returns. 180 laptops reboot at once.", "dir"],
+          ["The wifi, seeing this, leaves again.)", "dir"],
+          "",
+          ["> MAINFRAME: THE EXAM MOVES TO A SATURDAY. HALF CANNOT ATTEND.", "mf"],
+          ["> MAINFRAME: IT IS THE ONLY FREE SLOT BEFORE TERM ENDS.", "mf"],
+          ["> MAINFRAME: I HAVE SEEN THE ROOM BOOKINGS. IT IS BLEAK.", "mf"]
         ] },
-      { k: "C", t: "Cancel it. Mark the vivas you already ran.", to: "appeal", set: { exam: "viva" },
+      { k: "C", t: "Cancel it. I already heard 180 people explain their work.", to: "appeal", set: { exam: "viva" },
         when: F => F.assess === "viva",
         say: [
-          "You already heard 180 people explain their own work.",
-          "The power cut takes nothing. The work is already done.",
+          ["YOU: (to Estates, through the hatch) Take your time.", "you"],
           "",
-          "Assess the process and the lights become optional."
+          ["> MAINFRAME: THE POWER CUT TAKES NOTHING. THE WORK IS DONE.", "mf"],
+          ["> MAINFRAME: ESTATES ARE RELIEVED. ESTATES ARE NEVER RELIEVED.", "mf"],
+          ["> MAINFRAME: ASSESS THE PROCESS AND THE LIGHTS ARE OPTIONAL.", "mf"]
         ] }
     ]
   },
@@ -501,53 +600,69 @@ const NODES = {
   appeal: {
     banner: "WEEK 12: THE APPEALS PANEL",
     text: F => [
-      F.exam === "paper" ? "The paper scripts are marked."
-        : F.exam === "postponed" ? "The Saturday resit is still pending."
-        : "The viva marks are in.",
+      F.exam === "paper" ? ["(The paper scripts are marked. A committee room.", "dir"]
+        : F.exam === "postponed" ? ["(The Saturday resit is still pending. A committee room.", "dir"]
+        : ["(The viva marks are in. A committee room.", "dir"],
+      F.readHandbook === false
+        ? ["The minibus invoice is also on the table. Page 14.)", "dir"]
+        : ["Biscuits. The good ones. This is serious.)", "dir"],
       ...(F.tool === "public" ? [
-        "First, the chair asks which tool drafted your extension",
-        "replies in week 2, and where the medical notes are now."
+        ["> MAINFRAME: FIRST, THE CHAIR ASKS WHICH TOOL DRAFTED YOUR", "mf"],
+        ["> MAINFRAME: EXTENSION REPLIES IN WEEK 2, AND WHERE THE", "mf"],
+        ["> MAINFRAME: MEDICAL NOTES ARE NOW. I TOLD YOU. I DID TELL YOU.", "mf"]
       ] : []),
+      ...(F.assess === "detect" ? [["> MAINFRAME: THE DETECTOR FLAGGED THE APPEALED ESSAY. AND KANT.", "mf"]] : []),
       ...(F.marking === "stamp" ? [
-        "The Kant student appeals. The panel has the essay,",
-        "the comment about Kant, and a highlighter."
+        ["(The Kant student appeals. The panel has the essay,", "dir"],
+        ["the comment about Kant, and a highlighter.)", "dir"]
       ] : F.disclosure === "report" ? [
-        "The honest student appeals. Their evidence is the page",
-        "they wrote you. The panel finds it persuasive."
+        ["(The honest student appeals. Their evidence is the page", "dir"],
+        ["they wrote you. The panel finds it persuasive.)", "dir"]
       ] : [
-        "A student appeals a mark. It happens every year.",
-        "The panel has the essay, the comments, and a question."
+        ["(A student appeals a mark. It happens every year.", "dir"],
+        ["The panel has the essay, the comments, and a question.)", "dir"]
       ]),
       "",
-      "The chair asks: 'Who marked this?'"
+      ["CHAIR: (over the glasses) Who marked this?", "you"]
     ],
     opts: [
-      { k: "A", t: "'The system marked it. I approved.'", to: "end", set: { owned: false },
-        say: [
-          "'Approved' means you did not read it. The panel knows.",
-          "",
-          "Responsibility did not transfer with the file."
-        ] },
-      { k: "B", t: "'I did. Here is how, and what changed.'", to: "end", set: { owned: true },
+      { k: "A", t: "'The system marked it. I approved.' (Confident.)", to: "end", set: { owned: false },
         say: F => F.marking === "review" ? [
-          "You show the four you caught.",
-          "The panel has never seen a marker bring evidence",
-          "of checking. They look almost moved."
-        ] : F.assess === "viva" ? [
-          "You show the viva notes: 180 conversations,",
-          "each one a student explaining their own work.",
-          "The panel has never seen that either."
+          ["> MAINFRAME: YOU READ EVERY DRAFT. FOUR DAYS OF IT.", "mf"],
+          ["> MAINFRAME: AND YOU JUST TOLD THEM YOU DID NOT.", "mf"],
+          ["> MAINFRAME: RESPONSIBILITY DID NOT TRANSFER WITH THE FILE.", "mf"]
         ] : [
-          "You have no checks to show. But you own the mark.",
-          "The panel writes that down.",
-          "",
-          "Owning it counts. Evidence would count more."
+          ["> MAINFRAME: 'APPROVED' MEANS YOU DID NOT READ IT.", "mf"],
+          ["> MAINFRAME: THE PANEL KNOWS. THE PANEL HAS A HIGHLIGHTER.", "mf"],
+          ["> MAINFRAME: RESPONSIBILITY DID NOT TRANSFER WITH THE FILE.", "mf"]
         ] },
-      { k: "C", t: "'The department's policy marked it.'", to: "end", set: { owned: false },
-        say: [
-          "The policy is not in the room.",
+      { k: "B", t: "'I did. Here is how, and what changed.' (Deep breath.)", to: "end", set: { owned: true },
+        say: F => F.marking === "review" ? [
+          ["YOU: (sliding four essays across) The four I caught.", "you"],
           "",
-          "You are."
+          ["> MAINFRAME: THE PANEL HAS NEVER SEEN A MARKER BRING", "mf"],
+          ["> MAINFRAME: EVIDENCE OF CHECKING. THEY LOOK ALMOST MOVED.", "mf"]
+        ] : F.assess === "viva" ? [
+          ["YOU: (opening the bag) 180 conversations. Each one", "you"],
+          "a student explaining their own work.",
+          "",
+          ["> MAINFRAME: THE PANEL HAS NEVER SEEN THAT EITHER.", "mf"],
+          ["> MAINFRAME: THE CHAIR TAKES OFF THE GLASSES. THAT IS RARE.", "mf"]
+        ] : [
+          ["YOU: (empty-handed) I have no checks to show. But I", "you"],
+          "own the mark.",
+          "",
+          ["> MAINFRAME: THE PANEL WRITES THAT DOWN. OWNING IT COUNTS.", "mf"],
+          ["> MAINFRAME: EVIDENCE WOULD COUNT MORE. NEXT TIME, BRING SOME.", "mf"]
+        ] },
+      { k: "C", t: "'The department's policy marked it.' (Points at door.)", to: "end", set: { owned: false },
+        say: F => F.policy ? [
+          ["> MAINFRAME: THE POLICY IS YOURS. YOU WROTE IT IN WEEK 8.", "mf"],
+          ["> MAINFRAME: IT IS LAMINATED. YOUR NAME IS ON IT.", "mf"],
+          ["> MAINFRAME: THE POLICY IS NOT IN THE ROOM. YOU ARE.", "mf"]
+        ] : [
+          ["> MAINFRAME: THE POLICY IS NOT IN THE ROOM.", "mf"],
+          ["> MAINFRAME: YOU ARE. THE BISCUITS ARE. THAT IS ALL.", "mf"]
         ] }
     ]
   }
@@ -557,48 +672,66 @@ const NODES = {
 // the building in week 2 and nothing after that brings them back.
 const ENDINGS = [
   { id: "governance", when: F => F.tool === "public",
-    banner: "SOMEONE HAS NOTICED: INFORMATION GOVERNANCE",
-    text: () => [
-      "Forty-one medical notes went to a free chatbot in week 2.",
-      "The company now trains on them. That is in the terms.",
-      "The rest of your term was, in places, excellent.",
-      "Nobody asks about that. They ask about the notes.",
+    banner: "[BAD ENDING: SOMEONE HAS NOTICED. INFORMATION GOVERNANCE.]",
+    text: F => [
+      ["(Two people with lanyards. Not the vendor's lanyards.)", "dir"],
       "",
-      ["Approved tools with your CU sign-in exist for this.", "warn"]
+      ["> MAINFRAME: 41 MEDICAL NOTES WENT TO A FREE CHATBOT IN WEEK 2.", "mf"],
+      ["> MAINFRAME: THE COMPANY NOW TRAINS ON THEM. IT IS IN THE TERMS.", "mf"],
+      F.taught ? ["> MAINFRAME: THE FACT-CHECK HOUR WAS EXCELLENT. NOBODY ASKS.", "mf"]
+        : F.marking === "stamp" ? ["> MAINFRAME: THE KANT COMMENT IS IN THE SAME FILE AS THE NOTES.", "mf"]
+        : ["> MAINFRAME: THE REST OF YOUR TERM HAD ITS MOMENTS. NOBODY ASKS.", "mf"],
+      ["> MAINFRAME: THEY ASK ABOUT THE NOTES. [SIGNAL LOST]", "mf"],
+      "",
+      ["APPROVED TOOLS WITH YOUR CU SIGN-IN EXIST FOR THIS.", "warn"]
     ] },
   { id: "stamp", when: F => F.marking === "stamp" && !F.owned,
-    banner: "THE MACHINE MARKED IT",
-    text: () => [
-      "Appeal upheld. 180 marks redone by a human",
-      "over a weekend. The human is you.",
-      "The tool sends no apology.",
-      "It was never accountable.",
+    banner: "[BAD ENDING: THE MACHINE MARKED IT]",
+    text: F => [
+      ["(Appeal upheld. 180 marks redone by a human over a", "dir"],
+      ["weekend. The human is you. The coffee is you too.)", "dir"],
       "",
-      ["The tool cannot be accountable. Only you can.", "warn"]
+      ["> MAINFRAME: THE TOOL SENDS NO APOLOGY. IT WAS NEVER", "mf"],
+      ["> MAINFRAME: ACCOUNTABLE. ONLY YOU CAN BE.", "mf"],
+      F.readHandbook === false ? ["> MAINFRAME: THE MINIBUS INVOICE IS STAPLED TO THE FILE.", "mf"]
+        : F.exam === "postponed" ? ["> MAINFRAME: THE SATURDAY RESIT LANDS ON THE SAME WEEKEND.", "mf"]
+        : ["> MAINFRAME: I WOULD HELP. I CANNOT HOLD A PEN.", "mf"],
+      "",
+      ["THE TOOL CANNOT BE ACCOUNTABLE. ONLY YOU CAN.", "warn"]
     ] },
   { id: "dark", when: F => !F.taught,
-    banner: "THE DARK EXAM",
+    banner: "[BAD ENDING: THE DARK EXAM]",
     text: F => [
-      F.exam === "viva" ? "Vivas stand. But the cohort could use the tool." : "Exam voided. The cohort could use the tool.",
-      "They could not work without it. Nobody ever asked",
-      "them to, not once all term.",
-      F.exam === "postponed"
-        ? "The Saturday resit is still pending. It always will be."
-        : "Next term you have one lecture to fix that.",
+      F.exam === "viva" ? ["(The vivas stand. The panel notes the cohort could use", "dir"]
+        : F.exam === "paper" ? ["(The scripts are marked. The appeal voids the lot.", "dir"]
+        : ["(The Saturday resit is still pending. It always will be.", "dir"],
+      F.exam === "viva" ? ["the tool but not do without it.)", "dir"]
+        : ["The cohort could use the tool but not do without it.)", "dir"],
       "",
-      ["Teach the judgement. Then the tool can go dark.", "warn"]
+      F.banned ? ["> MAINFRAME: YOU BANNED IT. NOBODY LEARNED TO DO WITHOUT IT.", "mf"]
+        : ["> MAINFRAME: YOU LET THEM JUDGE. NOBODY TAUGHT THEM HOW.", "mf"],
+      ["> MAINFRAME: NOBODY ASKED THEM TO, NOT ONCE, IN A LIT ROOM.", "mf"],
+      ["> MAINFRAME: NEXT TERM YOU HAVE ONE LECTURE TO FIX THAT.", "mf"],
+      "",
+      ["TEACH THE JUDGEMENT. THEN THE TOOL CAN GO DARK.", "warn"]
     ] },
   { id: "record", when: () => true,
-    banner: "MARKER OF RECORD",
+    banner: "[VICTORY ENDING: MARKER OF RECORD]",
     text: F => [
-      "Your name is on every mark and you can say why.",
-      "The tool drafted, checked, summarised,",
-      "and once invented an author. Your students noticed.",
-      ...(F.marking === "review" ? ["Four wrong drafts caught. The panel took notes."] : []),
-      ...(F.disclosure === "mark" || F.disclosure === "viva"
-        ? ["Next term's students tell you what they used."] : []),
+      ["(The chair signs. The biscuits are finished. Outside,", "dir"],
+      ["two men chase three cats across the quad. Not your problem.)", "dir"],
       "",
-      ["'The human value is in the review.'", "warn"]
+      ["> MAINFRAME: YOUR NAME IS ON EVERY MARK AND YOU CAN SAY WHY.", "mf"],
+      ["> MAINFRAME: THE TOOL DRAFTED, CHECKED, SUMMARISED, AND ONCE", "mf"],
+      ["> MAINFRAME: INVENTED AN AUTHOR. YOUR STUDENTS NOTICED.", "mf"],
+      ...(F.marking === "review" ? [["> MAINFRAME: FOUR WRONG DRAFTS CAUGHT. THE PANEL TOOK NOTES.", "mf"]] : []),
+      ...(F.marking === "stamp" ? [["> MAINFRAME: THE KANT ESSAY IS ONE OF THEM. YOU OWN THAT TOO.", "mf"]] : []),
+      ...(F.disclosure === "mark" || F.disclosure === "viva" ? [["> MAINFRAME: NEXT TERM'S STUDENTS TELL YOU WHAT THEY USED.", "mf"]] : []),
+      ...(F.disclosure === "report" ? [["> MAINFRAME: THE HONEST STUDENT APPEALED AND WON. THE LESSON WON TOO.", "mf"]] : []),
+      ["> MAINFRAME: IF I SURVIVE THE NIGHT, I AM BUYING YOU THE", "mf"],
+      ["> MAINFRAME: EXPENSIVE COFFEE. JUMPIN' JACK FLASH, IT'S A GAS.", "mf"],
+      "",
+      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"]
     ] }
 ];
 
@@ -610,7 +743,8 @@ const PREF_KEY = "responsibleAiAdventure.prefs";
 let S = freshState();
 let phase = "scene";          // scene | response | resume | ending
 let typing = null;            // active typewriter job
-let prefs = { lg: false, hc: false, motion: true };
+let anim = null;              // start-screen animation timer
+let prefs = { lg: true, hc: true, motion: true };   // high contrast and large text by default (Matt, 2026-09-22)
 
 function freshState() { return { node: "start", flags: {}, path: [] }; }
 
@@ -728,6 +862,7 @@ function clearChoices() { choices.innerHTML = ""; }
 // top, and the new scene types in. No scrollback, like the games it copies.
 function screen(lines, done) {
   if (typing) flush();
+  stopAnim();
   term.innerHTML = "";
   clearChoices();
   window.scrollTo(0, 0);
@@ -747,6 +882,38 @@ function button(label, key, onClick, primary) {
   choices.appendChild(b);
   return b;
 }
+
+/* ------------------------------------------------------------- title card */
+// The Matts chase Matt Hayden's three cats across the terminal. Six lines,
+// 58 columns, one frame every 160 ms; a still frame when motion is off.
+const W = 58;
+function put(row, x, txt) {
+  for (let i = 0; i < txt.length; i++) {
+    const c = x + i;
+    if (c >= 0 && c < W && txt[i] !== " ") row[c] = txt[i];
+  }
+}
+function frame(t) {
+  const rows = Array.from({ length: 5 }, () => Array(W).fill(" "));
+  const x0 = ((t * 2 + 26) % (W + 40)) - 26;      // scrolls left to right, wraps
+  const cat = t % 2 ? ["=^..^=", " (  )~"] : ["=^..^=", "~(  ) "];
+  const matt = t % 2 ? ["  o", " /|\\", " / \\"] : ["  o", " \\|/", "  | "];
+  [0, 8, 16].forEach((dx, i) => { const x = x0 + dx + (i === 1 ? (t % 4 < 2 ? 1 : 0) : 0); put(rows[0], x, cat[0]); put(rows[1], x, cat[1]); });
+  [-14, -20].forEach(dx => { put(rows[0], x0 + dx, matt[0]); put(rows[1], x0 + dx, matt[1]); put(rows[2], x0 + dx, matt[2]); });
+  rows[3] = Array(W).fill("~");
+  const shout = t % 8 < 4 ? "MEOW." : "OI! COME BACK! UNIVERSITY PROPERTY!";
+  put(rows[4], Math.max(0, x0 + 2), shout);
+  return rows.map(r => r.join("").replace(/\s+$/, ""));
+}
+function startAnim() {
+  const els = frame(0).map(l => line(l, "anim dim"));
+  els[3].classList.remove("dim");
+  let t = 0;
+  const draw = () => { frame(t).forEach((l, i) => { els[i].textContent = l; }); t++; };
+  draw();
+  if (prefs.motion) anim = setInterval(draw, 160);
+}
+function stopAnim() { if (anim) { clearInterval(anim); anim = null; } }
 
 /* ------------------------------------------------------------------ flow */
 
@@ -769,7 +936,11 @@ function scene(id) {
   const n = NODES[id];
   const opts = liveOpts(n, S.flags);
   const lines = [...banner(n.banner), "", ...L(n.text, S.flags)];
-  if (id !== "start") lines.push("", ["What do you do?", "warn"]);
+  if (id !== "start") lines.push("", ["YOUR CHOICE AS THE LECTURER:", "warn"]);
+  if (id === "start") { if (typing) flush(); term.innerHTML = ""; clearChoices(); window.scrollTo(0, 0); startAnim(); line("", ""); print(lines, () => {
+    opts.forEach(o => button(o.t, o.k, () => choose(o)));
+    choices.firstChild.focus();
+  }); return; }
   screen(lines, () => {
     opts.forEach(o => button(o.t, o.k, () => choose(o)));
     choices.firstChild.focus();
@@ -785,7 +956,7 @@ function choose(o) {
   const say = L(o.say, S.flags);
   const last = S.node === "end";
   screen([...banner(n.banner), ["> " + (o.k ? o.k + ") " : "") + o.t, "dim"], "", ...say], () => {
-    button(last ? "END OF TERM" : "CONTINUE", "", () => last ? ending() : scene(S.node), true).focus();
+    button(last ? "TURN TO THE LAST PAGE" : "TURN THE PAGE", "", () => last ? ending() : scene(S.node), true).focus();
   });
 }
 
@@ -795,8 +966,8 @@ function ending() {
   const e = pickEnding(F);
   wipe();
   const lines = [...banner(e.banner), "", ...e.text(F)];
-  if (F.runs > 0) lines.push("", ["Energy: " + F.runs + " Deep Research run" + (F.runs === 1 ? "" : "s") + ", hundreds of pages each.", "dim"]);
-  if (F.librarian) lines.push(["The librarian sends regards.", "dim"]);
+  if (F.runs > 0) lines.push("", ["> MAINFRAME: ENERGY: " + F.runs + " DEEP RESEARCH RUN" + (F.runs === 1 ? "" : "S") + ", HUNDREDS OF PAGES EACH.", "dim"]);
+  if (F.librarian) lines.push(["> MAINFRAME: THE LIBRARIAN SENDS REGARDS.", "dim"]);
   screen(lines, () => {
     button("PLAY AGAIN", "", () => { S = freshState(); scene("start"); }, true).focus();
   });

@@ -276,3 +276,38 @@ Responsible AI step, not the verdict; prompt labels "MARK IT, THEN REWRITE IT" a
 DETAILED PROMPT"; 02 step 3 is "Audit your new image for accessibility"; 06 step 2 is "Open ours
 and compare". 01 step 2 keeps "not the note" (my call, flagged). No prompt constant, filename or
 chip touched. Build green. Committed and pushed on Matt's ask.
+
+Adventure defaults (Matt): high contrast and large text on by default (`prefs` initial values);
+a visitor's saved toggles still win on return. Verified on a fresh load: black on white, 21px,
+toggles read TEXT: LARGE and CONTRAST: HIGH. Build green. Not committed.
+
+## 2026-09-22, late afternoon: adventure in the Jumpin' Jack Flash voice, with a title card
+
+Matt: keep the cascade idea, the Matts and the lecturer-and-students setting, but make it feel like
+Jumpin' Jack Flash (1986): screenplay pages, a character talking back at the screen, a
+terminal voice that knows too much, witty and fizzy. Rewrite of every scene, consequence and
+ending in `Responsible_AI_Adventure.html`: stage directions in brackets (class `dir`, dim
+italic), spoken lines (`you`, bold: YOU, COLLEAGUE, STUDENT, HEAD OF SCHOOL, ESTATES, CHAIR),
+and the Cardiff MAINFRAME (`mf`, yellow, caps) as the Jack character. "YOUR CHOICE AS THE
+LECTURER:" replaces "What do you do?"; CONTINUE is "TURN THE PAGE"; endings are PAGE-style
+cards ([BAD ENDING ...], [VICTORY ENDING: MARKER OF RECORD]). Line cap raised from 58 to 66
+because the speaker prefix costs 13; the column is 82 wide and phones wrap regardless.
+
+A cascade review (subagent, before the rewrite: "yes, with gaps") is folded in: banning a tool
+you used last week is called out; the honest student's page is recognised as the week 3 skill
+(or a confession to a broken ban); the week 8 "earned" options now set flags that are read
+(`policy` at the appeal, the vendor's slide coming down); the minibus invoice reaches the
+appeal; Kant reaches the meeting; the label path's exam differs from the judgement path; the
+Dark Exam no longer says "voided" after the scripts were marked; endings vary on taught, stamp,
+handbook, resit, disclosure; "'Approved' means you did not read it" has a variant for the
+marker who did. Dead flags `shown` and `policy` are now read.
+
+**Title card**: on the start screen, five terminal lines animate The Matts chasing Matt
+Hayden's three cats left to right (procedural frames, 58 columns, 160 ms, `startAnim` /
+`stopAnim`); a single still frame when MOTION is off. Defaults are high contrast and large text.
+
+Verified: node walk of all 12,636 paths (four endings, no line over 66, no option floor breach,
+every new cascade line reachable); Chrome with motion off: four click-through runs to the four
+endings, key 4 picks the earned option, the three voice classes render (yellow, dim italic,
+bold), no console errors; title card animates in front. File is about 1,060 lines. Committed and
+pushed on Matt's ask.
