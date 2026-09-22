@@ -259,3 +259,8 @@ with the Cardiff skill on the training module, 15 slides, 5.9 MB); the Matts' sk
 step 5, Responsible AI step 6. Top card relabelled "THE MATTS' SKILL DECK WE MADE EARLIER" so
 the two decks read apart. Core minutes 20 to 23; CLAUDE.md core total recomputed to 89.
 Twenty files ship. Committed and pushed on Matt's ask.
+Exercise 05 reordered again (Matt): compare is step 5, after the Matts' skill run, before
+Responsible AI; it carries both example decks (`A.cardiffDeckExample`, `A.brandDeckExample`)
+and the top cards hold only the training module. Step 5 is "Compare your two decks": same
+training module, just a different skill; the Matts' two decks are the fallback. Committed and
+pushed on Matt's ask.

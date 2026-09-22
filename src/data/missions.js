@@ -895,7 +895,7 @@ export const MISSIONS = [
     workflow: ['Paste in your training module', 'Cardiff skill makes the deck', 'Rerun with the Matts\' skill'],
     brief:
       'Turn your training module from Exercise 04 into a slide deck that looks like it came from this university.',
-    artifacts: [A.brandDeckExample, A.exampleTraining],
+    artifacts: [A.exampleTraining],
     steps: [
       {
         tier: 'core',
@@ -927,19 +927,19 @@ export const MISSIONS = [
       },
       {
         tier: 'core',
-        estMinutes: 3,
-        title: 'Compare your deck with the one the Matts made earlier',
-        artifact: A.cardiffDeckExample,
-        body:
-          'Open the Matts\' deck below: the same training module and the same Cardiff skill. Put it beside yours and look for what differs, in structure, wording and look, and why. Note one thing each deck does better.',
-      },
-      {
-        tier: 'core',
         estMinutes: 5,
         title: 'Generate a second deck with the Matts\' brand skill',
         artifact: A.mattsBrandSkill,
         body:
           'Once the first deck is saved, open Slide Deck again. Same source, but paste this skill into the description box instead. One notebook, two skills, two very different decks.',
+      },
+      {
+        tier: 'core',
+        estMinutes: 3,
+        title: 'Compare your two decks',
+        artifact: [A.cardiffDeckExample, A.brandDeckExample],
+        body:
+          'Put your two decks side by side: same training module, just a different skill. Look for what differs, in structure, wording and look, and why. Note one thing each deck does better. If you do not have both to hand, use the two the Matts made earlier, below.',
       },
       {
         tier: 'core',
