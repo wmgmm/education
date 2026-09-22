@@ -142,7 +142,7 @@ def set_bullets(slide, bullets, website):
     if website:
         para = tf.add_paragraph()
         run = para.add_run()
-        run.text = f"Website: {website}   https://wmgmm.github.io/part2/"
+        run.text = f"Website: {website}   https://wmgmm.github.io/education/"
         run.font.size = Pt(14)
         run.font.name = "Aptos"
         run.font.color.rgb = DIM

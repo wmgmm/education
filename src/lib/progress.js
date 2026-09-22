@@ -1,9 +1,9 @@
 // Per-user mission progress in localStorage, keyed by normalised email so a
 // refresh (or a shared machine) resumes the right person.
 
-const USER_KEY = 'workshop_user_v1';
+const USER_KEY = 'education_user_v1';
 
-const progressKey = email => `workshop_progress_v1:${email.trim().toLowerCase()}`;
+const progressKey = email => `education_progress_v1:${email.trim().toLowerCase()}`;
 
 export function loadUser() {
   try {

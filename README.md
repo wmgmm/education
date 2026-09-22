@@ -4,7 +4,7 @@ A hands-on workshop website for Cardiff University staff: six guided exercises p
 
 The workshop is delivered by two presenters. Exercises 01-03 are Matt Hayden's and the site carries his prompts verbatim from his deck; exercises 04-06 are Matt Mort's.
 
-**Live site:** https://wmgmm.github.io/part2/
+**Live site:** https://wmgmm.github.io/education/
 
 ## How it works
 
@@ -15,13 +15,13 @@ The workshop is delivered by two presenters. Exercises 01-03 are Matt Hayden's a
 
 ## Facilitators
 
-Read `FACILITATOR_GUIDE.md` (session plans, preflight, per-exercise cribs and the answer keys). Before a session, open https://wmgmm.github.io/part2/?doctor to verify every file and image responds. Note the quotas in the preflight: Gemini Deep Research is 5 runs a month on a base Education tier, and Copilot's Researcher and Analyst share 25 a month. Verified tool limits and their sources are in `docs/research/2026-09-04-tool-capabilities.md`.
+Read `FACILITATOR_GUIDE.md` (session plans, preflight, per-exercise cribs and the answer keys). Before a session, open https://wmgmm.github.io/education/?doctor to verify every file and image responds. Note the quotas in the preflight: Gemini Deep Research is 5 runs a month on a base Education tier, and Copilot's Researcher and Analyst share 25 a month. Verified tool limits and their sources are in `docs/research/2026-09-04-tool-capabilities.md`.
 
 ## Development
 
 ```bash
 npm install
-npm run dev       # http://localhost:5173/part2/
+npm run dev       # http://localhost:5173/education/
 npm run build     # production build to dist/
 ```
 

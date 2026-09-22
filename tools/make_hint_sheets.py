@@ -34,7 +34,7 @@ from reportlab.platypus import (KeepInFrame, PageBreak, Paragraph, SimpleDocTemp
                                 Table, TableStyle)
 from reportlab.platypus.flowables import _listWrapOn
 
-SITE = "https://wmgmm.github.io/part2/"
+SITE = "https://wmgmm.github.io/education/"
 BLACK, GREY, BLUE, RED, PAGE = "#1d1d1f", "#6e6e73", "#0071e3", "#E4251B", "#f5f5f7"
 PROMPT_LIMIT = 1300  # characters; longer prompts are pointed at the site instead
 SHRINK_FLOOR = 0.85  # warn below this; cut content rather than shrink further

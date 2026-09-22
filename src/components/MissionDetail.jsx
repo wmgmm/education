@@ -322,7 +322,7 @@ function AttachStrip({ items = [], label, extra }) {
 }
 
 // A step can carry one picture (Exercise 02 works from a supplied image).
-// src is relative to the site root; BASE keeps it right under /part2/.
+// src is relative to the site root; BASE keeps it right under /education/.
 // image.ui marks a screenshot of a control, which needs the full column width
 // to stay readable rather than the 460px a photo is fine at.
 function StepFigure({ image }) {
