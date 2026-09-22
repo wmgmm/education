@@ -105,172 +105,132 @@ export const APPS = {
 };
 
 // ============================================================================
-// MATT HAYDEN'S PROMPTS - VERBATIM. DO NOT EDIT.
-// Source: AI in the workplace 2.pptx (slides 9, 17, 21, 22) and his covering
-// email of 2026-09-04. The room reads these off his deck while working through
-// the site; any divergence shows up live. Whitespace was normalised (the deck
-// lost some spaces after full stops) and the presentational quotation marks
-// wrapping the deck versions were dropped so the text pastes clean.
-// Four edits directed by Matt Mort on 2026-09-07, so do not "restore" them
-// from the deck: MH_COPILOT_TOP_AND_TAIL gained a top line and a bottom
-// heading so the report can be attached OR pasted; MH_IMAGE_REVERSE is Matt's
-// rewrite (output-only, fixed section format, pinned placeholder); MH_ACCESSIBILITY_AUDIT
-// keeps his three opening sentences and adds eight labelled output headings
-// ending in a ranked list of changes, researched 2026-09-07 (see tasks/todo.md
-// addenda 107 and 108); MH_CANVAS_GAME gained one sentence naming the four-stage
-// 'Demand First' principle as the thing the game should teach.
-// One more on 2026-09-21: MH_COPILOT_TOP_AND_TAIL no longer asks for a PDF
-// (Copilot's conversion was poor); it now opens by naming the input (the
-// source report, the scaffold) and the output (a new report), tells Copilot to
-// run now without questions or a summary, and ends with the same. "The
-// attached PDF" became "the source report" throughout.
-// Nothing else was changed.
+// EXERCISE 01 PROMPTS - MATT MORT'S. Editable on his say-so.
+// The Deep Research brief is his text verbatim (2026-09-22). The rubric and
+// the augment prompt were drafted to docs/PROMPT_GUIDANCE_2026.md.
 // ============================================================================
 
-// Deck slide 9. Exercise 01, step 1.
-const MH_DEEP_RESEARCH = `The Sustainable Futures plan establishes a four-stage 'Demand First' decision hierarchy: avoid demand, source low-impact alternatives, ensure circularity, and responsibly manage unavoidable impacts. Compare this framework against the carbon reduction and procurement strategies of two other universities and two large public-sector or corporate bodies.
+// Exercise 01, step 1. Gemini Deep Research.
+const DR_HE_BRIEF = `Act as a higher education innovation researcher.
 
-• How do other organisations enforce demand reduction in practice (e.g. business travel policies, ICT procurement, lab equipment rationalisation) versus relying on engineering interventions or carbon offsetting?
-• What specific behavioural nudges, data dashboards (e.g. 'sustainability commons'), or policy restrictions have proven most effective at curbing resource consumption at the source?`;
+Research how UK universities are using generative AI to improve teaching, learning, assessment, research and professional services. Focus on developments from the last 12 months.
 
-// His covering email. Exercise 01, step 4. Deck slide 16 is the summary of it.
-const MH_COPILOT_TOP_AND_TAIL = `Act as a rigorous research editor, fact-checker and professional report designer.
+Identify:
+• The five most important developments.
+• What is changing right now.
+• Examples of universities redesigning teaching or assessment because of AI.
+• How institutions are preparing students for AI-enabled workplaces.
 
-You are given one input: a Google Deep Research report, either attached to this message as a file or pasted at the end of this prompt under the heading DEEP RESEARCH REPORT BY GEMINI, PASTED BELOW. Call it the source report. It is the scaffold. Your job is to produce one output: a new, standalone report that fact-checks, corrects and improves the source report, written afresh. Do this now, in this reply. Do not ask clarifying questions, do not summarise the source report first, and do not describe what you would do: produce the finished report.
+When reviewing examples, evaluate how they address:
 
-CRITICAL SEPARATION RULE
+• Secure and institutionally approved AI tools.
+• Privacy, data protection and information governance.
+• Data as a strategic asset for improving services and enabling AI-native processes.
+• AI as augmentation rather than replacement of human expertise.
+• Human verification, oversight and accountability.
+• Human judgement, empathy, relationships and other uniquely human capabilities.
+• Bias, fairness, accessibility and alignment with institutional values.
+• Whether AI improves learning outcomes or merely automates existing processes.
+• Ongoing staff and student AI literacy, training and capability development.
+• Individual responsibility for work produced with AI support: AI may assist, but people remain accountable. Their work represents them.
+• Risks of over-reliance, skill atrophy, dependency or reduced critical thinking.
 
-The main report must read as an independent, authoritative publication. It must not mention, describe or refer to:
-- the original report or document;
-- Google Deep Research;
-- the rewriting, checking or revision process;
-- what the original report claimed, stated, omitted or got wrong;
-- any comparison between the new report and its source material.
+For every example, explain:
+• The problem being solved.
+• The approach taken.
+• Benefits achieved.
+• Risks, limitations or concerns.
+• Skills students develop.
+• Why human judgement remains important.
 
-Do not use phrases such as:
-- "the original report states";
-- "the source document claims";
-- "this has been corrected";
-- "the previous version omitted";
-- "our review found".
+Produce:
+1. Executive summary.
+2. Five key developments.
+3. What is changing now.
+4. Eight practical examples from UK universities.
+5. Ten ideas a university team could try.
+6. Three low-cost pilots that could be implemented within 90 days.
+7. Key risks and implementation considerations.
 
-Use the information and sources from the source report as research inputs, but write the main report entirely afresh. References to the original document and the changes made are permitted only in the final change appendix.
+Prioritise UK university, sector and research sources. Cite all claims with direct links and publication dates. Distinguish evidence from opinion and flag unverified claims.
 
-1. Fact-checking
+Throughout, focus on how universities are helping staff teach differently, helping students become responsible AI users, and preparing graduates to work effectively alongside AI.`;
 
-- Check every material factual claim, statistic, date, quotation, target and organisational policy against its cited source.
-- Open and assess the underlying sources rather than relying on the source report's summaries or reference list.
-- Confirm that each source directly supports the specific claim attributed to it.
-- Check whether information remains current as of the date the new report is produced.
-- Prioritise primary and authoritative sources, including legislation, government publications, official organisational documents, recognised datasets and peer-reviewed research.
-- Correct, qualify, replace or remove claims that are inaccurate, outdated, misleading, exaggerated, unsupported or based on unsuitable evidence.
-- Do not retain a claim merely because it has a citation.
-- Where credible sources disagree, explain the differing evidence neutrally in the main report.
-- Where a point cannot be verified, omit it or label the uncertainty clearly without referring to the original document.
+// Exercise 01, step 2. Copilot, new chat, the report attached or pasted.
+// One prompt, two parts: score against the rubric, then rewrite to close the
+// gaps. Pipeline shape from docs/PROMPT_GUIDANCE_2026.md: role, anchored input,
+// fixed output headings, explicit failure states, no preamble.
+const SCORE_AND_IMPROVE = `Act as an external examiner for higher education research, then as the report's editor. Be critical but constructive: name exactly what is missing, then fix it.
 
-2. Additional research
+INPUT. One Deep Research report on how UK universities are using generative AI, attached to this message or pasted after the last line of this prompt. Call it the source report. Do not summarise it, do not ask questions and do not describe your plan: begin immediately with Part 1.
 
-- Identify important gaps, missing context, counter-evidence and relevant recent developments.
-- Add information where it materially improves the accuracy, balance or usefulness of the report.
-- Provide a reliable source for every added factual claim.
-- Clearly distinguish established evidence, interpretation and recommendation.
-- Do not invent or approximate information, references, quotations or statistics.
-- Do not use AI-generated summaries as evidence.
+RUBRIC. Score each criterion 1 to 5: 1 absent, 3 present but thin or unevidenced, 5 specific, evidenced and dated.
+1. Coverage: all seven required outputs are present (executive summary, five developments, what is changing now, eight UK examples, ten ideas, three 90-day pilots, risks and implementation).
+2. Recency: developments are from the last 12 months and each carries a publication date.
+3. Sourcing: claims cite UK university, sector or research sources with direct links.
+4. Evidence versus opinion: the two are distinguished and unverified claims are flagged.
+5. Secure and institutionally approved AI tools.
+6. Privacy, data protection and information governance.
+7. Data as a strategic asset for improving services and enabling AI-native processes.
+8. Augmentation, not replacement: human verification, oversight and accountability.
+9. Uniquely human capabilities: judgement, empathy, relationships.
+10. Bias, fairness, accessibility and alignment with institutional values.
+11. Learning outcomes: whether AI improves learning or merely automates existing processes.
+12. AI literacy and individual responsibility: ongoing training, and people remaining accountable for work produced with AI support.
+13. Over-reliance: skill atrophy, dependency and reduced critical thinking.
+14. Practicality: the ten ideas and three pilots are specific, realistic in effort and feasible within 90 days.
+15. Example depth: each example states the problem, the approach, benefits, risks, skills students develop and why human judgement remains important.
 
-3. Standalone report
+PART 1: SCORE. Use only the source report here, no outside knowledge.
+## Scorecard
+A table with columns Criterion | Score | Evidence | What is missing. Evidence is one verbatim quote from the source report, under 25 words, or DATA UNAVAILABLE if the report does not address the criterion. What is missing is one sentence.
+## Top five gaps
+The five lowest-scoring criteria, ranked by how much fixing them would improve the report, one line each naming the specific addition needed.
 
-Create an entirely new report, rather than an edited or annotated copy.
+PART 2: IMPROVE. Rewrite the source report so that every criterion scored 3 or below reaches 4 or 5 and no score falls.
+- Keep every cited claim and link unless you found it to be wrong; if you drop one, record it in the change log.
+- Use web search to add UK university, sector or research sources from the last 12 months, each with a direct link and publication date. Mark anything you could not verify [UNVERIFIED]. Never invent sources, quotations or statistics.
+- Mark every addition or substantive rewrite [NEW] at the start of the paragraph.
+- Keep the seven-section structure from the brief, with the executive summary under 200 words.
+## Revised report
+The full report, as a document.
+## Change log
+A table with columns Section | Change | Criterion served, one row per [NEW] item.
+## Rescored
+The scorecard again with the new scores. If any criterion is still 3 or below, say why in one line.
 
-The report must:
-- preserve the useful subject, scope and purpose of the source report;
-- present a coherent analysis that stands on its own;
-- use plain UK English suitable for an informed non-specialist audience;
-- use Welsh sources and policy where relevant;
-- clearly distinguish Welsh, UK-wide and English legislation, policy and practice;
-- include a title page, contents page, executive summary, introduction, clearly structured analysis, conclusions and practical implications;
-- avoid unnecessary jargon and explain unavoidable technical terms;
-- use concise paragraphs, informative headings and a consistent visual hierarchy;
-- avoid promotional, exaggerated or overly certain language.
-
-The main report must contain no references to the source report, Google Deep Research, the fact-checking exercise or the process used to produce the new version.
-
-4. Citations and references
-
-- Use numbered in-text citations or footnotes linked to a complete reference list.
-- Cite factual claims close to the relevant text.
-- Include source titles, authors or publishing organisations, publication dates and working links where available.
-- Cite the most authoritative version of each source.
-- Do not cite search-results pages, AI-generated text or secondary commentary where the primary source is available.
-- Ensure each citation supports the precise claim made.
-- Do not list sources that are not used in the report.
-- Include access dates for online sources where appropriate.
-
-5. Tables, diagrams and illustrations
-
-Use tables, diagrams, process illustrations and comparison graphics where they genuinely improve understanding.
-
-All visual elements must:
-- be factually accurate;
-- be clearly titled and labelled;
-- remain understandable without relying on surrounding text;
-- include a source note where based on external evidence;
-- distinguish measured data from estimates or illustrative examples;
-- use legible text, accessible colours and a professional layout;
-- avoid decorative imagery that does not add information.
-
-Do not reproduce illustrations from the source report unless their reuse is legally permitted and their accuracy has been independently checked. Create new visuals where appropriate.
-
-6. Conclusions and practical implications
-
-- Base conclusions only on evidence presented in the report.
-- Avoid implying causation where the evidence shows only association.
-- Identify important limitations and uncertainties.
-- Provide practical implications or recommendations where justified by the evidence.
-- Identify the organisation or audience to which each recommendation applies.
-- Do not refer to changes made to the original material in this section.
-
-7. Change appendix
-
-End with an appendix titled:
-
-"Appendix: Changes from the original Google Deep Research report"
-
-This appendix is the only part of the new report that may mention the original report, source document, Google Deep Research or the revision process.
-
-For every substantive change, record:
-- original page or section;
-- original claim, or a concise description of it;
-- action taken: retained, corrected, qualified, removed, replaced or expanded;
-- the position presented in the new report;
-- reason for the change;
-- evidence used to support the decision.
-
-Use a clear table where practical.
-
-Group minor copy-editing, formatting and presentational improvements rather than recording every small wording change. Include all material factual, evidential, structural and interpretive changes.
-
-8. Final quality controls
-
-Before producing the final report:
-
-- conduct a second claim-by-claim evidence check;
-- confirm that every material factual claim is supported by the cited source;
-- check that sources have not been misquoted or taken out of context;
-- verify dates, units, currencies, percentages, totals and comparisons;
-- check calculations independently;
-- remove duplicate, broken, irrelevant or low-quality references;
-- check that links and citation numbering work correctly;
-- ensure terminology is used consistently;
-- ensure uncertainties and evidence limitations are clearly expressed;
-- confirm that the main report contains no mention of the source report, Google Deep Research or the revision process;
-- confirm that all commentary on changes is confined to the appendix;
-- confirm that the final document reads as a coherent, standalone report.
-
-Output only the completed, professionally formatted new report, as a document. Do not substitute an outline, draft, summary, methodology note or commentary for the finished report. If something is unclear, make a sensible choice and record it in the change appendix rather than asking.
+If something is unclear, make a sensible choice and record it in the change log rather than asking.
 
 ---
 
 DEEP RESEARCH REPORT BY GEMINI, PASTED BELOW (leave this empty if the file is attached):`;
+
+// Exercise 01, step 3. Copilot, same chat, or any chat: the source is
+// whatever is in the chat. Leads
+// with the image trigger and names the text-first behaviours it must not do,
+// because Copilot's router otherwise answers with a description.
+const VISUAL_GUIDE = `Create an image now: a one-page visual learning guide (infographic) of the content in this chat. Use the most recent document, attachment or pasted text.
+
+Content: one headline of at most 8 words, then 5 to 6 key points as short labels of at most 6 words each, a simple icon for each, and one closing takeaway line. Every number and name must come from the source; invent nothing.
+Design: portrait, clean flat style, white background, one accent colour, large readable text, plenty of space, no decorative clutter.
+
+Do not ask questions, do not describe the image and do not write a summary first: generate the image straight away. Then, under the image, list the same 5 to 6 points as plain text so I can check them against the source.`;
+
+// ============================================================================
+// MATT HAYDEN'S PROMPTS - VERBATIM. DO NOT EDIT. Exercise 02.
+// Source: AI in the workplace 2.pptx (slide 17) and his covering
+// email of 2026-09-04. The room reads these off his deck while working through
+// the site; any divergence shows up live. Whitespace was normalised (the deck
+// lost some spaces after full stops) and the presentational quotation marks
+// wrapping the deck versions were dropped so the text pastes clean.
+// Three edits directed by Matt Mort on 2026-09-07, so do not "restore" them
+// from the deck: MH_IMAGE_REVERSE is Matt's rewrite (output-only, fixed
+// section format, pinned placeholder); MH_ACCESSIBILITY_AUDIT keeps his three
+// opening sentences and adds eight labelled output headings ending in a ranked
+// list of changes (Part 2 tasks/todo.md addenda 107 and 108). Nothing else
+// was changed. His Exercise 03 game prompt was replaced on 2026-09-22 (see
+// CANVAS_GAME above) when the workshop's document changed.
+// ============================================================================
 
 // Deck slide 17. Exercise 02, step 1.
 const MH_IMAGE_REVERSE = `Review the image and reverse-engineer it into a reusable AI image generation prompt that can be pasted directly into an AI image generator.
@@ -332,13 +292,22 @@ IN GREYSCALE: does any meaning depend on colour alone? Say "nothing" if not. Do 
 I ASSUMED: the one guess you had to make about where this image will be used. Name one, not a list.
 CHANGES TO THE PICTURE: up to three, numbered, most important first, drawn only from the checks above and only where you can point at what you saw. Say what you want in the new picture rather than what to take out. Then give one line containing all of them, ready to paste into an image prompt. Changes to the picture only, never a caption and never wording placed beside the image.`;
 
-// Deck slide 21, the short version he shows first. PARKED 2026-09-07: Matt
-// dropped Exercise 03's thin-ask step for now, so this is currently unused.
-// Keep it, the comparison step is expected back.
-const MH_CANVAS_THIN = `Generate a functional mini-game reminiscent of classic ZX Spectrum titles. In this game, a character must navigate a university dining hall to collect low-impact foods while dodging high-carbon options.`;
+// Exercise 03, step 1. Matt Mort's, 2026-09-22, on the skeleton of Matt
+// Hayden's dining-hall game prompt (deck slide 22): the document is now the
+// report from Exercise 01. His thin version (slide 21) went with it.
+const CANVAS_GAME = `Create a learning game about [responsible AI], using the attached document as the only source of content.
 
-// Deck slide 22, the engineered version. Exercise 03, step 2.
-const MH_CANVAS_GAME = `Please review the attached 'Sustainable Futures' document. I would like you to create a playable 8-bit web game in a single HTML file using JavaScript and CSS. The visual style must mimic a vintage ZX Spectrum game with a black background and bright, blocky neon colours. The player controls a pixelated character who must cross a busy university dining hall. The goal is to collect low-impact foods to score points, while dodging high-carbon items moving rapidly across the screen. If you hit a high-carbon item, you lose a life. Crucially, use specific terminology, quotes, or policy goals directly from the attached document for the game's title, the introductory screen text, and the 'game over' messages. For example, you could name the game after one of the core goals or reference the 'Demand First' principle in the instructions. The game should help the player learn the plan's four-stage 'Demand First' principle. Please make it fully playable with keyboard arrow keys.`;
+Learning goal: after one play, the player can name the document's key points about [responsible AI] and tell good practice from risk.
+
+Game: a playable 8-bit web game in a single HTML file (JavaScript and CSS), styled like a vintage ZX Spectrum title: black background, bright blocky neon colours, keyboard controls. Choose the game mechanic yourself to fit the content, so long as the player scores by telling the good practices in the document from the risks it names.
+
+Learning rules:
+- Every item's name and one-line description come from the document's own wording. Invent nothing.
+- Each right or wrong move shows a one-line "why" from the document, then play continues.
+- Each level cleared shows one of the document's key points on screen, and the difficulty rises.
+- Game over shows a recap: the key points seen, then a three-question quiz drawn from the document.
+
+Take the title, the introductory screen text and the game-over messages from the document. Make it fully playable, then list the document quotes you used.`;
 
 
 // The three skills share one file-type icon, because that is what it is: a
@@ -509,7 +478,12 @@ const A = {
   // can show what goes into Copilot rather than only describing it.
   yourReport: {
     label: 'YOUR DEEP RESEARCH REPORT',
-    filename: 'the file you saved in step 3',
+    filename: 'the Word file from step 1',
+    thumb: DOC_ICON,
+  },
+  yourImprovedReport: {
+    label: 'YOUR IMPROVED REPORT',
+    filename: 'the Word file from Exercise 01',
     thumb: DOC_ICON,
   },
   // Strip-only: the picture the reader has just generated, so the audit step
@@ -557,83 +531,72 @@ export const MISSIONS = [
     code: '01',
     level: 1,
     title: 'The Landscape',
-    pageTitle: 'Research the Plan, Then Have a Second AI Check the Work',
-    summary: 'Research the plan, then fact-check it.',
+    pageTitle: 'Research How UK Universities Use AI, Then Have Copilot Mark It and Improve It',
+    summary: 'Research the sector, then have Copilot mark and improve it.',
     accentType: 'stamp-red',
     accentText: 'START HERE',
     tools: [TOOLS.deepResearch, TOOLS.copilot],
-    estMinutesCore: 11,
+    estMinutesCore: 14,
     toolInfo: {
       feature:
-        'Deep Research browses the web on its own and comes back with a cited report. Copilot then fact-checks it and rebuilds it as a document.',
+        'Deep Research browses the web on its own and comes back with a cited report. Copilot then marks it against a rubric and rewrites it to close the gaps.',
       apps: [APPS.gemini, APPS.copilot],
     },
-    workflow: ['Paste the brief', 'Review and edit', 'Copy it out', 'Top and tail it'],
+    workflow: ['Deep Research on Gemini', 'Copilot reviews and fills the gaps', 'Copilot draws the learning guide'],
     brief:
-      'Research how other organisations deliver what the plan promises, then have Copilot prove every claim.',
-    artifacts: [A.susPlan, A.deepResearch],
+      'Research how UK universities are using generative AI, then have Copilot score the report against a fifteen-point rubric and rewrite it to close the gaps.',
+    artifacts: [],
     steps: [
       {
         tier: 'core',
-        estMinutes: 2,
-        title: 'Turn on Deep Research and paste the prompt',
+        estMinutes: 4,
+        title: 'Run Deep Research in Gemini',
         body:
-          'Use Gemini. Click the + under the box where you type: try attaching Sustainable-Futures-en.pdf, then select Deep Research (limited usage). Attaching does not work on every account, so carry on without it if it refuses. Paste the brief and send it: Gemini replies with a research plan, not the report. No Deep Research at all? Use the Matts\' report at step 4.',
-        attachLabel: 'TRY ATTACHING',
-        attach: [A.susPlan],
+          'Click the + under the box where you type, select Deep Research (limited usage), paste the brief and send it. Edit the plan if needed, then Start research. When it finishes, click Share and export, then Copy contents, and save the report as a Word document.',
+        attachLabel: 'ENABLE',
         attachExtra: {
           src: 'deep_research_button.png',
           alt: 'The Deep Research item in Gemini\'s + menu, ticked.',
         },
-        promptLabel: 'THE BRIEF (RUN IT AS IT IS TODAY)',
-        prompt: MH_DEEP_RESEARCH,
+        promptLabel: 'THE BRIEF',
+        prompt: DR_HE_BRIEF,
       },
       {
         tier: 'core',
-        estMinutes: 2,
-        title: 'Review and edit the research plan (if required)',
+        estMinutes: 6,
+        title: 'Score and improve it in Copilot',
         body:
-          'Edit the deep research plan if it does not match what you want: changing a line now is cheaper in time and energy than a rerun. Then press Start research. The run takes ten minutes or more, so do not wait: do step 4 with the Matts\' report from the top of the page, and come back when yours is done.',
-      },
-      {
-        tier: 'core',
-        estMinutes: 1,
-        title: 'Copy the Deep Research Report',
-        body:
-          'Click "Share and export", then "Copy contents". Paste the report into a new Word document and save it to your Desktop or OneDrive, where Copilot can find it.',
-        backup: {
-          label: 'OR PASTE IT STRAIGHT IN',
-          text:
-            'Skip Word: in step 4, paste the prompt into Copilot first, then come back and click Copy contents again, and paste the report after the prompt\'s last line. Do not press Enter in between.',
-        },
-      },
-      {
-        tier: 'core',
-        estMinutes: 5,
-        title: 'Top and tail it in Copilot',
-        body:
-          'Use Copilot. Attach the file you saved in step 3. You could copy and paste after the last line of the prompt, but it is best to attach a file because a long paste can get truncated. If Copilot summarises or asks a question instead, reply "Produce the full report now" and it will.',
-        promptLabel: 'THE FACT-CHECK AND REDRAFT',
+          'Use Copilot. Attach the Word document, or paste the report after the prompt\'s last line. Copilot scores it on fifteen criteria, quoting the report as evidence, then rewrites it to close the gaps, marks every addition [NEW] and rescores. If it summarises or asks a question instead, reply "Do Part 1 and Part 2 now". Copy the revised report into a Word document and save it: the next exercises use it.',
+        promptLabel: 'THE RUBRIC, THEN THE REWRITE',
         attachLabel: 'NEW CHAT',
         attach: [A.yourReport, A.thisPrompt],
         promptNote: '[attach the file, or paste this prompt first, then the report after its last line]',
-        // Display only, and deliberately so: MH_COPILOT_TOP_AND_TAIL is 133
-        // lines and this is his own heading on line 5. COPY still writes the
-        // constant byte for byte.
-        promptEmphasis: 'CRITICAL SEPARATION RULE',
-        prompt: MH_COPILOT_TOP_AND_TAIL,
+        promptEmphasis: 'Be critical but constructive',
+        prompt: SCORE_AND_IMPROVE,
+      },
+      {
+        tier: 'core',
+        estMinutes: 3,
+        title: 'Turn it into a visual learning guide',
+        body:
+          'Same chat. Copilot draws a one-page infographic of the improved report and lists the points under it so you can check them. If it describes the image instead of drawing it, reply "Generate the image now". This prompt works in any chat: attach a file or paste text first.',
+        promptLabel: 'THE INFOGRAPHIC',
+        attachLabel: 'SAME CHAT',
+        attach: [A.thisPrompt],
+        promptEmphasis: 'generate the image straight away',
+        prompt: VISUAL_GUIDE,
       },
       {
         tier: 'core',
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'AI uses energy: a chat reply is much the same as a web search. A Deep Research run reads hundreds of pages, so think at least ten replies, probably far more. Fix the plan at step 2 rather than rerun. Handy hint: guide AI on sources you trust, peer-reviewed or official ones. The web can be wrong too.',
+          'AI uses energy: a chat reply is much the same as a web search. A Deep Research run reads hundreds of pages, so think at least ten replies, probably far more. Edit the plan rather than rerun. Handy hint: guide AI on sources you trust, peer-reviewed or official ones. The web can be wrong too.',
       },
     ],
     verdictBy: 'The Matts',
     verdict:
-      'A citation is not a check. The habit worth keeping is not trusting one model less, it is making a second one prove the first, then reading the list of what it changed.',
+      'A rubric turns "is this good?" into "which of these fifteen things is missing?". A model can only fix what it can name, and so can you.',
   },
 
   {
@@ -645,13 +608,13 @@ export const MISSIONS = [
     pageTitle: 'Analyse a Photo to Build a Reusable Prompt That Replicates Its Unique Style',
     summary: 'Turn a picture back into the prompt.',
     tools: [TOOLS.copilot],
-    estMinutesCore: 14,
+    estMinutesCore: 11,
     toolInfo: {
       feature:
         'Copilot can read an image as well as make one. The same moves work in Gemini, so nothing here is Copilot-only.',
       apps: [APPS.copilot],
     },
-    workflow: ['Clone the style', 'Reuse the prompt', 'Try to ban something', 'Audit an image'],
+    workflow: ['Copilot reads a photo', 'Reuse the prompt', 'Audit for accessibility'],
     brief:
       'Turn a picture you like into a prompt you own, then freeze it as a reusable style block.',
     artifacts: [A.studySpace, A.styleExample],
@@ -676,53 +639,23 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Use the reusable prompt from step 1 with a new subject',
         body:
-          'Start a NEW chat. Paste the prompt Copilot generated in step 1, replace [INSERT SUBJECT HERE] with the example below, and send it. Remember to experiment: for this one the subject is Mr Judge complaining about his noisy cats, with a sign.',
+          'Start a NEW chat. Paste the prompt Copilot generated in step 1, replace [INSERT SUBJECT HERE] with the example below, and send it. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
         attachLabel: 'NEW CHAT',
         attach: [A.stepOnePrompt],
         promptLabel: 'THE SUBJECT: PASTE THIS OVER [INSERT SUBJECT HERE]',
         prompt: 'Mr Judge complaining about his noisy cats, with a sign',
-      },
-      {
-        tier: 'core',
-        estMinutes: 3,
-        title: 'Try to ban something from the image',
-        parts: [
-          {
-            letter: 'A',
-            body:
-              'In the same chat, add the line below and send it. You **MIGHT** still get text: naming what you do not want puts it into the prompt, and the noun outweighs the negation.',
-            attachLabel: 'SAME CHAT',
-            attach: [A.thisPrompt],
-            promptLabel: 'THE LINE TO ADD',
-            prompt: 'No text anywhere in the image.',
-          },
-          {
-            letter: 'B',
-            body:
-              'Still got text? Send the ban rewritten as the thing you do want: describe the surfaces, do not name what should not be on them.',
-            // Google's own advice for Gemini image generation, which has no
-            // negative prompt field: describe the scene, do not ban the thing.
-            examples: [
-              ['No text', 'A blank sign, bare walls and blank screens'],
-              ['No cats', 'Mr Judge alone, the sofa to himself'],
-              ['No cars', 'A deserted street'],
-              ['No people', 'An empty room'],
-            ],
-            attachLabel: 'SAME CHAT',
-            attach: [A.thisPrompt],
-            promptLabel: 'THE LINE TO SEND INSTEAD',
-            prompt: 'A blank sign, bare walls and blank screens',
-          },
-          {
-            letter: 'C',
-            body:
-              'Still got text? Those words are in this chat and still pulling on it. Start a NEW chat and paste the style prompt Copilot made in step 1, with what you want written into the subject, not banned at the end.',
-            attachLabel: 'NEW CHAT',
-            attach: [A.stepTwoPrompt],
-            promptLabel: 'THE SUBJECT, REWRITTEN: PASTE THIS OVER [INSERT SUBJECT HERE]',
-            prompt: 'Mr Judge complaining about his noisy cats, with a BLANK sign',
-          },
-        ],
+        backup: {
+          label: 'GOT SOMETHING YOU DID NOT WANT?',
+          text:
+            'Banning it ("No text anywhere") often fails: the noun outweighs the negation. Describe what you want instead.',
+          // Google's own advice for Gemini image generation, which has no
+          // negative prompt field: describe the scene, do not ban the thing.
+          examples: [
+            ['No text', 'A blank sign, bare walls and blank screens'],
+            ['No people', 'An empty room'],
+          ],
+          after: 'Still there? Start a NEW chat with the wanted version written into the subject.',
+        },
       },
       {
         tier: 'core',
@@ -754,8 +687,8 @@ export const MISSIONS = [
     code: '03',
     level: 2,
     title: 'The Game',
-    pageTitle: 'Vibe Code a Playable Game From the Plan in Canvas',
-    summary: 'Build a game out of a policy PDF.',
+    pageTitle: 'Vibe Code a Playable Game From Your Report in Canvas',
+    summary: 'Build a game out of your own report.',
     tools: [TOOLS.canvas],
     estMinutesCore: 12,
     toolInfo: {
@@ -765,31 +698,32 @@ export const MISSIONS = [
     },
     workflow: ['Run the detailed prompt', 'Read the code', 'Give AI feedback'],
     brief:
-      'Build a playable 8-bit game from the sustainability plan, fully specified, without writing code.',
-    artifacts: [A.susPlan],
+      'Build a playable 8-bit game from the report you improved in Exercise 01, fully specified, without writing code.',
+    artifacts: [],
     steps: [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Run the detailed prompt with the PDF for context',
+        title: 'Run the detailed prompt with your report for context',
         body:
-          'Use Gemini, in a new chat. Click the + under the box to attach the plan, paste the prompt below, then turn Canvas on and send. The detail and the document are what lift the output.',
+          'Use Gemini, in a new chat. Click the + under the box to attach the report you improved in Exercise 01 (or the Deep Research report if that is what you have), paste the prompt below, then turn Canvas on and send. Change [responsible AI] to any subject your document covers. The detail and the document are what lift the output.',
         promptLabel: 'THE ENGINEERED ASK',
+        promptEmphasis: '[responsible AI]',
         attachLabel: 'NEW CHAT',
-        attach: [A.susPlan],
+        attach: [A.yourImprovedReport],
         attachExtra: {
           src: 'canvas_button.webp',
           alt: 'The Canvas button in Gemini, a small grey chip reading Canvas.',
         },
-        promptNote: '[Canvas on, attach Sustainable-Futures-en.pdf]',
-        prompt: MH_CANVAS_GAME,
+        promptNote: '[Canvas on, attach your improved report]',
+        prompt: CANVAS_GAME,
       },
       {
         tier: 'core',
         estMinutes: 2,
         title: 'Read the code tab',
         body:
-          'Canvas has a Code toggle at the top, next to Preview. Click it and skim the strings: the title, the messages, the food names. Which of them came from the PDF?',
+          'Canvas has a Code toggle at the top, next to Preview. Click it and skim the strings: the title, the messages, the item names. Which of them came from your report?',
       },
       {
         tier: 'core',
