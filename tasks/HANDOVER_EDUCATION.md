@@ -239,3 +239,8 @@ state-based kind (flags, not branches): 12,636 paths, still four endings, every 
 reachable, no line over 58 characters, at most four options. File is 886 lines.
 Exercise 05 gallery card summary set to "One skill, one internal Cardiff-branded deck." (Matt).
 Committed and pushed on Matt's ask in the same message.
+Exercise 05 example deck replaced: Matt's Notebook run with the Matts' brand skill on the
+training module (13 slides, 14 MB) ships as `The_Matts_Slide_Deck.pptx` under
+`A.brandDeckExample`; note updated. `Demand_First_Purchasing.pptx` stays on disk, unlinked
+(the subject mismatch flagged earlier is closed). Nineteen files ship.
+Committed and pushed on Matt's ask (so every linked file downloads from the live site).

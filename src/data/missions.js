@@ -419,9 +419,9 @@ const A = {
   // Exercise 05 is asking for, so the room can see the target first.
   brandDeckExample: {
     label: 'OPTIONAL: THE SLIDE DECK WE MADE EARLIER',
-    filename: 'Demand_First_Purchasing.pptx',
-    downloadPath: `${BASE}placeholders/Demand_First_Purchasing.pptx`,
-    note: 'A real Notebook run with the Cardiff brand skill, on the plan\'s purchasing section. This is what the skill does to a deck.',
+    filename: 'The_Matts_Slide_Deck.pptx',
+    downloadPath: `${BASE}placeholders/The_Matts_Slide_Deck.pptx`,
+    note: 'A real Notebook run with the Matts\' brand skill on the training module, 13 slides. This is what a skill does to a deck.',
     thumb: EXAMPLE_ICON,
   },
   // The picture Exercise 02 works from. Served from the site root rather than

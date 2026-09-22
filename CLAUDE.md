@@ -172,12 +172,12 @@ thumbnails, attach lists, `attachExtra` and logos, derived from `MISSIONS` so it
 **A new field naming a file must be added to `collectUrls` in `DoctorPanel.jsx` in the same
 commit.** Missed twice, both times reporting all-clear over an invisible asset.
 
-Eighteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
+Nineteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
 `The_Matts_Deep_Research_Report.pdf` (01's fallback), `The_Matts_Revised_Report.pdf` (03 and
 04's fallback), `The_Matts_Training_Module.pdf` (05's backup source; `Example_Training_Session.pdf` **unlinked**), `HESA_Estates_Management.xlsx`
 (13 MB, **unlinked**, the generator's input); real tool runs: `Cardiff_Estates_Dashboard.html`
-(06 step 2), `Demand_First_Purchasing.pptx` (05), `Example_Bubble_Chart.html`,
-`Demand_First_Game.html` and `Demand_First_Adventure.html` (all three **unlinked**); and
+(06 step 2), `The_Matts_Slide_Deck.pptx` (05, 14 MB), `Example_Bubble_Chart.html`,
+`Demand_First_Purchasing.pptx`, `Demand_First_Game.html` and `Demand_First_Adventure.html` (all four **unlinked**); and
 `Responsible_AI_Adventure.html`, a branching text adventure on 03 step 4.
 **Generated:** the five skills, `Example_Style_Block.md` and `HESA_Estates_Workshop.csv`/`.xlsx`.
 
