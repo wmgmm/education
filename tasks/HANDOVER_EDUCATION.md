@@ -190,3 +190,14 @@ skill (The Matts)". Build green, bundle checked.
 Exercise 05 backup training session replaced with Matt's Copilot run: 8-page Word PDF shipped as
 `Half_Hour_Responsible_AI_Training.pdf` under `A.exampleTraining` (same label and note);
 `Example_Training_Session.pdf` stays on disk, unlinked. `?doctor` still 28 files.
+
+Adventure clarity pass (Matt: "the text is not clear about what it means, like 'The room
+waits. So does the microphone.' I like clarity, like storytelling"). A read-only subagent
+reviewed every line; 38 findings plus two fact-check extras, all applied: unanchored lesson
+lines and aphorisms replaced with plain statements ("Your librarian is the better search
+engine", "The tool cannot be accountable. Only you can."), the terms-of-service joke stated
+plainly in week 2 and the governance ending, the Saturday resit contradiction fixed, the Dark
+Exam ending gated so a cancelled exam reads "Vivas stand", national survey figures labelled as
+national, UK spelling. Re-verified: 10,206 paths, four endings, no line over 58 characters,
+no label over 8 words, the new gated line reachable. Committed locally on `main`; the first
+push to GitHub is Matt's to run.

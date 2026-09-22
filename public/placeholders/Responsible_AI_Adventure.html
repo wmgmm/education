@@ -153,7 +153,7 @@ const NODES = {
     text: [
       "You are a lecturer.",
       ["One module. 180 students. Twelve weeks.", "warn"],
-      "AI arrived before the handbook did.",
+      "Students use AI. The rules do not exist yet.",
       "",
       "The Matts left one note:",
       ["'The human value is in the review.'", "warn"]
@@ -165,7 +165,7 @@ const NODES = {
     banner: "WEEK 1: THE HANDBOOK",
     text: [
       "A colleague hands you the module handbook.",
-      "Sixty pages. Written on Tuesday, by something.",
+      "Sixty pages. A chatbot wrote it on Tuesday.",
       "'It just needs your signature by five.'",
       "It is ten to five."
     ],
@@ -176,7 +176,7 @@ const NODES = {
           "Cardiff Institute of Marine Ethics.",
           "There is no Cardiff Institute of Marine Ethics.",
           "",
-          "Week 6 will find it before you do."
+          "Forty students will find the mistake in week 6."
         ] },
       { k: "B", t: "Read it first. Five can wait.", to: "inbox", set: { readHandbook: true },
         say: [
@@ -184,7 +184,7 @@ const NODES = {
           "Cardiff Institute of Marine Ethics, which does not exist.",
           "You delete it. Your colleague says 'ah'.",
           "",
-          "Sixty pages took forty minutes. The trip, four seconds."
+          "Forty minutes to read. Four seconds to fix."
         ] }
     ]
   },
@@ -204,7 +204,7 @@ const NODES = {
           "Forty-one medical notes now live on a server",
           "in a country you would have to look up.",
           "",
-          "The terms call this 'improving the service'."
+          "The terms let the company train on what you paste."
         ] },
       { k: "B", t: "Sign in to Gemini with your CU account", to: "lecture", set: { tool: "approved" },
         say: [
@@ -212,11 +212,11 @@ const NODES = {
           "The notes stay under the University's contract,",
           "approved for confidential data. That was the difference.",
           "",
-          "Eleven seconds longer, spent checking 'week' not 'weak'."
+          "Eleven seconds longer: you read them before sending."
         ] },
       { k: "C", t: "Write all 41 yourself", to: "lecture", set: { tool: "hand" },
         say: [
-          "1 a.m. Reply 38 opens 'Dear 37'.",
+          "1 a.m. Reply 38 starts 'Dear' and the wrong name.",
           "Human error is still error.",
           "",
           "It is just yours, and you can find it."
@@ -230,15 +230,15 @@ const NODES = {
       "A student asks, in front of 180 people,",
       "'Are we allowed to use AI on this module?'",
       "",
-      "Ninety-five percent of them already do. HEPI counted.",
-      "The room waits. So does the microphone."
+      "A 2026 national survey says 95% of students do.",
+      "180 people wait for your answer."
     ],
     opts: [
       { k: "A", t: "'No. It is banned.'", to: "reading", set: { taught: false, banned: true },
         say: [
-          "Applause from the two who were not going to anyway.",
-          "The other 178 carry on, but now in silence,",
-          "which is the one way it cannot be taught.",
+          "Two students clap. They never used it anyway.",
+          "The other 178 keep using it, but now in secret.",
+          "You cannot teach a thing nobody admits to using.",
           "",
           "The ban is enforced by the only mechanism available: hope."
         ] },
@@ -247,7 +247,7 @@ const NODES = {
           "They use their judgement.",
           "Their judgement: the chatbot writes faster than they do.",
           "",
-          "It does. That was never the question."
+          "Speed is true. Whether it is right is the question."
         ] },
       { k: "C", t: "Spend the hour making them fact-check a chatbot", to: "reading", set: { taught: true },
         say: [
@@ -255,7 +255,7 @@ const NODES = {
           "One is real. One is by an author who died",
           "eleven years before the paper. Twelve students spot this.",
           "",
-          "Marking it wrong is a skill. They now have it."
+          "Spotting a fake source is a skill. They have it now."
         ] }
     ]
   },
@@ -269,13 +269,13 @@ const NODES = {
       "A colleague suggests running it again 'with please'."
     ],
     opts: [
-      { k: "A", t: "Run it six more ways", to: "marking", add: { runs: 7 },
+      { k: "A", t: "Rerun it six more times with different wording", to: "marking", add: { runs: 7 },
         say: [
           "Seven reports. All good. All slightly different.",
           "2,800 pages read by a machine so that you",
           "could read none of them.",
           "",
-          "A chat reply costs a web search. This did not."
+          "A chat reply costs one web search. This cost far more."
         ] },
       { k: "B", t: "Edit the research plan, run once", to: "marking", add: { runs: 1 },
         say: [
@@ -290,7 +290,7 @@ const NODES = {
           "She has a list. She has had it since 2019.",
           "It is annotated. Two entries say 'retracted, do not cite'.",
           "",
-          "Some indexes are people."
+          "Your librarian is the better search engine."
         ] }
     ]
   },
@@ -303,7 +303,7 @@ const NODES = {
         : "The field trip you deleted would have been today.",
       F.readHandbook === false
         ? "that does not exist. Page 14 sent them."
-        : "It is raining. Nobody is anywhere. Good.",
+        : "It is raining. Nobody is on a minibus. Good.",
       "",
       "180 essays. The department bought a draft-feedback tool:",
       "it drafts the comments, you decide. Deadline Friday."
@@ -318,7 +318,7 @@ const NODES = {
         ] },
       { k: "B", t: "Read each draft against its essay", to: "honest", set: { marking: "review" },
         say: [
-          "Tuesday, not Friday. Four drafts matched to the wrong",
+          "Four days late. You find four drafts matched to the wrong",
           "student, one glowing comment on a paragraph nobody wrote.",
           "",
           "The tool drafted. You marked. That is the order."
@@ -328,7 +328,7 @@ const NODES = {
           "Sixty-two argue. Forty are right.",
           "Their arguments are the best writing of the term.",
           "",
-          "You have outsourced marking to the people paying for it."
+          "They learn to argue with AI. You still owe them a mark."
         ] }
     ]
   },
@@ -340,30 +340,30 @@ const NODES = {
       "'I used AI to outline this and check the references.",
       "It invented two. I removed them.'",
       "",
-      "Nobody else mentioned AI. Ninety-four percent used it."
+      "Nobody else mentions AI. Nationally, 94% use it."
     ],
     opts: [
       { k: "A", t: "Refer it to the misconduct panel", to: "meeting", set: { disclosure: "report" },
         say: [
           "Week 10. The only student in the room is the one",
           "who told you the truth.",
-          "The other 179 have learned something,",
+          "The other 179 learn one lesson:",
           "",
-          "and it is not what you meant."
+          "never admit to anything."
         ] },
       { k: "B", t: "Mark the page. It is the best part.", to: "meeting", set: { disclosure: "mark" },
         say: [
           "Word goes round: telling the truth is safe here.",
-          "Next term you get 140 of these pages,",
+          "Next term you get 120 of these pages,",
           "",
           "and you know what you are marking."
         ] },
-      { k: "C", t: "Ask for ten minutes on their method", to: "meeting", set: { disclosure: "viva" },
+      { k: "C", t: "Ask the student how they wrote it", to: "meeting", set: { disclosure: "viva" },
         say: [
           "Ten minutes. The student knows more about the essay",
           "than the tool ever did.",
           "",
-          "That was the thing you were measuring."
+          "Understanding is what the mark is for."
         ] }
     ]
   },
@@ -379,15 +379,15 @@ const NODES = {
     opts: [
       { k: "A", t: "Buy the detection tool", to: "powercut", set: { assess: "detect" },
         say: [
-          "It flags the external examiner's model answer,",
-          "written in 2009.",
+          "It flags the examiner's own model answer as AI.",
+          "It was written in 2009, before chatbots existed.",
           "",
           "Detection cannot prove anything. It can only accuse."
         ] },
       { k: "B", t: "Online exam with a lockdown browser", to: "powercut", set: { assess: "lockdown" },
         say: [
           "Every laptop sealed. Nothing gets in or out.",
-          "Whether the students can answer without one,",
+          "Whether the students can write without the tool,",
           "",
           "you find out in week 11."
         ] },
@@ -417,13 +417,13 @@ const NODES = {
         say: F => F.taught ? [
           "Pens. Paper. Ninety minutes of the sound of thinking.",
           "The scripts are shorter than usual and better argued.",
-          "Three cite the fake paper from week 3,",
+          "Three cite a fake source from the week 3 lecture,",
           "then explain why it is fake. You give them the marks."
         ] : F.banned ? [
-          "Pens. Paper. Silence of the wrong kind.",
+          "Pens. Paper. Nobody starts writing.",
           "They were banned from the tool, never taught without it.",
           "One writes 'regenerate response' and underlines it.",
-          "Forty leave early. Not a protest. They have nothing."
+          "Forty leave early. Not a protest. Nothing to write."
         ] : [
           "Pens. Paper. A hall full of people waiting for a cursor.",
           "Nobody has written an argument the tool did not start.",
@@ -434,14 +434,14 @@ const NODES = {
         say: [
           "10:15. Power returns. 180 laptops reboot at once.",
           "The wifi, seeing this, leaves again.",
-          "The exam moves to a Saturday nobody can attend,",
-          "the only day 180 people have in common."
+          "The exam moves to a Saturday. Half cannot attend.",
+          "It is the only free slot before term ends."
         ] },
       { k: "C", t: "Cancel it. Mark the vivas you already ran.", to: "appeal", set: { exam: "viva" },
         when: F => F.assess === "viva",
         say: [
           "You already heard 180 people explain their own work.",
-          "The power cut has nothing to take. Estates are relieved.",
+          "The power cut takes nothing. The work is already done.",
           "",
           "Assess the process and the lights become optional."
         ] }
@@ -456,8 +456,8 @@ const NODES = {
         "replies in week 2, and where the medical notes are now."
       ] : []),
       ...(F.marking === "stamp" ? [
-        "The Kant student appeals. The panel has both documents",
-        "and a highlighter."
+        "The Kant student appeals. The panel has the essay,",
+        "the comment about Kant, and a highlighter."
       ] : F.disclosure === "report" ? [
         "The honest student appeals. Their evidence is the page",
         "they wrote you. The panel finds it persuasive."
@@ -471,7 +471,7 @@ const NODES = {
     opts: [
       { k: "A", t: "'The system marked it. I approved.'", to: "end", set: { owned: false },
         say: [
-          "'Approved' is doing a lot of work in that sentence.",
+          "'Approved' means you did not read it. The panel knows.",
           "",
           "Responsibility did not transfer with the file."
         ] },
@@ -481,10 +481,10 @@ const NODES = {
           "The panel has never seen a marker bring evidence",
           "of checking. They look almost moved."
         ] : [
-          "You show nothing, because there is nothing to show.",
-          "But you said 'I'. The panel writes it down.",
+          "You have no checks to show. But you own the mark.",
+          "The panel writes that down.",
           "",
-          "It counts."
+          "Owning it counts. Evidence would count more."
         ] },
       { k: "C", t: "'The department's policy marked it.'", to: "end", set: { owned: false },
         say: [
@@ -503,9 +503,9 @@ const ENDINGS = [
     banner: "SOMEONE HAS NOTICED: INFORMATION GOVERNANCE",
     text: () => [
       "Forty-one medical notes went to a free chatbot in week 2.",
-      "The chatbot has improved its service.",
+      "The company now trains on them. That is in the terms.",
       "The rest of your term was, in places, excellent.",
-      "Nobody will ask about it.",
+      "Nobody asks about that. They ask about the notes.",
       "",
       ["Approved tools with your CU sign-in exist for this.", "warn"]
     ] },
@@ -517,14 +517,14 @@ const ENDINGS = [
       "The tool sends no apology.",
       "It was never accountable.",
       "",
-      ["That was always the point.", "warn"]
+      ["The tool cannot be accountable. Only you can.", "warn"]
     ] },
   { id: "dark", when: F => !F.taught,
     banner: "THE DARK EXAM",
     text: F => [
-      "Exam voided. The cohort could use the tool.",
-      "They could not do without it, because nobody asked",
-      "them to, once, in a lit room.",
+      F.exam === "viva" ? "Vivas stand. But the cohort could use the tool." : "Exam voided. The cohort could use the tool.",
+      "They could not work without it. Nobody ever asked",
+      "them to, not once all term.",
       F.exam === "postponed"
         ? "The Saturday resit is still pending. It always will be."
         : "Next term you have one lecture to fix that.",
@@ -536,7 +536,7 @@ const ENDINGS = [
     text: F => [
       "Your name is on every mark and you can say why.",
       "The tool drafted, checked, summarised,",
-      "and once invented an author. You noticed.",
+      "and once invented an author. Your students noticed.",
       ...(F.marking === "review" ? ["Four wrong drafts caught. The panel took notes."] : []),
       ...(F.disclosure === "mark" || F.disclosure === "viva"
         ? ["Next term's students tell you what they used."] : []),
