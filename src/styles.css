@@ -1,0 +1,2529 @@
+/* ============================================================
+   THE ALBRIGHT AFFAIR — Editorial Crisis Theme
+   ============================================================ */
+
+/* ---- Theme Variables ----
+   Palette matched to the thematts google.html workshop page
+   (light grey page, white cards, charcoal ink, blue accent),
+   keeping the tabloid stamps and evidence-tag devices. */
+:root {
+  color-scheme: light;
+  --page:  #f5f5f7;
+  --black: #1d1d1f;
+  --white: #FFFFFF;
+  --red:   #d93025;
+  --grey:  #6e6e73;
+  --parchment: #fbfbfd;
+  --accent: #0071e3;
+  --accent-hover: #0062c4;
+  --border-soft: #e5e5ea;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08);
+  --radius-card: 14px;
+
+  --font-headline:  'Playfair Display', Georgia, serif;
+  --font-handwrite: 'Caveat', cursive;
+  --font-body:      system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:      'Courier New', monospace;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: light;
+}
+
+body {
+  background: var(--page);
+  color: var(--black);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-headline);
+}
+
+/* ---- Skip link (keyboard / screen reader navigation) ---- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--page);
+  color: var(--black);
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ---- Reduced motion: disable animations for users who prefer it ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Tagline Bar (persistent across all pages) ---- */
+.tagline-bar {
+  background: var(--black);
+  color: var(--page);
+  padding: 0.45rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  flex-wrap: wrap;
+}
+
+.tagline-bar__title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+}
+
+.tagline-bar__sep {
+  opacity: 0.4;
+}
+
+.tagline-bar__text {
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+/* ---- Active Layout ---- */
+.active-layout {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--page);
+}
+
+/* ============================================================
+   SPLASH SCREEN — single column, always
+   ============================================================ */
+.splash {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--page);
+  display: flex;
+  justify-content: center;
+}
+
+.splash-content {
+  width: 100%;
+  max-width: 680px;
+  padding: 3rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Hero: stamps row, distributed horizontally */
+.splash-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 3px solid var(--black);
+  flex-wrap: wrap;
+}
+
+.cover-brand-stamp {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border: 2.5px solid var(--red);
+  color: var(--red);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.6rem;
+  display: inline-block;
+}
+
+.cover-brand-stamp--main {
+  transform: rotate(-2deg);
+  font-size: 0.62rem;
+}
+
+.cover-brand-stamp--uni {
+  transform: rotate(-3deg);
+}
+
+/* Headline block */
+.splash-headline {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: clamp(3.2rem, 12vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+
+.splash-deck {
+  font-family: var(--font-headline);
+  font-style: italic;
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  line-height: 1.4;
+  color: var(--black);
+  border-left: 4px solid var(--black);
+  padding-left: 1rem;
+}
+
+.splash-byline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #444;
+}
+
+.btn-start {
+  align-self: flex-start;
+  background: var(--black);
+  color: var(--page);
+  border: 3px solid var(--black);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-start:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ---- Step-by-step instructions ---- */
+.splash-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 2px solid var(--black);
+  padding: 1rem 1.1rem;
+  background: rgba(0,0,0,0.04);
+}
+
+.splash-step {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.splash-step__num {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--black);
+  color: var(--page);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+.splash-step__text em {
+  font-style: italic;
+  color: #333;
+}
+
+.splash-link {
+  color: var(--black);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.splash-link:hover {
+  opacity: 0.7;
+}
+
+/* ---- Register form ---- */
+.splash-register {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.splash-register__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #444;
+}
+
+.splash-register__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.splash-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.splash-input {
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.splash-input:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.15);
+}
+
+.splash-input--error {
+  border-color: var(--red);
+}
+
+.splash-field-error {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--red);
+}
+
+
+/* ============================================================
+   EVIDENCE GALLERY
+   ============================================================ */
+.evidence-section {
+  padding: 2.5rem 2.5rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---- Directive block ---- */
+.directive {
+  border: 3px solid var(--black);
+  padding: 1.1rem 1.4rem;
+  margin-bottom: 2rem;
+  background: var(--black);
+  color: var(--page);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.directive__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.directive__label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.directive__text {
+  font-family: var(--font-headline);
+  font-size: clamp(0.88rem, 1.6vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--page);
+}
+
+.directive__text em {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.directive__sig {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+.evidence-section__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+  border-bottom: 3px solid var(--black);
+  padding-bottom: 0.8rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.evidence-section__title {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+
+/* Evidence grid */
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Cards auto-flow so the mission count is not hard-wired to six */
+.evidence-grid {
+  grid-auto-rows: minmax(210px, auto);
+}
+
+/* ============================================================
+   EVIDENCE CARD
+   ============================================================ */
+.evidence-card {
+  position: relative;
+  background: var(--black);
+  border: 2px solid var(--black);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+  transition: box-shadow 0.2s;
+}
+
+.evidence-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  z-index: 10;
+}
+
+.evidence-card:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+}
+
+
+/* Accent decorations */
+.evidence-card__accent {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.evidence-card__accent--stamp {
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 0.15rem 0.4rem;
+  transform: rotate(3deg);
+  background: rgba(255,255,255,0.9);
+}
+
+.evidence-card__accent--tag {
+  color: var(--black);
+  background: var(--page);
+  padding: 0.15rem 0.5rem;
+  transform: rotate(-2deg);
+}
+
+.evidence-card__accent--stamp-red {
+  color: var(--white);
+  background: var(--red);
+  padding: 0.2rem 0.5rem;
+  transform: rotate(-4deg);
+  font-size: 0.7rem;
+}
+
+.evidence-card__accent--handwritten {
+  font-family: var(--font-handwrite);
+  font-size: 0.85rem;
+  color: var(--black);
+  background: var(--page);
+  padding: 0.1rem 0.4rem;
+  transform: rotate(2deg);
+  letter-spacing: 0;
+}
+
+.evidence-card__accent--tape {
+  color: var(--black);
+  background: rgba(255,255,0,0.75);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.55rem;
+  transform: rotate(-1deg);
+}
+
+.evidence-card__accent--arrow {
+  color: var(--page);
+  font-size: 0.7rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  letter-spacing: 0.1em;
+}
+
+/* Card label bar */
+.evidence-card__label {
+  background: var(--black);
+  color: var(--white);
+  padding: 0.35rem 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.evidence-card__id {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--page);
+  text-transform: uppercase;
+}
+
+.evidence-card__name {
+  font-family: var(--font-headline);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .splash-content {
+    padding: 2rem 1.2rem 1.5rem;
+  }
+
+  .splash-register__fields {
+    grid-template-columns: 1fr;
+  }
+
+  /* Evidence grid: two columns on tablets, one column below 480px */
+  .evidence-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+    gap: 1rem;
+  }
+
+  .evidence-card {
+    margin-top: 0;
+    min-height: 220px;
+  }
+
+  .evidence-section {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* ---- Mid-size phones in landscape (667px wide, e.g. iPhone SE landscape) ---- */
+@media (max-width: 650px) {
+  .hero {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Revert to single-column grid at smallest screens */
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .splash-steps {
+    padding: 0.8rem;
+  }
+
+  .splash-step {
+    font-size: 0.82rem;
+  }
+
+}
+
+/* ============================================================
+   FORCE LIGHT MODE — overrides Samsung Internet / iOS Safari
+   dark mode forcing. The page is intentionally yellow-on-black
+   and must never be auto-darkened by the browser.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+  }
+
+  .hero {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+  }
+
+  .evidence-section {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+  }
+}
+
+/* ============================================================
+   FIELD MISSIONS (workshop conversion)
+   ============================================================ */
+
+/* Mission card is a real <button>: reset browser button chrome */
+.mission-card {
+  font: inherit;
+  text-align: left;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mission-card__panel {
+  flex: 1;
+  min-height: 0;
+  background: var(--black);
+  color: var(--page);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem 1.2rem;
+}
+
+.mission-card__big-code {
+  font-family: var(--font-headline);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.mission-card__summary {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--white);
+}
+
+.mission-card__label {
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-card__meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  opacity: 0.75;
+}
+
+.mission-card--done {
+  outline: 3px solid var(--black);
+}
+
+.mission-card__done-stamp {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  border: 4px solid var(--red);
+  color: var(--red);
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.2em;
+  padding: 0.15em 0.5em;
+  background: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.mission-progress-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  margin-top: 0.4rem;
+}
+
+/* Session footer under the gallery */
+.session-footer {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 1rem 0 2rem;
+}
+
+.session-footer__signout {
+  font: inherit;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* ---- Mission detail ---- */
+.mission-detail {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem 1.2rem 3rem;
+}
+
+.mission-detail__back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  text-decoration: none;
+  border: 2px solid var(--black);
+  padding: 0.35rem 0.7rem;
+  margin-bottom: 1.2rem;
+  background: var(--white);
+}
+
+.mission-detail__back:hover {
+  background: var(--black);
+  color: var(--page);
+}
+
+.mission-detail__header {
+  margin-bottom: 1rem;
+}
+
+.mission-detail__title {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 1.05;
+  margin: 0.2rem 0 0;
+}
+
+/* Artifact download strip */
+.mission-artifact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border: 3px solid var(--black);
+  background: var(--parchment);
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+}
+
+.mission-artifact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mission-artifact__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.mission-artifact__name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.mission-artifact__note {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.mission-artifact__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-artifact {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 1rem;
+  background: var(--black);
+  color: var(--page);
+  border: 2px solid var(--black);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-artifact:hover {
+  background: var(--page);
+  color: var(--black);
+}
+
+.btn-artifact--ghost {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* Section headings */
+.mission-detail__section {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1.4rem;
+  border-bottom: 4px solid var(--black);
+  padding-bottom: 0.3rem;
+  margin: 2rem 0 1rem;
+}
+
+.mission-detail__section span {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  margin-left: 0.6rem;
+}
+
+.mission-detail__section--stretch {
+  border-bottom-style: dashed;
+}
+
+/* Steps */
+.mission-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mission-step {
+  border: 2px solid var(--black);
+  background: var(--white);
+  padding: 1rem 1.1rem;
+}
+
+.mission-steps--stretch .mission-step {
+  border-style: dashed;
+}
+
+.mission-step--check {
+  background: var(--parchment);
+  border-width: 3px;
+}
+
+.mission-step__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.mission-step__num {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1.2rem;
+  border: 2px solid var(--black);
+  min-width: 1.8em;
+  text-align: center;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.mission-step--check .mission-step__num {
+  background: var(--black);
+  color: var(--page);
+}
+
+.mission-step__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.mission-step--check .mission-step__title::after {
+  content: ' · THE 30-SECOND CHECK';
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--red);
+}
+
+.mission-step__body {
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+}
+
+.mission-step__lane-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  border-left: 4px solid var(--black);
+  padding-left: 0.7rem;
+  margin: 0.5rem 0;
+}
+
+/* Prompt box (borrowed from the Google workshop page pattern) */
+.prompt-box {
+  border: 2px solid var(--black);
+  margin-top: 0.6rem;
+}
+
+.prompt-box__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--black);
+  color: var(--page);
+  padding: 0.3rem 0.6rem;
+}
+
+.prompt-box__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.prompt-box__copy {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--page);
+  color: var(--black);
+  border: none;
+  /* The one control people actually have to find on a prompt. Sized so it
+     reads as a button from across a room, not as part of the label bar. */
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+}
+
+.prompt-box__copy:hover {
+  background: var(--white);
+}
+
+.prompt-box__text {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  /* Matt Hayden's Copilot prompt is 133 lines. Without a cap it pushes the
+     rest of the page several screens below the fold. Scroll it instead.
+     24rem, not 22: Exercise 06's first prompt lands at 360px, so 22rem
+     (352px) made it scroll by 8 pixels for no reason. Raising the cap only
+     ever shows more before scrolling, so nothing else is affected. */
+  max-height: 24rem;
+  overflow-y: auto;
+  background: var(--parchment);
+}
+
+/* Sort game */
+.sort-game {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.6rem;
+}
+
+.sort-item {
+  border: 2px solid var(--black);
+  background: var(--parchment);
+  padding: 0.7rem 0.9rem;
+}
+
+.sort-item__text {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+.sort-item__choices {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sort-choice {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.9rem;
+  border: 2px solid var(--black);
+  cursor: pointer;
+  background: var(--white);
+}
+
+.sort-choice--green { border-color: #1a7a1a; color: #1a7a1a; }
+.sort-choice--amber { border-color: #b07000; color: #b07000; }
+.sort-choice--red { border-color: var(--red); color: var(--red); }
+
+.sort-choice:hover { background: var(--black); }
+.sort-choice--green:hover { color: #7dff7d; }
+.sort-choice--amber:hover { color: #ffd27d; }
+.sort-choice--red:hover { color: #ff7d7d; }
+
+.sort-item__result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sort-item__badge {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.sort-item__result--right .sort-item__badge { color: #1a7a1a; }
+.sort-item__result--wrong .sort-item__badge { color: var(--red); }
+
+.sort-item__why {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.sort-game__score {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 3px solid var(--black);
+  background: var(--white);
+  padding: 0.6rem 0.9rem;
+  margin: 0;
+}
+
+/* Completion + verdict */
+.mission-detail__complete {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn-complete {
+  width: auto;
+  display: inline-block;
+}
+
+.mission-verdict {
+  border: 4px solid var(--black);
+  background: var(--white);
+  padding: 1.5rem 1.2rem;
+  position: relative;
+}
+
+.mission-verdict__stamp {
+  display: inline-block;
+  border: 4px solid #1a7a1a;
+  color: #1a7a1a;
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  padding: 0.1em 0.5em;
+  transform: rotate(-6deg);
+  margin-bottom: 0.8rem;
+}
+
+.mission-verdict__quote {
+  font-family: var(--font-handwrite);
+  font-size: 1.4rem;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+
+.mission-verdict__quote cite {
+  display: block;
+  font-size: 1.1rem;
+  margin-top: 0.4rem;
+}
+
+.mission-verdict__next {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--black);
+}
+
+@media (max-width: 650px) {
+  .mission-artifact {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Fixes from browser walkthrough (iteration 2) */
+.mission-card__meta {
+  color: var(--white);
+  opacity: 0.7;
+}
+
+.mission-detail__header .evidence-card__id {
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* ============================================================
+   GOOGLE-PAGE SKIN (iteration 3)
+   Blue accents, rounded cards, soft shadows over the tabloid
+   bones — matched to wmgmm.github.io/thematts/google.html.
+   ============================================================ */
+
+a,
+.splash-link {
+  color: var(--accent);
+}
+
+a:hover,
+.splash-link:hover {
+  color: var(--accent-hover);
+}
+
+/* Primary CTA: blue pill, Google-page style */
+.btn-start {
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 980px;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-start:hover {
+  background: var(--accent-hover);
+}
+
+/* Cards and panels: rounded with soft shadows */
+.evidence-card,
+.mission-card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.evidence-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.directive,
+.mission-artifact,
+.mission-step,
+.mission-verdict,
+.sort-item,
+.sort-game__score,
+.prompt-box {
+  border-radius: var(--radius-card);
+}
+
+.prompt-box {
+  overflow: hidden; /* keep the dark bar inside the rounded corner */
+}
+
+.mission-step,
+.sort-item {
+  border-color: var(--border-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.mission-step--check {
+  border-color: var(--black);
+}
+
+/* Copy button: accent blue */
+.prompt-box__copy {
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 980px;
+}
+
+.prompt-box__copy:hover {
+  background: var(--accent-hover);
+  color: var(--white);
+}
+
+/* Artifact buttons: dark pill + ghost */
+.btn-artifact {
+  border-radius: 980px;
+}
+
+.btn-artifact:hover {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+.btn-artifact--ghost {
+  border-color: var(--border-soft);
+}
+
+/* Inputs: soft borders on white */
+.splash-input {
+  border-radius: 10px;
+  border-color: var(--border-soft);
+}
+
+.splash-input:focus {
+  border-color: var(--accent);
+  outline-color: var(--accent);
+}
+
+.mission-detail__back {
+  border-radius: 980px;
+}
+
+.mission-verdict__next {
+  color: var(--accent);
+}
+
+/* Venture redesign (governance callout + step outbound link) */
+.governance-callout {
+  border: 2px solid var(--border-soft);
+  border-left: 6px solid #1a7a1a;
+  border-radius: var(--radius-card);
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+  padding: 0.8rem 1.1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.governance-callout p {
+  margin: 0;
+}
+
+.mission-step__link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.mission-step__link:hover {
+  text-decoration: underline;
+}
+
+/* Step figure: the supplied image an exercise works from (Exercise 02). */
+/* Prompt box note: an instruction to you, not text to send. Sits outside the
+   copied region, so it must also look unlike the prompt. */
+.prompt-box__note {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0.5rem 0.9rem 0.6rem;
+  border-top: 1px dashed var(--border-soft);
+  opacity: 0.75;
+}
+
+.mission-step__figure {
+  margin: 0.7rem 0 0.2rem;
+}
+
+.mission-step__figure img {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+}
+
+/* A screenshot of a control someone has to find has to be readable, so it gets
+   the full column rather than the 460px a decorative photo is happy with. */
+.mission-step__figure--ui img {
+  max-width: 100%;
+}
+
+.mission-step__caption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  margin-top: 0.4rem;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   GOOGLE TEMPLATE (mission pages + gallery)
+   Patterns replicated from wmgmm.github.io/thematts/google.html:
+   quick-start workflow strip, copilot-card sign-in cards,
+   eyebrow labels, Inter Tight type. Splash keeps its own look.
+   ============================================================ */
+
+.mission-detail,
+.evidence-section {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.mission-detail__title {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+}
+
+.mission-detail__section,
+.mission-step__title,
+.evidence-section__title,
+.mission-card__big-code {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.evidence-section__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.evidence-card__name {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Eyebrow (blue uppercase label) */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 0 0 0.4rem;
+}
+
+/* Tool strap under the title */
+.tool-strap {
+  font-size: 0.95rem;
+  color: var(--grey);
+  line-height: 1.5;
+  margin: 0.5rem 0 0;
+  max-width: 60ch;
+}
+
+.tool-strap::first-line {
+  font-weight: 500;
+}
+
+/* Sign-in tool cards (copilot-card pattern) */
+.tool-cards {
+  margin: 1.1rem 0 0.4rem;
+}
+
+.tool-cards__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.tool-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  padding: 10px 18px 10px 12px;
+  border: 1px solid #E1DFDD;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+  color: var(--black);
+}
+
+.tool-card:hover {
+  background: #FAF9F8;
+  border-color: #C7C6C4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  color: var(--black);
+}
+
+.tool-card__logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.tool-card__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.tool-card__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tool-card__url {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tool-cards__note {
+  font-size: 0.8rem;
+  color: var(--grey);
+  margin: 0.45rem 0 0;
+}
+
+/* Workflow strip (quick-start pattern) */
+.workflow {
+  margin: 1.2rem 0 0.4rem;
+}
+
+.workflow__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+  margin: 0 0 0.5rem;
+}
+
+.quick-start {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.quick-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--parchment);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.step-badge {
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 50%;
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Briefing: light card instead of the black band */
+.mission-detail .directive,
+.evidence-section .directive {
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.mission-detail .directive__text,
+.evidence-section .directive__text {
+  color: var(--black);
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+}
+
+.mission-detail .directive__label,
+.evidence-section .directive__label {
+  color: var(--accent);
+}
+
+.mission-detail .directive__sig,
+.evidence-section .directive__sig {
+  color: var(--grey);
+}
+
+/* Steps: softer, google-ish numbering */
+.mission-step {
+  border: 1px solid var(--border-soft);
+}
+
+.mission-step__num {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 999px;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.mission-step--check {
+  border: 2px solid var(--black);
+}
+
+.mission-step--check .mission-step__num {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+/* Gallery card id line: quiet grey, google-style */
+.evidence-card__id {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 650px) {
+  .quick-start {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   LEGIBILITY PASS: no more white-on-black body text.
+   Mission cards become light google-style cards; prompt-box
+   bars lighten; tagline bar text enlarged.
+   ============================================================ */
+
+.evidence-card,
+.mission-card {
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+}
+
+.mission-card__panel {
+  background: var(--white);
+  color: var(--black);
+}
+
+.mission-card__big-code {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.mission-card__summary {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  color: #424245;
+}
+
+.evidence-card__label,
+.mission-card__label {
+  background: var(--white);
+  border-top: 1px solid var(--border-soft);
+  padding: 0.55rem 1.2rem 0.7rem;
+}
+
+.evidence-card__id {
+  color: var(--grey);
+}
+
+.evidence-card__name {
+  color: var(--black);
+  font-size: 1.05rem;
+}
+
+.mission-card__meta {
+  color: var(--grey);
+  opacity: 1;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+}
+
+.mission-card--done {
+  outline: 2px solid #1a7a1a;
+}
+
+/* Prompt box: light bar, dark label, blue copy pill stays */
+.prompt-box__bar {
+  background: #f0f0f2;
+  color: var(--black);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.prompt-box__label {
+  color: var(--grey);
+}
+
+.prompt-box__text {
+  background: var(--white);
+}
+
+/* Tagline bar: keep the band, make the words readable */
+.tagline-bar__title {
+  font-size: 0.85rem;
+}
+
+.tagline-bar__text,
+.tagline-bar__sep {
+  font-size: 0.8rem;
+  color: #ffffff;
+  opacity: 0.92;
+}
+
+/* Accents designed for dark cards: make them read on white */
+.evidence-card__accent--tag,
+.evidence-card__accent--handwritten,
+.evidence-card__accent--arrow {
+  color: var(--black);
+  background: var(--parchment);
+  border: 1px solid var(--border-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Governance callout: two lines */
+.governance-callout p + p {
+  margin-top: 0.35rem;
+}
+
+/* Memo: paragraph spacing */
+.directive__text + .directive__text {
+  margin-top: 0.6rem;
+}
+
+/* Memo label + signature: readable, full contrast */
+.mission-detail .directive__label,
+.evidence-section .directive__label {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 1;
+  color: var(--accent);
+}
+
+.mission-detail .directive__sig,
+.evidence-section .directive__sig {
+  font-family: var(--font-handwrite);
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+  color: var(--black);
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* Discreet governance footnote below the grid */
+.governance-callout--discreet {
+  margin: 1.4rem 0 0;
+  padding: 0.55rem 0.9rem;
+  border: none;
+  border-left: 3px solid #1a7a1a;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+.governance-callout--discreet strong {
+  color: #424245;
+  font-weight: 600;
+}
+
+/* Tool strap: use the full pane width */
+.tool-strap {
+  max-width: none;
+}
+
+/* Compact mission header: title left, sign-in card right */
+.mission-head-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.mission-head-row__text {
+  flex: 1 1 24rem;
+  min-width: 0;
+}
+
+.mission-head-row .tool-cards {
+  margin: 0.2rem 0 0;
+  flex-shrink: 0;
+}
+
+.mission-detail__title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+/* Mission brief: plain text in the header, no card */
+.mission-brief {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--black);
+  margin: 0.7rem 0 0;
+}
+
+/* Intro row: memo left, stall illustration right */
+.intro-row {
+  display: flex;
+  /* Centre, not stretch: the memo is short now, and stretching it to the
+     image's height left the box mostly empty. */
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.intro-row .directive {
+  flex: 1 1 24rem;
+  margin-bottom: 0;
+}
+
+.intro-row__image {
+  flex: 0 1 320px;
+  min-width: 0;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+  align-self: center;
+}
+
+@media (max-width: 768px) {
+  .intro-row {
+    flex-direction: column;
+  }
+
+  .intro-row__image {
+    flex-basis: auto;
+    width: 100%;
+    max-height: 320px;
+  }
+}
+
+/* Choice path accordions (details/summary) */
+.mission-step--path {
+  padding: 0;
+  overflow: hidden;
+}
+
+.path-acc__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.path-acc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.path-acc__summary:hover {
+  background: var(--parchment);
+}
+
+.path-acc__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.path-acc__title {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.path-chip {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--grey);
+  background: var(--parchment);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  white-space: nowrap;
+}
+
+.path-acc__chevron {
+  color: var(--grey);
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+.path-acc[open] .path-acc__chevron {
+  transform: rotate(180deg);
+}
+
+.path-acc__content {
+  padding: 0.2rem 1.1rem 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.path-acc__hook {
+  font-style: italic;
+  color: var(--grey);
+  font-size: 0.9rem;
+  margin: 0.6rem 0 0.4rem;
+}
+
+.path-acc__content .mission-step__body {
+  margin-top: 0.4rem;
+}
+
+/* ?doctor preflight */
+.doctor {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.2rem;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.doctor__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.doctor__status {
+  font-weight: 600;
+  margin: 0.6rem 0 1rem;
+}
+
+.doctor__status--good { color: #1a7a1a; }
+.doctor__status--bad { color: var(--red); }
+
+.doctor__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.doctor__table td {
+  border-bottom: 1px solid var(--border-soft);
+  padding: 0.4rem 0.5rem;
+}
+
+.doctor__row--bad { background: #fdf0ee; }
+
+.doctor__url {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  word-break: break-all;
+  color: var(--grey);
+}
+
+.doctor__foot {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+}
+
+/* All-missions-complete line */
+.mission-progress-line--done {
+  color: #1a7a1a;
+  font-weight: 600;
+}
+
+/* Stage word beside the big card number: "01 Discover" */
+.mission-card__stage {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-left: 0.55rem;
+  color: var(--accent);
+}
+
+/* Artifact cards: identical layout on every card, whatever the note length.
+   The info column absorbs the width and wraps its own text; the actions stay
+   inline on the right. Wrapping was tried on 2026-09-05 once the buttons got
+   smaller, and it made a card with a long note put its buttons on a second row
+   while a card with a short note kept them on the right, so the same component
+   looked like two different components down one page. The 650px media query
+   above still stacks them for phones. */
+.mission-artifact {
+  flex-wrap: nowrap;
+}
+.mission-artifact__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.mission-artifact__actions {
+  flex: 0 0 auto;
+}
+
+/* ============================================================
+   STEP BLOCKS: the two the GOOGLE-PAGE SKIN pass missed
+   The skin converted .mission-step, .quick-step and the tool cards to 1px
+   hairlines with a soft shadow, but only ever patched a border-radius onto
+   .mission-artifact and .prompt-box. Rounding a tabloid device does not
+   convert it: a 3px black stroke on a 14px radius is a rounded tabloid box,
+   and it was three times heavier than the .mission-step it nests inside.
+   Reference is The Matts' Part 1 page, which uses no black strokes anywhere
+   and never sets a UI label in monospace.
+   ============================================================ */
+
+.mission-artifact,
+.prompt-box {
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.mission-artifact {
+  background: var(--white);
+  padding: 1.1rem 1.3rem;
+}
+
+/* Caps labels stay, Courier does not. The Part 1 page sets its wide-tracked
+   caps in Inter Tight grey and keeps mono for prompt text only. Grey rather
+   than the blue of .eyebrow, so the label does not compete with the accent
+   step number sitting a few pixels to its left. */
+.mission-artifact__label {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+}
+
+.mission-artifact__note {
+  font-style: normal;
+  font-size: 0.82rem;
+  color: var(--grey);
+}
+
+/* One primary action per card. DOWNLOAD becomes the same blue pill as
+   .btn-start, so the site has one primary-button language instead of two.
+   COPY and VIEW step back to hairline ghosts: before this they inherited the
+   base hover and flipped to solid blue, which made the secondary actions
+   shout louder than the button they sit beside. */
+.btn-artifact {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 1.15rem;
+  background: var(--accent);
+  color: var(--white);
+  border: 1px solid var(--accent);
+  box-shadow: 0 2px 6px rgba(0, 113, 227, 0.22);
+}
+
+.btn-artifact:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--white);
+}
+
+.btn-artifact--ghost {
+  background: transparent;
+  color: var(--grey);
+  border-color: var(--border-soft);
+  box-shadow: none;
+}
+
+.btn-artifact--ghost:hover {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Monospace is for prompt CONTENT only, which is the rule the Part 1 page
+   follows: mono appears there in the prompt box and nowhere else, while every
+   label and caption is Inter Tight. These three were the last mono UI text
+   inside a step. .prompt-box__text keeps Courier, because that really is a
+   prompt and the fixed pitch is what makes a long one scannable. */
+.prompt-box__label,
+.prompt-box__note,
+.mission-step__caption {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.prompt-box__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.prompt-box__note,
+.mission-step__caption {
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  color: var(--grey);
+  opacity: 1;
+}
+
+/* COPY PROMPT is a button, not prompt content, and it sits a few pixels from
+   the artifact card's DOWNLOAD. Two typefaces on two buttons in one step is
+   the drift this whole section exists to close. Size and padding are Matt's,
+   set deliberately so it reads as a button from across a room. */
+.prompt-box__copy {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* A cover thumbnail on a download card, so people recognise the document
+   before they open it. Small on purpose: it identifies the file, it is not
+   an illustration. Decorative, so the img carries an empty alt. */
+.mission-artifact__thumb {
+  flex: 0 0 auto;
+  align-self: center;
+  max-width: 52px;
+  max-height: 62px;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid var(--border-soft);
+}
+
+/* Drawn icons carry their own page outline, so the card's border frames them
+   twice and reads as a stray box around the artwork. Photographic covers still
+   need one to sit on white. Matched on the file-naming convention rather than
+   the extension: an icon is `*_icon.*`, a real document cover is `*_cover.*`. */
+.mission-artifact__thumb[src*="_icon."] {
+  border: none;
+}
+
+/* The one line of a skill prompt that never changes. Courier bold alone is too
+   quiet inside a wall of Courier, so it also gets a light accent wash. */
+.prompt-box__em {
+  font-weight: 700;
+  background: rgba(0, 113, 227, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+  border-radius: 2px;
+}
+
+/* The attach strip: a paperclip, then the files that go in the chat box, shown
+   as themselves. Deliberately quieter than an artifact card, because it is a
+   reminder rather than an action; nothing in it is clickable. */
+.attach-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--parchment);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+}
+
+.attach-strip__clip {
+  display: flex;
+  color: var(--grey);
+}
+
+.attach-strip__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+  margin-right: 0.35rem;
+}
+
+.attach-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Same max-box trick as the artifact thumbnails, so a portrait cover and a
+   drawn icon come out the same visual weight. */
+.attach-strip__item img {
+  display: block;
+  max-width: 26px;
+  max-height: 34px;
+  width: auto;
+  height: auto;
+}
+
+.attach-strip__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.attach-strip__plus {
+  color: var(--grey);
+  font-weight: 700;
+}
+
+/* Fallback route on a download card: quiet blue text, not a fourth button, so
+   the card keeps one obvious primary action. */
+.mission-artifact__source {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 0.15rem;
+}
+
+.mission-artifact__source:hover {
+  text-decoration: underline;
+}
+
+/* A control in the attach strip, not a file: the Canvas button on Exercise 06.
+   Rendered at its captured size, so it looks like the thing they are hunting
+   for on screen rather than an illustration of it. */
+.attach-strip__control {
+  display: block;
+  height: 26px;
+  width: auto;
+  border-radius: 4px;
+}
+
+/* The strip's sequence joiner. "+" means "and this one too"; "then" means the
+   next thing you do, which is what Exercise 06's Canvas control is. */
+.attach-strip__then {
+  font-size: 0.78rem;
+  color: var(--grey);
+}
+
+/* Prompt notes are the do-this-before-you-send line, not part of the prompt, so
+   they carry weight. Applies to all five: they all do the same job. */
+.prompt-box__note {
+  font-weight: 700;
+  color: var(--black);
+  opacity: 1;
+}
+
+/* Home navigation, 2026-09-07. The bordered mono pill above the title was the
+   last black stroke on the exercise pages, and a quieter link in the same place
+   still looked wrong to Matt. So the way home lives in the black bar: the
+   wordmark links to the gallery, and on exercise pages a spelled-out control sits
+   at the right, a hairline pill in white on black, the inverse of the ghost
+   buttons below it. The post-verdict link stays, in sentence case. */
+.tagline-bar__title {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tagline-bar__title:hover,
+.tagline-bar__title:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.tagline-bar__home {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 980px;
+  padding: 0.22rem 0.75rem;
+  white-space: nowrap;
+}
+
+.tagline-bar__home:hover,
+.tagline-bar__home:focus-visible {
+  background: #ffffff;
+  color: var(--black);
+  border-color: #ffffff;
+}
+
+.mission-verdict__next {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.mission-verdict__next:hover,
+.mission-verdict__next:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Bonus strip, 2026-09-07. The full-width white card under the exercise grid,
+   recovered from the prompt-library strip deleted in 4eeef36 and renamed. The
+   heading is Cardiff red, the one place the brand red appears on the site, so
+   blue stays the colour of things you press. */
+:root {
+  --cardiff-red: #E4251B;
+}
+
+.bonus-strip {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.4rem;
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.bonus-strip:hover,
+.bonus-strip:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.bonus-strip__label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cardiff-red);
+}
+
+.bonus-strip__line {
+  font-size: 0.95rem;
+  color: #424245;
+}
+
+.bonus-strip__line strong {
+  color: var(--black);
+  font-weight: 600;
+}
+
+/* Step backup card, 2026-09-07: the fallback route, in its own panel under the
+   prompt so it reads as a second path rather than a footnote. Same hairline
+   idiom as the attach strip and the artifact card. */
+.step-backup {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem 0 0;
+  padding: 0.75rem 1rem 0.85rem;
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+}
+
+.step-backup__label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.step-backup__text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+/* Inline body icon, 2026-09-07: a control shown in running text. */
+.body-icon {
+  height: 1.05em;
+  width: auto;
+  vertical-align: -0.12em;
+  margin: 0 0.1em;
+}
+
+/* ============================================================
+   Pre-deploy polish, 2026-09-07. Appended so the cascade wins.
+   Findings from the cross-browser, accessibility and functional
+   audits; see tasks/todo.md addendum 106.
+   ============================================================ */
+
+/* Visually hidden, read by screen readers: copy confirmations. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* main is the skip-link and route-change focus target; no ring on a region. */
+main:focus {
+  outline: none;
+}
+
+/* Three-button skill cards wrapped off the screen on phones. */
+.mission-artifact__actions {
+  flex-wrap: wrap;
+}
+
+/* Two-tool pages pushed the tool cards past a phone viewport: the strap
+   could never shrink, so its row never got the chance to wrap. */
+.mission-head-row .tool-cards {
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Contrast: the accent blue is 4.31:1 on the page grey at small sizes.
+   One notch darker passes AA and reads the same. */
+.eyebrow,
+.splash-link {
+  color: #0062c4;
+}
+
+.prompt-box__label {
+  color: #656569;
+}
+
+.sort-choice--amber {
+  color: #8f5b00;
+}
+
+/* Splash inputs: a visible boundary, a real focus ring, and 16px text so
+   iOS Safari does not zoom in on focus. */
+.splash-input {
+  border-color: #8e8e93;
+}
+
+.splash-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Hit areas for the two inline text controls (24px, WCAG 2.2) without
+   moving anything: padding balanced by a negative margin. */
+.tagline-bar__title,
+.session-footer__signout {
+  padding: 0.35rem 0;
+  margin: -0.35rem 0;
+}
+
+.bonus-strip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Inline text links: vertical padding grows the hit area without moving
+   the line. The splash stamp is the brand red one notch darker for AA. */
+.splash-link,
+.mission-verdict__next {
+  padding: 0.3rem 0;
+}
+
+.cover-brand-stamp {
+  color: #c62b21;
+}
+
+/* Sizes that scale with the text instead of pinning it. */
+.step-badge {
+  min-width: 1.75em;
+  height: 1.75em;
+}
+
+.splash-headline {
+  font-size: clamp(2.6rem, 12vw, 5.5rem);
+  overflow-wrap: anywhere;
+}
+
+/* The mono wordmark plus its tracking is wider than a 320px phone. */
+@media (max-width: 480px) {
+  .tagline-bar {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .tagline-bar__title {
+    letter-spacing: 0.1em;
+  }
+}
+
+/* Handouts: the prompt box must not truncate at 24rem on paper. */
+@media print {
+  .prompt-box__text {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .tagline-bar,
+  .skip-link,
+  .prompt-box__copy,
+  .mission-artifact__actions,
+  .session-footer {
+    display: none;
+  }
+}
+
+/* The swap list on a backup card: "No cars" becomes "A deserted street". */
+.step-backup__swaps {
+  /* The cross is the marker, so no disc: one line per swap, wrong then right. */
+  list-style: none;
+  margin: 0.45rem 0 0;
+  padding-left: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--black);
+}
+
+.step-backup__swaps li {
+  margin: 0.15rem 0;
+}
+
+.swap-mark {
+  font-weight: 700;
+  margin-right: 0.35em;
+}
+
+.swap-mark--no {
+  color: var(--red);
+}
+
+.swap-mark--yes {
+  color: #1a7a1a;
+  margin-left: 0.7em;
+}
+
+.swap-from {
+  color: var(--grey);
+}
+
+.step-backup__after {
+  margin: 0.55rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+/* Step photo, 2026-09-07: a fifth smaller and centred in the card, so it reads
+   as an illustration rather than a banner. Display only: the file on the
+   artifact card above is untouched, and a --ui screenshot still gets the
+   full column because it has to stay readable. */
+.mission-step__figure:not(.mission-step__figure--ui) {
+  text-align: center;
+}
+
+/* Scoped away from --ui: this rule sits after it and would otherwise win on
+   equal specificity, shrinking the screenshot people have to read. */
+.mission-step__figure:not(.mission-step__figure--ui) img {
+  max-width: 368px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Gallery cards a fifth shorter, 2026-09-07, so the grid and the bonus strip
+   fit a laptop without scrolling. Type sizes unchanged; the floor drops and the
+   panel and label paddings tighten. */
+.evidence-card.mission-card {
+  min-height: 168px;
+}
+
+/* The grid pinned its rows at 210px as well, so the floor has to drop in both places. */
+.evidence-grid {
+  grid-auto-rows: minmax(168px, auto);
+}
+
+.mission-card__panel {
+  padding: 0.9rem 1.2rem 0.8rem;
+  gap: 0.3rem;
+}
+
+.evidence-card__label.mission-card__label {
+  padding: 0.4rem 1.2rem 0.5rem;
+}
+
+/* Lettered sub-steps (A, B, C) inside one numbered step: Exercise 02 step 3. */
+.step-parts {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+.step-part {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem 0.75rem;
+  align-items: start;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--line, #e5e5ea);
+}
+
+.step-part:first-child {
+  border-top: 0;
+  padding-top: 0.1rem;
+}
+
+.step-part__num {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 999px;
+  min-width: 1.8em;
+  text-align: center;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  margin-top: 0.1rem;
+}
+
+.step-part__content {
+  min-width: 0;
+}
+
+.step-part__content .mission-step__body {
+  margin-bottom: 0.35rem;
+}
+
+.step-part__content .step-backup__swaps {
+  margin: 0.2rem 0 0.5rem;
+}
