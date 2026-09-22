@@ -923,9 +923,9 @@ export const MISSIONS = [
         'Canvas turns a description into a working web app you can edit in place, and it can read a CSV you attach.',
       apps: [APPS.gemini],
     },
-    workflow: ['Build the dashboard', 'Compare with ours', 'Verify and repair'],
+    workflow: ['Canvas builds the dashboard', 'Compare with ours', 'Verify and repair'],
     brief:
-      'Turn ten years of real emissions data into an animated story that a room can follow.',
+      'Students are rightly concerned about sustainability. Turn ten years of real university emissions data into an animated story a room can follow.',
     artifacts: [A.hesaData],
     steps: [
       {
@@ -1021,7 +1021,7 @@ export const MISSIONS = [
     },
     workflow: ['Run it in Copilot', 'Verify in Gemini'],
     brief:
-      'Analyse ten years of Cardiff\'s real emissions, then check the answer in a second tool before you trust it.',
+      'Students are rightly concerned about sustainability. Analyse ten years of Cardiff\'s real emissions, then check the answer in a second tool before you trust it.',
     artifacts: [A.hesaData],
     steps: [
       {
