@@ -771,10 +771,10 @@ export const MISSIONS = [
         'A skill is a file you attach alongside your document. Nothing to install and it works in Copilot and Gemini.',
       apps: [APPS.copilot, APPS.gemini],
     },
-    workflow: ['Paste the prompt', 'Attach the files', 'Review and augment', 'Save/copy it'],
+    workflow: ['Copilot or Gemini builds the session', 'Review the gap note', 'Copy it for Exercise 05'],
     brief:
-      'Build a half-hour training session on the sustainability plan pdf, using a skill file.',
-    artifacts: [A.trainingSkill, A.susPlan],
+      'Build a half-hour training session on your improved report, using a skill file.',
+    artifacts: [A.trainingSkill],
     steps: [
       {
         tier: 'core',
@@ -791,7 +791,7 @@ export const MISSIONS = [
         // naming a file that is not there invites the model to hedge.
         promptEmphasis: 'Follow the attached skill file as your instructions.',
         prompt:
-          'Build me a half-hour training session on the sustainability pdf.\n\nAudience: professional services staff who have not read it and will not.\nWhat matters most: that they could apply the Demand First ladder to a real purchase on Monday.\n\nFollow the attached skill file as your instructions.',
+          'Build me a half-hour training session on the attached report.\n\nAudience: academic and professional services staff who have not read it and will not.\nWhat matters most: that they could use one responsible AI practice from it in their own work on Monday.\n\nFollow the attached skill file as your instructions.',
       },
       {
         tier: 'core',
@@ -801,15 +801,15 @@ export const MISSIONS = [
         // instead. At this step the question in the room is "which two?", and
         // showing them is faster than reading them.
         body:
-          'Download both from the cards at the top if you have not already. In Copilot the button is a paperclip; in Gemini it is the + under the box. Attach both, check both names show above the prompt, then send.',
-        attach: [A.trainingSkill, A.susPlan],
+          'Download the skill from the card at the top if you have not already; the report is your improved one from Exercise 01 (or the Deep Research report). In Copilot the button is a paperclip; in Gemini it is the + under the box. Attach both, check both names show above the prompt, then send.',
+        attach: [A.trainingSkill, A.yourImprovedReport],
       },
       {
         tier: 'core',
         estMinutes: 4,
         title: 'Review and Augment',
         body:
-          'It is useful to focus on the gap note: what the training needed and the plan does not say, no dates, no owners, no thresholds. In real life this is where you augment it, editing, deleting and adding; today, just look it over.',
+          'It is useful to focus on the gap note: what the training needed and the report does not say, no dates, no owners, no thresholds. In real life this is where you augment it, editing, deleting and adding; today, just look it over.',
       },
       {
         tier: 'core',
@@ -846,7 +846,7 @@ export const MISSIONS = [
         'Gemini Notebook answers only from the sources you give it.',
       apps: [APPS.notebook],
     },
-    workflow: ['Add your training', 'Paste the brand skill', 'Generate and export', 'Run it again'],
+    workflow: ['Add your training', 'Notebook makes a Cardiff deck', 'Run it again with a different skill'],
     brief:
       'Turn your training session into a slide deck that looks like it came from this university.',
     artifacts: [A.brandDeckExample, A.exampleTraining],
@@ -874,7 +874,7 @@ export const MISSIONS = [
         promptLabel: 'THE DECK DESCRIPTION',
         promptNote: '[then paste the Cardiff brand skill underneath this]',
         prompt:
-          'Training slide deck on the Demand First ladder, so staff can apply it in practice.',
+          'Training slide deck on responsible use of AI in universities, so staff can apply it in practice.',
       },
       {
         tier: 'core',
@@ -893,7 +893,7 @@ export const MISSIONS = [
         promptLabel: 'THE SAME DECK DESCRIPTION',
         promptNote: '[this time paste TheMattsBrandSkill.md underneath]',
         prompt:
-          'Training slide deck on the Demand First ladder, so staff can apply it in practice.',
+          'Training slide deck on responsible use of AI in universities, so staff can apply it in practice.',
       },
       {
         tier: 'core',
