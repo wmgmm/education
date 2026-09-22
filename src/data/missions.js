@@ -448,7 +448,7 @@ const A = {
     label: 'OPTIONAL: A REUSABLE PROMPT WE MADE EARLIER',
     filename: 'Example_Style_Block.md',
     downloadPath: `${BASE}placeholders/Example_Style_Block.md`,
-    note: 'The reusable prompt we got from step 1 on this picture, a backup for step 2 if yours did not come back as a template.',
+    note: 'Our step 1 result on this picture. Use it in step 2 if yours did not come back as a prompt.',
     copyable: true,
     thumb: EXAMPLE_ICON,
   },
@@ -601,7 +601,7 @@ export const MISSIONS = [
     },
     workflow: ['Deep Research on Gemini', 'Copilot marks and revises it', 'Copilot draws a visual guide'],
     brief:
-      'Research how UK universities are using generative AI, have Copilot mark the report against a nine-point rubric and rewrite it as a learning resource, then draw it as a one-page visual guide. Exercises 03 to 05 reuse the revised report.',
+      'Research how UK universities use generative AI, have Copilot mark and rewrite the report, then draw it as a one-page visual guide. Exercises 03 to 05 reuse the revised report.',
     artifacts: [A.deepResearch],
     steps: [
       {
@@ -609,14 +609,14 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Run Deep Research in Gemini',
         body:
-          'Click the + under the box where you type, select Deep Research (limited usage), paste the brief and send it. Edit the plan if needed, then Start research. When it finishes, click Share and export, then Copy contents, paste into a new Word document and save it.',
+          'In Gemini, click the + and select Deep Research, then paste the brief and send. Edit the plan if you like, then Start research. When it finishes, use Share and export to copy it into a Word document, and save it.',
         attachLabel: 'ENABLE',
         attachExtra: {
           src: 'deep_research_button.png',
           alt: 'The Deep Research item in Gemini\'s + menu, ticked.',
         },
         promptLabel: 'THE BRIEF',
-        promptNote: '[a run takes several minutes: if yours is still going, use the Matts\' Deep Research report at the top for step 2]',
+        promptNote: '[takes several minutes: if yours is still running, use the Matts\' report at the top for step 2]',
         prompt: DR_HE_BRIEF,
       },
       {
@@ -624,11 +624,11 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Mark and revise it in Copilot',
         body:
-          'Open a new Copilot chat. Click the paperclip to attach your Deep Research report (or the Matts\' copy from the top), or paste it after the prompt\'s last line, then send. If it summarises or asks, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the examiner\'s note, into Word and save it as your revised report: Exercises 03 to 05 use it.',
-        promptLabel: 'THE SILENT MARK, THEN THE REWRITE',
+          'In a new Copilot chat, attach your report with the paperclip (or the Matts\' copy from the top), paste the prompt and send. If it summarises, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the note, into Word and save it: Exercises 03 to 05 use it.',
+        promptLabel: 'MARK IT, THEN REWRITE IT',
         attachLabel: 'NEW CHAT',
         attach: [A.yourReport, A.thisPrompt],
-        promptNote: '[attach the file, or paste this prompt first, then the report after its last line]',
+        promptNote: '[attach the file, or paste the report after the prompt\'s last line]',
         promptEmphasis: 'Be critical but constructive',
         prompt: SCORE_AND_IMPROVE,
       },
@@ -637,7 +637,7 @@ export const MISSIONS = [
         estMinutes: 3,
         title: 'Turn it into a visual learning guide',
         body:
-          'Same chat: paste the prompt and send. Copilot draws a one-page visual guide to your revised report, ideas as pictures with few words. Allow a minute or two before resending. If it writes text instead, reply "Generate the image now". Compare it with the report: what it left out is the lesson. Save it if you want to keep it.',
+          'In the same chat, paste the prompt and send. Give it a minute or two; if it writes text instead, reply "Generate the image now". Compare the picture with the report: what it left out is the lesson.',
         promptLabel: 'THE VISUAL GUIDE',
         attachLabel: 'SAME CHAT',
         attach: [A.thisPrompt],
@@ -649,7 +649,7 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'AI uses energy: a chat reply is much the same as a web search. A Deep Research run reads hundreds of pages, so think at least ten replies, probably far more. Edit the research plan rather than rerun. Guide AI to sources you trust, peer-reviewed or official: the web can be wrong too.',
+          'AI uses energy: a chat reply costs about the same as a web search, but a Deep Research run reads hundreds of pages. Edit the plan rather than rerun. Point it at sources you trust, peer-reviewed or official.',
       },
     ],
     verdictBy: 'The Matts',
@@ -695,9 +695,9 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Generate a new image in the same style, using the prompt Copilot wrote in step 1',
+        title: 'Draw a new image with the prompt from step 1',
         body:
-          'Step 1 gave you a prompt, not a picture. Copy that whole prompt, start a NEW chat, paste it, replace [INSERT SUBJECT HERE] with the example below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
+          'Copy the whole prompt from step 1 into a new chat, replace [INSERT SUBJECT HERE] with the subject below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
         attachLabel: 'NEW CHAT',
         attach: [A.stepOnePrompt],
         promptLabel: 'THE SUBJECT: PASTE THIS OVER [INSERT SUBJECT HERE]',
@@ -718,9 +718,9 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 3,
-        title: 'Review and improve accessibility of your new images',
+        title: 'Audit your new image for accessibility',
         body:
-          'Download one of your new images with the download icon, then run the audit on it. Alt text is the line a screen reader reads aloud in place of the picture. If the description does not match what you meant, the image failed.',
+          'Download your new image, then attach it in a new chat with the audit prompt. If the description does not match what you meant, the image failed.',
         attachLabel: 'NEW CHAT',
         attach: [A.yourImage, A.thisPrompt],
         promptLabel: 'THE ACCESSIBILITY AUDIT',
@@ -764,8 +764,8 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Attach your revised report and run the prompt',
         body:
-          'Use Gemini, in a new chat. Click the + under the box to attach your revised report from Exercise 01 (your Deep Research report or the Matts\' copy below also work), paste the prompt below, then turn Canvas on and send. Change [responsible AI] to any subject your document covers. The detail and the document are what lift the output. Hint: if the game falls short, try a different model; Pro should be better at this task.',
-        promptLabel: 'THE ENGINEERED ASK',
+          'In a new Gemini chat, attach your revised report with the + (or the Matts\' copy below), paste the prompt, turn Canvas on and send. Change [responsible AI] to any subject your report covers. If the game falls short, try it on Pro.',
+        promptLabel: 'THE DETAILED PROMPT',
         promptEmphasis: '[responsible AI]',
         attachLabel: 'NEW CHAT',
         attach: [A.yourImprovedReport],
@@ -782,14 +782,14 @@ export const MISSIONS = [
         estMinutes: 2,
         title: 'Read the code tab',
         body:
-          'Canvas has a Code toggle at the top, next to Preview. Click it and skim the strings: the title, the messages, the item names. Which of them came from your report?',
+          'Click Code at the top of Canvas and skim the text in it: the title, the messages, the item names. Which came from your report?',
       },
       {
         tier: 'core',
         estMinutes: 3,
         title: 'Play it, then give AI feedback',
         body:
-          'Name the one thing that spoils it and type that into the chat. Good feedback says what is wrong and what you want instead: \"too fast, slow the items by half\". \"This is bad\" gives it nothing to work with. Canvas rebuilds it in place.',
+          'Type the one thing that spoils it into the chat, saying what is wrong and what you want instead: \"too fast, slow the items by half\". Canvas rebuilds it in place.',
       },
       {
         tier: 'core',
@@ -804,12 +804,12 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'Share responsibly: no C1 or C2 (confidential or highly confidential) data in anything you make public. Do not put staff, student or sensitive financial or research data into something you are sharing by link.',
+          'Share responsibly: a Canvas link is public, so no confidential (C1 or C2) data goes in it, nothing about staff, students, finances or research.',
       },
     ],
     verdictBy: 'The Matts',
     verdict:
-      'The model did not get cleverer for you. Everything that made this a game rather than a toy is in the prompt: the detail, the document, the constraints. Then share responsibly, because a Canvas link is public and public is not where work data goes.',
+      'The model did not get cleverer for you. Everything that made this a game rather than a toy is in the prompt: the detail, the document, the constraints.',
   },
 
   {
@@ -837,7 +837,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Attach the skill and your revised report, then send the prompt',
         body:
-          'Use Copilot. Attach two files with the paperclip: the Training Module Builder skill and your revised report from Exercise 01 (or the Matts\' copy), both on the cards at the top. Check both names show above the box, then paste the prompt and send. You still prompt; the skill makes the answer follow your best practice.',
+          'In Copilot, attach both files from the cards at the top with the paperclip: the skill and your revised report (or the Matts\' copy). Check both names show above the box, then paste the prompt and send.',
         attach: [A.trainingSkill, A.yourImprovedReport],
         promptLabel: 'YOUR PROMPT, PLUS ONE LINE',
         promptNote: '[attach both files first, then send]',
@@ -853,16 +853,16 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Review and Augment',
+        title: 'Review the gap note',
         body:
-          'It is useful to focus on the gap note: what the module needed and the report does not say, no dates, no owners, no thresholds. In real life this is where you augment it, editing, deleting and adding; today, just look it over.',
+          'Read the gap note: what the module needed and the report does not say. In real life this is where you edit, delete and add; today, just look it over.',
       },
       {
         tier: 'core',
         estMinutes: 2,
         title: 'Copy your training module for Exercise 05',
         body:
-          'In Copilot, copy the whole answer (or the three dots give you Export to Word): that is your training module. Exercise 05 pastes it straight into a notebook, so you never need a file. If it did not run, move on: Exercise 05 has the Matts\' training module.',
+          'Copy the whole answer: that is your training module, and Exercise 05 pastes it straight in. If it did not run, move on: Exercise 05 has the Matts\' module.',
       },
       {
         tier: 'core',
@@ -902,7 +902,7 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Add your training module to a new notebook',
         body:
-          'Use Gemini Notebook. Click Create new, then Add source, choose Copied text, paste your training module from Exercise 04 and click Insert. If 04 did not run for you, upload the Matts\' training module from the card at the top instead.',
+          'Create a new Gemini Notebook, then add as a source the training module text from Exercise 04, or just upload the Matts\' training module from the card at the top.',
       },
       {
         tier: 'core',
@@ -923,7 +923,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Generate the deck, then export',
         body:
-          'Read the prompt back before you press Generate. Generation takes a few minutes: read the brand skill while you wait. The three-dot menu on the slide viewer then gives you PowerPoint or PDF.',
+          'Press Generate, and read the brand skill while you wait. When the deck appears, the three-dot menu on the slide viewer exports PowerPoint or PDF.',
       },
       {
         tier: 'core',
@@ -939,7 +939,7 @@ export const MISSIONS = [
         title: 'Compare your two decks',
         artifact: [A.cardiffDeckExample, A.brandDeckExample],
         body:
-          'Put your two decks side by side: same training module, just a different skill. Look for what differs, in structure, wording and look, and why. Note one thing each deck does better. If you do not have both to hand, use the two the Matts made earlier, below.',
+          'Put your two decks side by side (or the Matts\' two below) and note one thing each does better: structure, wording or look.',
       },
       {
         tier: 'core',
@@ -979,7 +979,7 @@ export const MISSIONS = [
         estMinutes: 8,
         title: 'Build the dashboard in Gemini\'s Canvas',
         body:
-          'Use Gemini, in a new chat, with the CSV attached and Canvas on from the Tools menu. Pro handles it better, but if no preview appears, switch to Flash. While it builds, open ours in step 2.',
+          'In a new Gemini chat, attach the CSV with the +, turn Canvas on, paste the prompt and send. If no preview appears, switch to Flash. While it builds, open ours in step 2.',
         promptLabel: 'THE BUILD PROMPT',
         attachLabel: 'NEW CHAT',
         attach: [A.hesaData],
@@ -994,7 +994,7 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 2,
-        title: 'Open the one the Matts made earlier, then compare against yours',
+        title: 'Open ours and compare',
         artifact: A.exampleChart,
         body:
           'Open ours and run yours beside it. Same prompt, same file, so do they agree?',
@@ -1004,7 +1004,7 @@ export const MISSIONS = [
         estMinutes: 5,
         title: 'Always verify, and repair if required',
         body:
-          'The first version of the Matts\' dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair your own build: in the same chat, paste the repair prompt and attach the CSV again.',
+          'Our first dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair yours: in the same chat, attach the CSV again and paste the repair prompt.',
         // {download} in the body renders Matt's screenshot of the Canvas Download
         // button inline, so the reader sees the control they are looking for.
         bodyIcons: {
@@ -1020,7 +1020,7 @@ export const MISSIONS = [
         backup: {
           label: 'OPTIONAL: THE CLEANER AUDIT',
           text:
-            'A new chat is the better audit: a model checking its own work tends to defend it. So we downloaded the HTML {download}, opened a new Gemini chat with Canvas on, and attached the app and the CSV together. Afterwards, open Code and Show recent changes to see exactly what it altered. Canvas sometimes will not display an uploaded app, which is why this is optional.',
+            'A new chat is the better audit: a model checking its own work tends to defend it. Download the HTML {download}, open a new Gemini chat with Canvas on, and attach the app and the CSV together. Canvas sometimes will not display an uploaded app, which is why this is optional.',
           attachLabel: 'NEW CHAT',
           attach: [A.yourChart, A.hesaData],
           attachExtra: {

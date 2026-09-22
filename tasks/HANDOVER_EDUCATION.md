@@ -264,3 +264,15 @@ Responsible AI; it carries both example decks (`A.cardiffDeckExample`, `A.brandD
 and the top cards hold only the training module. Step 5 is "Compare your two decks": same
 training module, just a different skill; the Matts' two decks are the fallback. Committed and
 pushed on Matt's ask.
+
+## 2026-09-22, afternoon: less-is-more pass, Exercises 01 to 06
+
+Matt: "some difficult to understand text, less is more, this fries my brain", with his own rewrite
+of Exercise 05 step 1 as the bar (one action per sentence, the one control that matters, no
+sub-clicks, fallbacks as a clause). Subagent review: 29 of about 139 in-scope fields, all
+approved and applied; 1,064 words down to 754 across them. Notable: 03 step 1 from 77 to 43
+words; 06 step 1 now actually says paste the prompt and send; 03's sharing lesson lives in its
+Responsible AI step, not the verdict; prompt labels "MARK IT, THEN REWRITE IT" and "THE
+DETAILED PROMPT"; 02 step 3 is "Audit your new image for accessibility"; 06 step 2 is "Open ours
+and compare". 01 step 2 keeps "not the note" (my call, flagged). No prompt constant, filename or
+chip touched. Build green. Committed and pushed on Matt's ask.
