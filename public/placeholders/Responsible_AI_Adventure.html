@@ -125,7 +125,7 @@
       <button type="button" id="tgl-hc" aria-pressed="false">CONTRAST: NORMAL</button>
       <button type="button" id="tgl-motion" aria-pressed="true">MOTION: ON</button>
       <button type="button" id="btn-restart">RESTART</button>
-      <span class="hint">Keys: A B C or 1 2 3 to choose, ENTER to continue, any key skips the typing.</span>
+      <span class="hint">Keys: A B C D or 1 2 3 4 to choose, ENTER to continue, any key skips the typing.</span>
     </div>
   </header>
 
@@ -191,7 +191,9 @@ const NODES = {
 
   inbox: {
     banner: "WEEK 2: THE INBOX",
-    text: [
+    text: F => [
+      F.readHandbook ? "Forty minutes well spent. Then the inbox:"
+        : "Your signature dries. The first email arrives:",
       "41 extension requests, each with a medical note.",
       "Each needs a reply that sounds like you,",
       "is kind, and quotes the regulations correctly.",
@@ -226,10 +228,16 @@ const NODES = {
 
   lecture: {
     banner: "WEEK 3: THE LECTURE",
-    text: [
+    text: F => [
+      F.tool === "public" ? "Your 41 replies went out in ninety seconds."
+        : F.tool === "approved" ? "Your 41 replies went out, checked, under contract."
+        : "The wrongly named student has forgiven you.",
+      F.tool === "public" ? "Word has spread that you answer fast."
+        : F.tool === "approved" ? "Nobody noticed. That is the point."
+        : "The other forty have not replied.",
+      "",
       "A student asks, in front of 180 people,",
       "'Are we allowed to use AI on this module?'",
-      "",
       "A 2026 national survey says 95% of students do.",
       "180 people wait for your answer."
     ],
@@ -262,10 +270,16 @@ const NODES = {
 
   reading: {
     banner: "WEEK 5: THE READING LIST",
-    text: [
+    text: F => [
+      F.banned ? "Since the ban, nobody mentions AI to you."
+        : F.taught ? "Since the fact-check hour, three students have emailed"
+        : "Since the lecture, the essays arrive faster.",
+      F.banned ? "They mention it to each other."
+        : F.taught ? "you fake sources they found. Unprompted."
+        : "Nobody says how.",
+      "",
       "You need a literature review on assessment redesign.",
       "Deep Research reads 400 pages. Nine minutes.",
-      "It is good. Not quite what you asked.",
       "A colleague suggests running it again 'with please'."
     ],
     opts: [
@@ -304,6 +318,9 @@ const NODES = {
       F.readHandbook === false
         ? "that does not exist. Page 14 sent them."
         : "It is raining. Nobody is on a minibus. Good.",
+      F.runs >= 7 ? "Your seven literature reviews sit unread."
+        : F.librarian ? "The librarian's list is on your desk, annotated."
+        : "Your literature review is read and filed.",
       "",
       "180 essays. The department bought a draft-feedback tool:",
       "it drafts the comments, you decide. Deadline Friday."
@@ -335,7 +352,14 @@ const NODES = {
 
   honest: {
     banner: "WEEK 7: THE HONEST ONE",
-    text: [
+    text: F => [
+      F.marking === "stamp" ? "The Kant comment has been screenshotted."
+        : F.marking === "review" ? "Your feedback went out on Tuesday. Two students"
+        : "Sixty-two students argued with their drafts.",
+      F.marking === "stamp" ? "It is on the module group chat."
+        : F.marking === "review" ? "said thank you, which has not happened before."
+        : "The arguments were good.",
+      "",
       "One essay ends with a page you did not ask for:",
       "'I used AI to outline this and check the references.",
       "It invented two. I removed them.'",
@@ -370,7 +394,14 @@ const NODES = {
 
   meeting: {
     banner: "WEEK 8: THE ASSESSMENT MEETING",
-    text: [
+    text: F => [
+      F.disclosure === "report" ? "The misconduct panel is booked for week 10."
+        : F.disclosure === "mark" ? "The honest page is now the department's example"
+        : "Ten minutes with one student became",
+      F.disclosure === "report" ? "So, now, is this meeting."
+        : F.disclosure === "mark" ? "of good practice."
+        : "the department's new idea.",
+      "",
       "'How will the exam survive AI?'",
       "A vendor is in the room. So is a slide:",
       ["DETECTION: 99% ACCURATE.", "warn"],
@@ -397,6 +428,22 @@ const NODES = {
           "Some of it is brilliant. All of it is theirs.",
           "",
           "Nobody can outsource a conversation."
+        ] },
+      { k: "D", t: "Show them the fact-check hour you ran", to: "powercut", set: { assess: "viva", shown: true },
+        when: F => F.taught,
+        say: [
+          "You show the four fake sources twelve students caught.",
+          "The vendor's slide comes down without a word.",
+          "",
+          "Drafts plus a viva each. The room agrees."
+        ] },
+      { k: "D", t: "Make the honest student's page the policy", to: "powercut", set: { assess: "viva", policy: true },
+        when: F => !F.taught && F.disclosure === "mark",
+        say: [
+          "Every student now writes what they used and why.",
+          "The panel reads pages, not detectors.",
+          "",
+          "Drafts plus a viva each, to check the pages."
         ] }
     ]
   },
@@ -404,6 +451,9 @@ const NODES = {
   powercut: {
     banner: "WEEK 11: THE EXAM",
     text: F => [
+      F.taught ? "Your students have spent a term checking sources."
+        : F.banned ? "Your students have spent a term hiding a tool."
+        : "Your students have let a tool think for a term.",
       "Exam day. 180 students, one sports hall, 180 laptops",
       F.assess === "lockdown" ? "sealed by the lockdown browser you chose in week 8."
         : F.assess === "detect" ? "and a detection tool waiting at the far end."
@@ -451,6 +501,9 @@ const NODES = {
   appeal: {
     banner: "WEEK 12: THE APPEALS PANEL",
     text: F => [
+      F.exam === "paper" ? "The paper scripts are marked."
+        : F.exam === "postponed" ? "The Saturday resit is still pending."
+        : "The viva marks are in.",
       ...(F.tool === "public" ? [
         "First, the chair asks which tool drafted your extension",
         "replies in week 2, and where the medical notes are now."
@@ -480,6 +533,10 @@ const NODES = {
           "You show the four you caught.",
           "The panel has never seen a marker bring evidence",
           "of checking. They look almost moved."
+        ] : F.assess === "viva" ? [
+          "You show the viva notes: 180 conversations,",
+          "each one a student explaining their own work.",
+          "The panel has never seen that either."
         ] : [
           "You have no checks to show. But you own the mark.",
           "The panel writes that down.",
@@ -773,8 +830,8 @@ document.addEventListener("keydown", e => {
     return;
   }
   const k = e.key.toUpperCase();
-  const map = { "1": "A", "2": "B", "3": "C" };
-  const want = map[k] || (["A", "B", "C"].includes(k) ? k : null);
+  const map = { "1": "A", "2": "B", "3": "C", "4": "D" };
+  const want = map[k] || (["A", "B", "C", "D"].includes(k) ? k : null);
   if (want && (phase === "scene" || phase === "resume")) {
     const b = choices.querySelector('button[data-key="' + want + '"]');
     if (b) { e.preventDefault(); b.click(); }

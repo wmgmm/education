@@ -62,7 +62,7 @@ export default function SplashScreen({ onStart }) {
             <span className="splash-step__num">2</span>
             <span className="splash-step__text">
               <strong>Download the backup report</strong> in case Deep Research is slow:{' '}
-              <a href={`${BASE}placeholders/Deep_research_output.pdf`} target="_blank" rel="noopener noreferrer" className="splash-link">
+              <a href={`${BASE}placeholders/The_Matts_Deep_Research_Report.pdf`} target="_blank" rel="noopener noreferrer" className="splash-link">
                 the Matts&rsquo; report
               </a>.
             </span>

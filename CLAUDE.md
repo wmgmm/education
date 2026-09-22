@@ -173,8 +173,8 @@ thumbnails, attach lists, `attachExtra` and logos, derived from `MISSIONS` so it
 commit.** Missed twice, both times reporting all-clear over an invisible asset.
 
 Eighteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
-`Deep_research_output.pdf` (01's fallback), `Deep_Research_Report_Revised_By_Copilot.pdf` (03's
-fallback), `Half_Hour_Responsible_AI_Training.pdf` (05's backup source; `Example_Training_Session.pdf` **unlinked**), `HESA_Estates_Management.xlsx`
+`The_Matts_Deep_Research_Report.pdf` (01's fallback), `The_Matts_Revised_Report.pdf` (03 and
+04's fallback), `The_Matts_Training_Module.pdf` (05's backup source; `Example_Training_Session.pdf` **unlinked**), `HESA_Estates_Management.xlsx`
 (13 MB, **unlinked**, the generator's input); real tool runs: `Cardiff_Estates_Dashboard.html`
 (06 step 2), `Demand_First_Purchasing.pptx` (05), `Example_Bubble_Chart.html`,
 `Demand_First_Game.html` and `Demand_First_Adventure.html` (all three **unlinked**); and

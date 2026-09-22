@@ -21,7 +21,7 @@
 //                                   a copy of the published document. It is the
 //                                   ONLY anchor document: the AI position
 //                                   statement was dropped on 2026-09-04.
-//   Deep_research_output.pdf      - Exercise 01's worked example: a real Gemini
+//   The_Matts_Deep_Research_Report.pdf      - Exercise 01's worked example: a real Gemini
 //                                   Deep Research run of Matt Hayden's brief.
 //                                   Also the input for the Copilot step when a
 //                                   participant's Deep Research quota is spent
@@ -370,24 +370,24 @@ const A = {
     thumb: 'sustainable_futures_cover.webp',
   },
   deepResearch: {
-    label: 'OPTIONAL: A FINISHED DEEP RESEARCH RUN',
-    filename: 'Deep_research_output.pdf',
-    downloadPath: `${BASE}placeholders/Deep_research_output.pdf`,
-    note: 'The Matts\' Deep Research report on AI in UK universities, a backup for step 2 if your own run is still going.',
+    label: 'OPTIONAL: THE DEEP RESEARCH REPORT WE MADE EARLIER',
+    filename: 'The_Matts_Deep_Research_Report.pdf',
+    downloadPath: `${BASE}placeholders/The_Matts_Deep_Research_Report.pdf`,
+    note: 'The Matts\' Deep Research report. Use it in step 2 if your own run is still going.',
     thumb: EXAMPLE_ICON,
   },
   revisedReport: {
-    label: 'OPTIONAL: THE IMPROVED REPORT WE MADE EARLIER',
-    filename: 'Deep_Research_Report_Revised_By_Copilot.pdf',
-    downloadPath: `${BASE}placeholders/Deep_Research_Report_Revised_By_Copilot.pdf`,
-    note: 'The Matts\' report after Copilot marked and rewrote it in Exercise 01. Attach this if you do not have your own.',
+    label: 'OPTIONAL: THE REVISED REPORT WE MADE EARLIER',
+    filename: 'The_Matts_Revised_Report.pdf',
+    downloadPath: `${BASE}placeholders/The_Matts_Revised_Report.pdf`,
+    note: 'The Matts\' revised report from Exercise 01. Attach it if you do not have your own.',
     thumb: EXAMPLE_ICON,
   },
   trainingSkill: {
-    label: 'SKILL 1: BUILD THE TRAINING',
+    label: 'SKILL 1: BUILD THE TRAINING MODULE',
     filename: 'Training_Module_Builder.md',
     downloadPath: `${BASE}placeholders/Training_Module_Builder.md`,
-    note: 'Turns documents into training materials.',
+    note: 'Turns a document into a half-hour training module.',
     thumb: SKILL_ICON,
   },
   // Matt's own slide skill, supplied verbatim 2026-09-05, for Exercise 05's
@@ -404,21 +404,21 @@ const A = {
     label: 'SKILL 2: MAKE IT CARDIFF',
     filename: 'Cardiff_Brand_SKILL.md',
     downloadPath: `${BASE}placeholders/Cardiff_Brand_SKILL.md`,
-    note: 'Builds it in Cardiff\'s voice and look, for internal presentations. Public-facing work is a human task.',
+    note: 'Builds the deck in Cardiff\'s voice and look, for internal presentations. Public-facing work is a human task.',
     copyable: true,
     thumb: SKILL_ICON,
   },
   exampleTraining: {
-    label: 'OPTIONAL: BACKUP TRAINING SESSION',
-    filename: 'Half_Hour_Responsible_AI_Training.pdf',
-    downloadPath: `${BASE}placeholders/Half_Hour_Responsible_AI_Training.pdf`,
-    note: "Here's one we made earlier, in case Exercise 04 did not run for you. Upload it to Notebook as a source.",
+    label: 'OPTIONAL: THE TRAINING MODULE WE MADE EARLIER',
+    filename: 'The_Matts_Training_Module.pdf',
+    downloadPath: `${BASE}placeholders/The_Matts_Training_Module.pdf`,
+    note: "The Matts' training module, in case Exercise 04 did not run for you. Upload it to Notebook as a source.",
     thumb: EXAMPLE_ICON,
   },
   // A real run of Cardiff_Brand_SKILL.md, exported from Notebook: the deck
   // Exercise 05 is asking for, so the room can see the target first.
   brandDeckExample: {
-    label: 'OPTIONAL: THE DECK WE MADE EARLIER',
+    label: 'OPTIONAL: THE SLIDE DECK WE MADE EARLIER',
     filename: 'Demand_First_Purchasing.pptx',
     downloadPath: `${BASE}placeholders/Demand_First_Purchasing.pptx`,
     note: 'A real Notebook run with the Cardiff brand skill, on the plan\'s purchasing section. This is what the skill does to a deck.',
@@ -486,7 +486,7 @@ const A = {
     openOnly: true,
   },
   exampleChart: {
-    label: 'OPTIONAL: ONE WE MADE EARLIER',
+    label: 'OPTIONAL: THE DASHBOARD WE MADE EARLIER',
     filename: 'Cardiff_Estates_Dashboard.html',
     downloadPath: `${BASE}placeholders/Cardiff_Estates_Dashboard.html`,
     // The finished build, repaired against the CSV (verify_chart_data.py exits 0).
@@ -499,12 +499,12 @@ const A = {
   // Not a download: the reader already has this one, because Canvas made it.
   // It exists so the attach strip can show what goes in the new chat.
   yourChart: {
-    label: 'YOUR CANVAS APP',
+    label: 'YOUR DASHBOARD',
     filename: 'the HTML you downloaded',
     thumb: HTML_ICON,
   },
   verifySkill: {
-    label: 'SKILL 5: VERIFY AND REPAIR',
+    label: 'SKILL 4: VERIFY AND REPAIR',
     filename: 'Verify_And_Repair.md',
     downloadPath: `${BASE}placeholders/Verify_And_Repair.md`,
     note: 'Attach it and it does the checking. Keep it: it works on any figure from any tool.',
@@ -531,7 +531,7 @@ const A = {
   },
   yourImprovedReport: {
     label: 'YOUR REVISED REPORT',
-    filename: 'the report Copilot revised in Exercise 01',
+    filename: 'the Word file you saved in Exercise 01',
     thumb: DOC_ICON,
   },
   // Strip-only: the picture the reader has just generated, so the audit step
@@ -579,8 +579,8 @@ export const MISSIONS = [
     code: '01',
     level: 1,
     title: 'The Landscape',
-    pageTitle: 'Research How UK Universities Use AI, Then Have Copilot Mark It and Improve It',
-    summary: 'Research the sector, then have Copilot mark and improve it.',
+    pageTitle: 'Research How UK Universities Use AI, Then Have Copilot Mark It and Revise It',
+    summary: 'Research the sector, then have Copilot mark and revise it.',
     accentType: 'stamp-red',
     accentText: 'START HERE',
     tools: [TOOLS.deepResearch, TOOLS.copilot],
@@ -590,9 +590,9 @@ export const MISSIONS = [
         'Deep Research browses the web on its own and comes back with a cited report. Copilot then marks it against a rubric and rewrites it in full as a learning resource.',
       apps: [APPS.gemini, APPS.copilot],
     },
-    workflow: ['Deep Research on Gemini', 'Copilot marks it and rewrites it in full', 'Copilot draws the learning guide'],
+    workflow: ['Deep Research on Gemini', 'Copilot marks and revises it', 'Copilot draws a visual guide'],
     brief:
-      'Research how UK universities are using generative AI, have Copilot mark the report against a nine-point rubric and rewrite it as a learning resource, then draw it as a one-page visual guide. Exercises 03 to 05 reuse the report.',
+      'Research how UK universities are using generative AI, have Copilot mark the report against a nine-point rubric and rewrite it as a learning resource, then draw it as a one-page visual guide. Exercises 03 to 05 reuse the revised report.',
     artifacts: [A.deepResearch],
     steps: [
       {
@@ -607,15 +607,15 @@ export const MISSIONS = [
           alt: 'The Deep Research item in Gemini\'s + menu, ticked.',
         },
         promptLabel: 'THE BRIEF',
-        promptNote: '[a run takes several minutes: if yours is still going, use the backup report at the top for step 2]',
+        promptNote: '[a run takes several minutes: if yours is still going, use the Matts\' Deep Research report at the top for step 2]',
         prompt: DR_HE_BRIEF,
       },
       {
         tier: 'core',
         estMinutes: 6,
-        title: 'Score and improve it in Copilot',
+        title: 'Mark and revise it in Copilot',
         body:
-          'Open a new Copilot chat. Click the paperclip to attach your Word file (or the backup PDF), or paste the report after the prompt\'s last line, then send. If it summarises or asks, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the report, not the examiner\'s note, into Word and save it: Exercises 03 to 05 use it.',
+          'Open a new Copilot chat. Click the paperclip to attach your Deep Research report (or the Matts\' copy from the top), or paste it after the prompt\'s last line, then send. If it summarises or asks, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the examiner\'s note, into Word and save it as your revised report: Exercises 03 to 05 use it.',
         promptLabel: 'THE SILENT MARK, THEN THE REWRITE',
         attachLabel: 'NEW CHAT',
         attach: [A.yourReport, A.thisPrompt],
@@ -628,8 +628,8 @@ export const MISSIONS = [
         estMinutes: 3,
         title: 'Turn it into a visual learning guide',
         body:
-          'Same chat: paste the prompt and send. Copilot draws a one-page visual guide to the improved report, ideas as pictures with few words. Allow a minute or two before resending. If it writes text instead, reply "Generate the image now". Compare it with the report: what it left out is the lesson. Save it if you want to keep it.',
-        promptLabel: 'THE INFOGRAPHIC',
+          'Same chat: paste the prompt and send. Copilot draws a one-page visual guide to your revised report, ideas as pictures with few words. Allow a minute or two before resending. If it writes text instead, reply "Generate the image now". Compare it with the report: what it left out is the lesson. Save it if you want to keep it.',
+        promptLabel: 'THE VISUAL GUIDE',
         attachLabel: 'SAME CHAT',
         attach: [A.thisPrompt],
         promptEmphasis: 'Return only the completed image.',
@@ -736,8 +736,8 @@ export const MISSIONS = [
     code: '03',
     level: 2,
     title: 'The Game',
-    pageTitle: 'Vibe Code a Playable Game From Your Report in Canvas',
-    summary: 'Build a game out of your own report.',
+    pageTitle: 'Vibe Code a Playable Game From Your Revised Report in Canvas',
+    summary: 'Build a game out of your revised report.',
     tools: [TOOLS.canvas],
     estMinutesCore: 12,
     toolInfo: {
@@ -747,15 +747,15 @@ export const MISSIONS = [
     },
     workflow: ['Run the detailed prompt', 'Read the code', 'Give AI feedback'],
     brief:
-      'Build a playable 8-bit game from the report you improved in Exercise 01, fully specified, without writing code.',
+      'Build a playable 8-bit game from your revised report from Exercise 01, fully specified, without writing code.',
     artifacts: [],
     steps: [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Run the detailed prompt with your report for context',
+        title: 'Attach your revised report and run the prompt',
         body:
-          'Use Gemini, in a new chat. Click the + under the box to attach the report you improved in Exercise 01 (or the Deep Research report if that is what you have), paste the prompt below, then turn Canvas on and send. Change [responsible AI] to any subject your document covers. The detail and the document are what lift the output. Hint: if the game falls short, try a different model; Pro should be better at this task.',
+          'Use Gemini, in a new chat. Click the + under the box to attach your revised report from Exercise 01 (your Deep Research report or the Matts\' copy below also work), paste the prompt below, then turn Canvas on and send. Change [responsible AI] to any subject your document covers. The detail and the document are what lift the output. Hint: if the game falls short, try a different model; Pro should be better at this task.',
         promptLabel: 'THE ENGINEERED ASK',
         promptEmphasis: '[responsible AI]',
         attachLabel: 'NEW CHAT',
@@ -764,7 +764,7 @@ export const MISSIONS = [
           src: 'canvas_button.webp',
           alt: 'The Canvas button in Gemini, a small grey chip reading Canvas.',
         },
-        promptNote: '[Canvas on, attach your improved report]',
+        promptNote: '[Canvas on, attach your revised report]',
         prompt: CANVAS_GAME,
         artifact: A.revisedReport,
       },
@@ -809,8 +809,8 @@ export const MISSIONS = [
     code: '04',
     level: 2,
     title: 'The Module',
-    pageTitle: 'Build the Staff Training With a Skill',
-    summary: 'Run a skill, get a training session.',
+    pageTitle: 'Build a Staff Training Module With a Skill',
+    summary: 'Run a skill, get a training module.',
     tools: [TOOLS.copilot],
     estMinutesCore: 13,
     toolInfo: {
@@ -818,17 +818,17 @@ export const MISSIONS = [
         'A skill is a file you attach alongside your document. Nothing to install.',
       apps: [APPS.copilot],
     },
-    workflow: ['Use the Revised report to build a training module', 'Review the gap note', 'Copy it for Exercise 05'],
+    workflow: ['Skill builds your training module', 'Review the gap note', 'Copy the module for Exercise 05'],
     brief:
-      'Build a half-hour training session on your improved report, using a skill file.',
+      'Build a half-hour training module from your revised report, using a skill file.',
     artifacts: [A.trainingSkill, A.revisedReport],
     steps: [
       {
         tier: 'core',
         estMinutes: 6,
-        title: 'Attach the skill and your revised report, then paste the prompt and send',
+        title: 'Attach the skill and your revised report, then send the prompt',
         body:
-          'Use Copilot. Attach two files with the paperclip: the Training Module Builder skill from the card at the top, and the report Copilot revised in Exercise 01 (or the backup from Exercise 03). Check both names show above the box, then paste the prompt and send. You still prompt; the skill makes the answer follow your best practice.',
+          'Use Copilot. Attach two files with the paperclip: the Training Module Builder skill and your revised report from Exercise 01 (or the Matts\' copy), both on the cards at the top. Check both names show above the box, then paste the prompt and send. You still prompt; the skill makes the answer follow your best practice.',
         attach: [A.trainingSkill, A.yourImprovedReport],
         promptLabel: 'YOUR PROMPT, PLUS ONE LINE',
         promptNote: '[attach both files first, then send]',
@@ -846,14 +846,14 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Review and Augment',
         body:
-          'It is useful to focus on the gap note: what the training needed and the report does not say, no dates, no owners, no thresholds. In real life this is where you augment it, editing, deleting and adding; today, just look it over.',
+          'It is useful to focus on the gap note: what the module needed and the report does not say, no dates, no owners, no thresholds. In real life this is where you augment it, editing, deleting and adding; today, just look it over.',
       },
       {
         tier: 'core',
         estMinutes: 2,
-        title: 'Copy the training session, Exercise 05 needs it',
+        title: 'Copy your training module for Exercise 05',
         body:
-          'In Copilot, copy the answer (or the three dots give you Export to Word). Exercise 05 pastes it straight into a notebook, so you never need a file. If it did not run, move on: Exercise 05 has a ready-made session you can use.',
+          'In Copilot, copy the whole answer (or the three dots give you Export to Word): that is your training module. Exercise 05 pastes it straight into a notebook, so you never need a file. If it did not run, move on: Exercise 05 has the Matts\' training module.',
       },
       {
         tier: 'core',
@@ -874,8 +874,8 @@ export const MISSIONS = [
     code: '05',
     level: 2,
     title: 'The Brand',
-    pageTitle: 'Turn the Training Into Internal Slides That Look Like Cardiff',
-    summary: 'One skill, one Cardiff-branded deck.',
+    pageTitle: 'Turn Your Training Module Into Slides That Look Like Cardiff',
+    summary: 'One skill, one internal Cardiff-branded deck.',
     tools: [TOOLS.notebook],
     estMinutesCore: 20,
     toolInfo: {
@@ -883,22 +883,22 @@ export const MISSIONS = [
         'Gemini Notebook answers only from the sources you give it.',
       apps: [APPS.notebook],
     },
-    workflow: ['Add your training', 'Notebook makes a Cardiff deck', 'Run it again with a different skill'],
+    workflow: ['Paste in your training module', 'Cardiff skill makes the deck', 'Rerun with the Matts\' skill'],
     brief:
-      'Turn your training session into a slide deck that looks like it came from this university.',
+      'Turn your training module from Exercise 04 into a slide deck that looks like it came from this university.',
     artifacts: [A.brandDeckExample, A.exampleTraining],
     steps: [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Add your training session to a notebook',
+        title: 'Add your training module to a new notebook',
         body:
-          'Use Gemini Notebook. Click Create new, then Add source, choose Copied text, paste your Exercise 04 training session and click Insert. If 04 did not run for you, upload the backup PDF above instead.',
+          'Use Gemini Notebook. Click Create new, then Add source, choose Copied text, paste your training module from Exercise 04 and click Insert. If 04 did not run for you, upload the Matts\' training module from the card at the top instead.',
       },
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Click Slides, copy the prompt and paste the skill file',
+        title: 'Click Slide Deck, paste the prompt, then the Cardiff skill',
         artifact: A.brandSkill,
         body:
           'In the Studio pane, click Slide Deck. Click COPY PROMPT, under the skill card, and paste it into the description box. Press Enter, then click COPY on the skill card, not DOWNLOAD, and paste that underneath. Do NOT add it as a source, or the deck becomes about the rules.',
@@ -923,12 +923,12 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 5,
-        title: 'Now generate a new slide deck with a different brand skill (The Matts)',
+        title: 'Generate a second deck with the Matts\' brand skill',
         artifact: A.mattsBrandSkill,
         body:
           'Once the first deck is saved, open Slide Deck again. Same prompt, same source, but paste this skill underneath instead. One notebook, two skills, two very different decks.',
         promptLabel: 'THE SAME DECK DESCRIPTION',
-        promptNote: '[this time paste TheMattsBrandSkill.md underneath]',
+        promptNote: '[this time paste the Matts\' brand skill underneath]',
         prompt:
           'Training slide deck on responsible use of AI in universities, so staff can apply it in practice.',
       },
@@ -995,7 +995,7 @@ export const MISSIONS = [
         estMinutes: 5,
         title: 'Always verify, and repair if required',
         body:
-          'The first version of The Matts\' app got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair your own build: in the same chat, paste the repair prompt and attach the CSV again.',
+          'The first version of the Matts\' dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair your own build: in the same chat, paste the repair prompt and attach the CSV again.',
         // {download} in the body renders Matt's screenshot of the Canvas Download
         // button inline, so the reader sees the control they are looking for.
         bodyIcons: {

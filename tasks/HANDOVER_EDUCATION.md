@@ -199,5 +199,43 @@ engine", "The tool cannot be accountable. Only you can."), the terms-of-service 
 plainly in week 2 and the governance ending, the Saturday resit contradiction fixed, the Dark
 Exam ending gated so a cancelled exam reads "Vivas stand", national survey figures labelled as
 national, UK spelling. Re-verified: 10,206 paths, four endings, no line over 58 characters,
-no label over 8 words, the new gated line reachable. Committed locally on `main`; the first
-push to GitHub is Matt's to run.
+no label over 8 words, the new gated line reachable. Committed locally on `main`.
+
+**Deployed 2026-09-22 09:32.** Matt asked in the same message. Repo https://github.com/wmgmm/education
+(public, created on Matt's account; `origin` added, `main` pushed, two commits). Pages builds
+from the Actions workflow; first run succeeded; https://wmgmm.github.io/education/ serves the
+Education Edition title, the adventure and the revised PDF (all checked 200). Still true: never
+push unless Matt asks in that same message.
+
+## 2026-09-22, late morning: naming, backup filenames, story thread
+
+**Document naming** (subagent review, 41 items, all applied except the inline Exercise 04
+prompt wording, item 28, which is Matt's prompt and waits on him). One canonical name per
+flowing document, used everywhere: *your Deep Research report* (01 step 1), *your revised
+report* (01 step 2; 03, 04 and 05 use it), *your training module* (04; 05 uses it), *your slide
+deck* (05), *your dashboard* (06). Backups are "OPTIONAL: THE <name> WE MADE EARLIER" on the
+card and "the Matts' <name>" in running text, never "the backup PDF". 01 step 2 now says "save
+it as your revised report"; 04 step 3 says "that is your training module". 04 step 1 no longer
+sends people to Exercise 03 for a card that is on its own page. 05 chips are "Paste in your
+training module / Cardiff skill makes the deck / Rerun with the Matts' skill". The bonus skill
+is SKILL 4 (SKILL 4 was the unlinked fact-check file, so the room saw 1, 2, 3, 5).
+
+**Backup filenames mirror the names** (Matt): `The_Matts_Deep_Research_Report.pdf`,
+`The_Matts_Revised_Report.pdf`, `The_Matts_Training_Module.pdf` (git mv from
+Deep_research_output / Deep_Research_Report_Revised_By_Copilot /
+Half_Hour_Responsible_AI_Training). Splash step 2 link, CLAUDE.md list and the artifact table
+updated. Not renamed: the deck example (`Demand_First_Purchasing.pptx`, still on the
+sustainability plan's purchasing section, a subject mismatch Matt may want to replace) and the
+dashboard.
+
+**Adventure story thread** (Matt: scenes did not flow into each other). Every scene from week 2
+on now opens with one or two lines that continue from the previous choice (handbook → inbox;
+tool → lecture; lecture → reading list; reading list → marking; marking → the honest student;
+disclosure → the meeting; lecture → the exam; exam → the appeal), and week 8 gains a fourth
+option that exists only because of the past: "Show them the fact-check hour you ran" (if you
+taught) or "Make the honest student's page the policy" (if you marked it). The appeal's "I
+did" answer now cites the viva notes when vivas were run. Keys A to D. Structure is the
+state-based kind (flags, not branches): 12,636 paths, still four endings, every thread line
+reachable, no line over 58 characters, at most four options. File is 886 lines.
+Exercise 05 gallery card summary set to "One skill, one internal Cardiff-branded deck." (Matt).
+Committed and pushed on Matt's ask in the same message.
