@@ -418,10 +418,19 @@ const A = {
   // A real run of Cardiff_Brand_SKILL.md, exported from Notebook: the deck
   // Exercise 05 is asking for, so the room can see the target first.
   brandDeckExample: {
-    label: 'OPTIONAL: THE SLIDE DECK WE MADE EARLIER',
+    label: 'OPTIONAL: THE MATTS\' SKILL DECK WE MADE EARLIER',
     filename: 'The_Matts_Slide_Deck.pptx',
     downloadPath: `${BASE}placeholders/The_Matts_Slide_Deck.pptx`,
     note: 'A real Notebook run with the Matts\' brand skill on the training module, 13 slides. This is what a skill does to a deck.',
+    thumb: EXAMPLE_ICON,
+  },
+  // Same training module, Cardiff brand skill: the deck step 4 asks you to
+  // compare with your own.
+  cardiffDeckExample: {
+    label: 'OPTIONAL: THE CARDIFF DECK WE MADE EARLIER',
+    filename: 'The_Matts_Cardiff_Deck.pptx',
+    downloadPath: `${BASE}placeholders/The_Matts_Cardiff_Deck.pptx`,
+    note: 'The Matts\' Notebook run with the Cardiff brand skill on the training module, 15 slides. Same source, same skill as yours.',
     thumb: EXAMPLE_ICON,
   },
   // The picture Exercise 02 works from. Served from the site root rather than
@@ -877,7 +886,7 @@ export const MISSIONS = [
     pageTitle: 'Turn Your Training Module Into Slides That Look Like Cardiff',
     summary: 'One skill, one internal Cardiff-branded deck.',
     tools: [TOOLS.notebook],
-    estMinutesCore: 20,
+    estMinutesCore: 23,
     toolInfo: {
       feature:
         'Gemini Notebook answers only from the sources you give it.',
@@ -898,20 +907,16 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Click Slide Deck, paste the prompt, then the Cardiff skill',
+        title: 'Click Slide Deck, then paste the Cardiff brand skill',
         artifact: A.brandSkill,
         body:
-          'In the Studio pane, click Slide Deck. Click COPY PROMPT, under the skill card, and paste it into the description box. Press Enter, then click COPY on the skill card, not DOWNLOAD, and paste that underneath. Do NOT add it as a source, or the deck becomes about the rules.',
+          'In the Studio pane, click Slide Deck. Click COPY on the skill card and paste it into the description box. Do NOT add it as a source, or the deck becomes about the rules.',
         image: {
           src: 'notebook_slide_deck.webp',
           ui: true,
-          alt: 'Gemini Notebook\'s Customize Slide Deck dialog. Format offers Detailed Deck, ticked, or Presenter Slides. Below are language, length and sources controls, then a large field labelled Describe the slide deck you want to create, holding the prompt on the first line and the placeholder INSERT THE BRAND SKILL TEXT HERE beneath it, with Generate now at the bottom right.',
-          caption: 'Prompt first, skill underneath, both in the description box.',
+          alt: 'Gemini Notebook\'s Customize Slide Deck dialog. Format offers Detailed Deck, ticked, or Presenter Slides. Below are language, length and sources controls, then a large field labelled Describe the slide deck you want to create, holding only the placeholder PASTE THE BRAND STYLE CONTENT HERE.',
+          caption: 'The skill goes in the description box, nowhere else.',
         },
-        promptLabel: 'THE DECK DESCRIPTION',
-        promptNote: '[then paste the Cardiff brand skill underneath this]',
-        prompt:
-          'Training slide deck on responsible use of AI in universities, so staff can apply it in practice.',
       },
       {
         tier: 'core',
@@ -922,15 +927,19 @@ export const MISSIONS = [
       },
       {
         tier: 'core',
+        estMinutes: 3,
+        title: 'Compare your deck with the one the Matts made earlier',
+        artifact: A.cardiffDeckExample,
+        body:
+          'Open the Matts\' deck below: the same training module and the same Cardiff skill. Put it beside yours and look for what differs, in structure, wording and look, and why. Note one thing each deck does better.',
+      },
+      {
+        tier: 'core',
         estMinutes: 5,
         title: 'Generate a second deck with the Matts\' brand skill',
         artifact: A.mattsBrandSkill,
         body:
-          'Once the first deck is saved, open Slide Deck again. Same prompt, same source, but paste this skill underneath instead. One notebook, two skills, two very different decks.',
-        promptLabel: 'THE SAME DECK DESCRIPTION',
-        promptNote: '[this time paste the Matts\' brand skill underneath]',
-        prompt:
-          'Training slide deck on responsible use of AI in universities, so staff can apply it in practice.',
+          'Once the first deck is saved, open Slide Deck again. Same source, but paste this skill into the description box instead. One notebook, two skills, two very different decks.',
       },
       {
         tier: 'core',
@@ -942,7 +951,7 @@ export const MISSIONS = [
     ],
     verdictBy: 'The Matts',
     verdict:
-      'Two decks, one source, one prompt. Everything that differs between them came from the skill file, which is the clearest evidence you will get today that a skill is worth writing down.',
+      'Two decks, one source, two skills. Everything that differs between them came from the skill file, which is the clearest evidence you will get today that a skill is worth writing down.',
   },
 
   {

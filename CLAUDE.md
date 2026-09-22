@@ -23,7 +23,7 @@ test runner.
 The AI in the Workplace Part 2 workshop site for Cardiff University staff: six guided
 exercises plus one bonus (`MISSIONS` in code), anchored on one real document, Cardiff's
 Sustainable Futures plan 2025-35. Teaches Gemini Deep Research, Notebook, Canvas and Copilot.
-Core step time is 86 minutes, bonus excluded, so nobody runs all six.
+Core step time is 89 minutes, bonus excluded, so nobody runs all six.
 
 | # | Title | Tool | What it does |
 |---|---|---|---|
@@ -63,7 +63,8 @@ Gemini Notebook's Slide Deck box **truncates silently at 5,000**, prompt include
 
 - `Training_Module_Builder.md` (04)
 - `Cardiff_Brand_SKILL.md` (05, first run). Rebuilt on two real decks, validated 2026-09-06
-  against a third: all nine predicted effects landed. **Settled: do not edit.**
+  against a third: all nine predicted effects landed. **Settled: do not edit**, bar line 3,
+  which Matt reworded on 2026-09-22.
 - `TheMattsBrandSkill.md` (05, second run). **Matt's own text verbatim**: wording,
   capitalisation and its two emojis are not to be edited.
 - `Verify_And_Repair.md` (06), recompute not review. `Fact_Check_Cardiff.md`, **linked nowhere**.
@@ -136,10 +137,9 @@ an exercise, edit the data file.
 | `image` | `{src, alt, caption, ui}`; `src` is site-root relative, `ui: true` gives it the full column |
 | `choice`, `hook`, `toolChip`, `collapsed` | the accordion rows under the stretch heading |
 
-`mission.toolsJoin` sets how the picker card joins tool names: default `+` for tools used in
-sequence, `'or'` where either will do (none since 04 went Copilot-only). `mission.bonus: true` keeps a mission in
-`MISSIONS` (routing and `?doctor` see it) but puts it in the gallery's red-headed strip, not a
-card, leaves it out of the "n of 6" tally, and sets the eyebrow to BONUS EXERCISE.
+`mission.toolsJoin` joins the picker card's tool names: `+` (default) or `'or'` (unused since 04
+went Copilot-only). `mission.bonus: true` keeps a mission in `MISSIONS` (routing and `?doctor`
+see it) but puts it in the gallery's red strip, off the "n of 6" tally, eyebrow BONUS EXERCISE.
 
 **Unused renderers, live, no data:** `SortGame` (`type: 'sort'`), `check: true`, `laneNotes`, artifact `sourceLink`. **Grep before reusing those names.**
 ### Components worth knowing
@@ -172,11 +172,11 @@ thumbnails, attach lists, `attachExtra` and logos, derived from `MISSIONS` so it
 **A new field naming a file must be added to `collectUrls` in `DoctorPanel.jsx` in the same
 commit.** Missed twice, both times reporting all-clear over an invisible asset.
 
-Nineteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
+Twenty files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
 `The_Matts_Deep_Research_Report.pdf` (01's fallback), `The_Matts_Revised_Report.pdf` (03 and
 04's fallback), `The_Matts_Training_Module.pdf` (05's backup source; `Example_Training_Session.pdf` **unlinked**), `HESA_Estates_Management.xlsx`
 (13 MB, **unlinked**, the generator's input); real tool runs: `Cardiff_Estates_Dashboard.html`
-(06 step 2), `The_Matts_Slide_Deck.pptx` (05, 14 MB), `Example_Bubble_Chart.html`,
+(06 step 2), `The_Matts_Slide_Deck.pptx` (05, 14 MB), `The_Matts_Cardiff_Deck.pptx` (05 step 4), `Example_Bubble_Chart.html`,
 `Demand_First_Purchasing.pptx`, `Demand_First_Game.html` and `Demand_First_Adventure.html` (all four **unlinked**); and
 `Responsible_AI_Adventure.html`, a branching text adventure on 03 step 4.
 **Generated:** the five skills, `Example_Style_Block.md` and `HESA_Estates_Workshop.csv`/`.xlsx`.

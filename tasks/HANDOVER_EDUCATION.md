@@ -244,3 +244,18 @@ training module (13 slides, 14 MB) ships as `The_Matts_Slide_Deck.pptx` under
 `A.brandDeckExample`; note updated. `Demand_First_Purchasing.pptx` stays on disk, unlinked
 (the subject mismatch flagged earlier is closed). Nineteen files ship.
 Committed and pushed on Matt's ask (so every linked file downloads from the live site).
+
+Exercise 05 simplified (Matt): `Cardiff_Brand_SKILL.md` line 3 is now "You are creating training
+slides for Cardiff University so staff can apply this in practice." (edited in
+`tools/make_artifacts.py` and the file; generator re-run reproduces it; 4,729 characters, under
+the 4,900 cap). Steps 2 and 4 lost their copy-prompt boxes: the description box takes the skill
+alone. Step 2 title "Click Slide Deck, then paste the Cardiff brand skill"; caption and alt
+updated; verdict now "Two decks, one source, two skills". The Matts' skill is unchanged, so the
+second run has no audience line: Matt's call. Step 2 screengrab replaced with Matt's fresh capture (11:19): the box holds only
+[PASTE THE BRAND STYLE CONTENT HERE]; alt updated.
+Exercise 05 restructured (Matt): new step 4 "Compare your deck with the one the Matts made
+earlier" carrying `A.cardiffDeckExample` (`The_Matts_Cardiff_Deck.pptx`, Matt's Notebook run
+with the Cardiff skill on the training module, 15 slides, 5.9 MB); the Matts' skill run is now
+step 5, Responsible AI step 6. Top card relabelled "THE MATTS' SKILL DECK WE MADE EARLIER" so
+the two decks read apart. Core minutes 20 to 23; CLAUDE.md core total recomputed to 89.
+Twenty files ship. Committed and pushed on Matt's ask.

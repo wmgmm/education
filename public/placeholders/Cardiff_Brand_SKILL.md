@@ -1,6 +1,6 @@
 # Cardiff University Slide Design Spec
 
-You are creating slides for Cardiff University.
+You are creating training slides for Cardiff University so staff can apply this in practice.
 
 ## NON-NEGOTIABLE
 
