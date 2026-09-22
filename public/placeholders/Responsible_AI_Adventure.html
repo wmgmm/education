@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>The Responsible AI Adventures of Cardiff University</title>
+<style>
+  /* Retro green-screen terminal. One file, no dependencies, no build.
+     Visual system inherited from Demand_First_Adventure.html; the
+     high-contrast mode swaps the whole palette. */
+  :root {
+    --bg: #001100;
+    --fg: #00FF66;
+    --warn: #FFFF00;
+    --fail: #FF6666;
+    --ok: #66FF66;
+    --dim: #00aa44;
+    --glow: 0 0 6px rgba(0, 255, 102, 0.55);
+    --font: "Courier New", Courier, "Lucida Console", monospace;
+    --size: 16px;
+  }
+  body.hc {
+    --bg: #000000;
+    --fg: #ffffff;
+    --warn: #ffd400;
+    --fail: #ff8080;
+    --ok: #a0ffa0;
+    --dim: #d0d0d0;
+    --glow: none;
+  }
+  body.lg { --size: 21px; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: var(--size);
+    line-height: 1.45;
+    text-shadow: var(--glow);
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  /* Scan lines and a soft vignette. Purely decorative, gone in high contrast. */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: 5;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0 1px, transparent 1px 3px);
+    mix-blend-mode: multiply;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: 4;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.55) 100%);
+  }
+  body.hc::before, body.hc::after { display: none; }
+
+  .skip {
+    position: absolute; left: -999px; top: 0; background: var(--fg); color: var(--bg);
+    padding: 0.4rem 0.8rem; z-index: 20; text-shadow: none;
+  }
+  .skip:focus { left: 0.5rem; top: 0.5rem; }
+
+  .wrap { max-width: 82ch; margin: 0 auto; padding: 0.75rem 1rem 1rem; position: relative; z-index: 6; }
+
+  header { border-bottom: 1px solid var(--dim); padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+  .brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; justify-content: space-between; }
+  .brand .sub { margin: 0; color: var(--dim); font-size: 0.85em; font-weight: normal; }
+  .toggles { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+
+  button {
+    font: inherit; color: var(--fg); background: transparent;
+    border: 1px solid var(--dim); padding: 0.35em 0.7em; cursor: pointer;
+    text-shadow: inherit; text-align: left; min-height: 2.4em;
+  }
+  button:hover { background: rgba(0,255,102,0.12); }
+  body.hc button:hover { background: rgba(255,255,255,0.15); }
+  button:focus-visible { outline: 3px solid var(--warn); outline-offset: 2px; }
+  button[disabled] { opacity: 0.55; cursor: default; }
+  .toggles button { font-size: 0.8em; min-height: 2em; padding: 0.2em 0.6em; }
+  .settings { font-size: 0.75em; min-height: 1.8em; padding: 0.15em 0.55em; color: var(--dim); border-color: var(--dim); }
+  .settings[aria-expanded="true"] { color: var(--fg); }
+  .toggles[hidden] { display: none; }
+  .toggles .hint { flex-basis: 100%; color: var(--dim); font-size: 0.75em; }
+
+  #term { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 12em; outline: none; }
+  #term .l { display: block; min-height: 1.45em; }
+  #term .warn { color: var(--warn); }
+  #term .fail { color: var(--fail); }
+  #term .ok { color: var(--ok); }
+  #term .dim { color: var(--dim); }
+  #term .box { color: var(--warn); }
+  #term .prompt { margin-top: 0.4em; }
+  .cursor::after { content: "\2588"; animation: blink 1s steps(1) infinite; }
+  body.nomo .cursor::after { animation: none; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  #choices { display: grid; gap: 0.4rem; margin: 0.8rem 0 0; }
+  #choices button { width: 100%; min-height: 2.4em; }
+  @media (pointer: coarse) { #choices button { min-height: 2.75em; } }
+  #choices button .k { color: var(--warn); margin-right: 0.6em; }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 0.5rem 0.6rem 2.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor::after { animation: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#term">Skip to the terminal</a>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1 class="sub">The Responsible AI Adventures of Cardiff University</h1>
+      <button type="button" id="btn-settings" class="settings" aria-expanded="false" aria-controls="toggles">SETTINGS</button>
+    </div>
+    <div class="toggles" id="toggles" aria-label="Display settings" hidden>
+      <button type="button" id="tgl-text" aria-pressed="false">TEXT: NORMAL</button>
+      <button type="button" id="tgl-hc" aria-pressed="false">CONTRAST: NORMAL</button>
+      <button type="button" id="tgl-motion" aria-pressed="true">MOTION: ON</button>
+      <button type="button" id="btn-restart">RESTART</button>
+      <span class="hint">Keys: A B C or 1 2 3 to choose, ENTER to continue, any key skips the typing.</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="term" role="log" aria-live="polite" tabindex="-1"></div>
+    <div id="choices"></div>
+  </main>
+
+</div>
+
+<script>
+/* ------------------------------------------------------------------ story
+   A node graph. Each node: banner, text, opts. `text` and `opts` may be a
+   function of the flags F, so a scene can read what you did earlier. Each
+   option: k (key), t (label), to (next node id, or "end"), set / add
+   (flag effects), when (F => bool, hides the option), say (consequence
+   lines, string[] or F => string[], resolved AFTER the flags are applied).
+   Lines are strings or [string, cls]. Facts come from the workshop's own
+   documents: the Copilot-revised Deep Research report and the site's
+   Responsible AI lines. Every line fits 58 characters. */
+
+const NODES = {
+  start: {
+    banner: "CARDIFF UNIVERSITY MAINFRAME",
+    text: [
+      "You are a lecturer.",
+      ["One module. 180 students. Twelve weeks.", "warn"],
+      "AI arrived before the handbook did.",
+      "",
+      "The Matts left one note:",
+      ["'The human value is in the review.'", "warn"]
+    ],
+    opts: [{ k: "", t: "BEGIN", to: "handbook" }]
+  },
+
+  handbook: {
+    banner: "WEEK 1: THE HANDBOOK",
+    text: [
+      "A colleague hands you the module handbook.",
+      "Sixty pages. Written on Tuesday, by something.",
+      "'It just needs your signature by five.'",
+      "It is ten to five."
+    ],
+    opts: [
+      { k: "A", t: "Sign it. It is ten to five.", to: "inbox", set: { readHandbook: false },
+        say: [
+          "Signed. Page 14 promises a field trip to the",
+          "Cardiff Institute of Marine Ethics.",
+          "There is no Cardiff Institute of Marine Ethics.",
+          "",
+          "Week 6 will find it before you do."
+        ] },
+      { k: "B", t: "Read it first. Five can wait.", to: "inbox", set: { readHandbook: true },
+        say: [
+          "Page 14 promises a field trip to the",
+          "Cardiff Institute of Marine Ethics, which does not exist.",
+          "You delete it. Your colleague says 'ah'.",
+          "",
+          "Sixty pages took forty minutes. The trip, four seconds."
+        ] }
+    ]
+  },
+
+  inbox: {
+    banner: "WEEK 2: THE INBOX",
+    text: [
+      "41 extension requests, each with a medical note.",
+      "Each needs a reply that sounds like you,",
+      "is kind, and quotes the regulations correctly.",
+      "It is 11 p.m."
+    ],
+    opts: [
+      { k: "A", t: "Paste them into the free chatbot app", to: "lecture", set: { tool: "public" },
+        say: [
+          "Forty-one replies in ninety seconds. Warm. Accurate.",
+          "Forty-one medical notes now live on a server",
+          "in a country you would have to look up.",
+          "",
+          "The terms call this 'improving the service'."
+        ] },
+      { k: "B", t: "Sign in to Gemini with your CU account", to: "lecture", set: { tool: "approved" },
+        say: [
+          "Forty-one replies in ninety seconds. Warm. Accurate.",
+          "The notes stay under the University's contract,",
+          "approved for confidential data. That was the difference.",
+          "",
+          "Eleven seconds longer, spent checking 'week' not 'weak'."
+        ] },
+      { k: "C", t: "Write all 41 yourself", to: "lecture", set: { tool: "hand" },
+        say: [
+          "1 a.m. Reply 38 opens 'Dear 37'.",
+          "Human error is still error.",
+          "",
+          "It is just yours, and you can find it."
+        ] }
+    ]
+  },
+
+  lecture: {
+    banner: "WEEK 3: THE LECTURE",
+    text: [
+      "A student asks, in front of 180 people,",
+      "'Are we allowed to use AI on this module?'",
+      "",
+      "Ninety-five percent of them already do. HEPI counted.",
+      "The room waits. So does the microphone."
+    ],
+    opts: [
+      { k: "A", t: "'No. It is banned.'", to: "reading", set: { taught: false, banned: true },
+        say: [
+          "Applause from the two who were not going to anyway.",
+          "The other 178 carry on, but now in silence,",
+          "which is the one way it cannot be taught.",
+          "",
+          "The ban is enforced by the only mechanism available: hope."
+        ] },
+      { k: "B", t: "'It is your degree. Use your judgement.'", to: "reading", set: { taught: false },
+        say: [
+          "They use their judgement.",
+          "Their judgement: the chatbot writes faster than they do.",
+          "",
+          "It does. That was never the question."
+        ] },
+      { k: "C", t: "Spend the hour making them fact-check a chatbot", to: "reading", set: { taught: true },
+        say: [
+          "You ask it for three sources on your topic. It gives four.",
+          "One is real. One is by an author who died",
+          "eleven years before the paper. Twelve students spot this.",
+          "",
+          "Marking it wrong is a skill. They now have it."
+        ] }
+    ]
+  },
+
+  reading: {
+    banner: "WEEK 5: THE READING LIST",
+    text: [
+      "You need a literature review on assessment redesign.",
+      "Deep Research reads 400 pages. Nine minutes.",
+      "It is good. Not quite what you asked.",
+      "A colleague suggests running it again 'with please'."
+    ],
+    opts: [
+      { k: "A", t: "Run it six more ways", to: "marking", add: { runs: 7 },
+        say: [
+          "Seven reports. All good. All slightly different.",
+          "2,800 pages read by a machine so that you",
+          "could read none of them.",
+          "",
+          "A chat reply costs a web search. This did not."
+        ] },
+      { k: "B", t: "Edit the research plan, run once", to: "marking", add: { runs: 1 },
+        say: [
+          "You cut two questions the plan did not need.",
+          "One run. One report. It answers what you asked,",
+          "because this time you asked it.",
+          "",
+          "Edit the plan rather than rerun."
+        ] },
+      { k: "C", t: "Ask the subject librarian", to: "marking", set: { librarian: true },
+        say: [
+          "She has a list. She has had it since 2019.",
+          "It is annotated. Two entries say 'retracted, do not cite'.",
+          "",
+          "Some indexes are people."
+        ] }
+    ]
+  },
+
+  marking: {
+    banner: "WEEK 6: THE MARKING",
+    text: F => [
+      F.readHandbook === false
+        ? "Forty students are on a minibus to a marine institute"
+        : "The field trip you deleted would have been today.",
+      F.readHandbook === false
+        ? "that does not exist. Page 14 sent them."
+        : "It is raining. Nobody is anywhere. Good.",
+      "",
+      "180 essays. The department bought a draft-feedback tool:",
+      "it drafts the comments, you decide. Deadline Friday."
+    ],
+    opts: [
+      { k: "A", t: "Release all 180 drafts by Friday", to: "honest", set: { marking: "stamp" },
+        say: [
+          "Friday, on time. One student is praised for",
+          "'a strong section on Kant'. The essay is about drainage.",
+          "",
+          "A rubber stamp is not oversight. Nor is it feedback."
+        ] },
+      { k: "B", t: "Read each draft against its essay", to: "honest", set: { marking: "review" },
+        say: [
+          "Tuesday, not Friday. Four drafts matched to the wrong",
+          "student, one glowing comment on a paragraph nobody wrote.",
+          "",
+          "The tool drafted. You marked. That is the order."
+        ] },
+      { k: "C", t: "Release them labelled 'AI draft, argue with it'", to: "honest", set: { marking: "label" },
+        say: [
+          "Sixty-two argue. Forty are right.",
+          "Their arguments are the best writing of the term.",
+          "",
+          "You have outsourced marking to the people paying for it."
+        ] }
+    ]
+  },
+
+  honest: {
+    banner: "WEEK 7: THE HONEST ONE",
+    text: [
+      "One essay ends with a page you did not ask for:",
+      "'I used AI to outline this and check the references.",
+      "It invented two. I removed them.'",
+      "",
+      "Nobody else mentioned AI. Ninety-four percent used it."
+    ],
+    opts: [
+      { k: "A", t: "Refer it to the misconduct panel", to: "meeting", set: { disclosure: "report" },
+        say: [
+          "Week 10. The only student in the room is the one",
+          "who told you the truth.",
+          "The other 179 have learned something,",
+          "",
+          "and it is not what you meant."
+        ] },
+      { k: "B", t: "Mark the page. It is the best part.", to: "meeting", set: { disclosure: "mark" },
+        say: [
+          "Word goes round: telling the truth is safe here.",
+          "Next term you get 140 of these pages,",
+          "",
+          "and you know what you are marking."
+        ] },
+      { k: "C", t: "Ask for ten minutes on their method", to: "meeting", set: { disclosure: "viva" },
+        say: [
+          "Ten minutes. The student knows more about the essay",
+          "than the tool ever did.",
+          "",
+          "That was the thing you were measuring."
+        ] }
+    ]
+  },
+
+  meeting: {
+    banner: "WEEK 8: THE ASSESSMENT MEETING",
+    text: [
+      "'How will the exam survive AI?'",
+      "A vendor is in the room. So is a slide:",
+      ["DETECTION: 99% ACCURATE.", "warn"],
+      "Nobody asks 99% of what."
+    ],
+    opts: [
+      { k: "A", t: "Buy the detection tool", to: "powercut", set: { assess: "detect" },
+        say: [
+          "It flags the external examiner's model answer,",
+          "written in 2009.",
+          "",
+          "Detection cannot prove anything. It can only accuse."
+        ] },
+      { k: "B", t: "Online exam with a lockdown browser", to: "powercut", set: { assess: "lockdown" },
+        say: [
+          "Every laptop sealed. Nothing gets in or out.",
+          "Whether the students can answer without one,",
+          "",
+          "you find out in week 11."
+        ] },
+      { k: "C", t: "Drafts, then a ten-minute viva each", to: "powercut", set: { assess: "viva" },
+        say: [
+          "Three days of hearing 180 people explain their own work.",
+          "Some of it is brilliant. All of it is theirs.",
+          "",
+          "Nobody can outsource a conversation."
+        ] }
+    ]
+  },
+
+  powercut: {
+    banner: "WEEK 11: THE EXAM",
+    text: F => [
+      "Exam day. 180 students, one sports hall, 180 laptops",
+      F.assess === "lockdown" ? "sealed by the lockdown browser you chose in week 8."
+        : F.assess === "detect" ? "and a detection tool waiting at the far end."
+        : "and a viva timetable pinned to the door.",
+      "",
+      "09:04. The lights go out. So does the wifi.",
+      "Estates say 'about an hour'. Estates always say that."
+    ],
+    opts: [
+      { k: "A", t: "Hand out paper and pens. It goes ahead.", to: "appeal", set: { exam: "paper" },
+        say: F => F.taught ? [
+          "Pens. Paper. Ninety minutes of the sound of thinking.",
+          "The scripts are shorter than usual and better argued.",
+          "Three cite the fake paper from week 3,",
+          "then explain why it is fake. You give them the marks."
+        ] : F.banned ? [
+          "Pens. Paper. Silence of the wrong kind.",
+          "They were banned from the tool, never taught without it.",
+          "One writes 'regenerate response' and underlines it.",
+          "Forty leave early. Not a protest. They have nothing."
+        ] : [
+          "Pens. Paper. A hall full of people waiting for a cursor.",
+          "Nobody has written an argument the tool did not start.",
+          "Scripts average 140 words, a third of them the question.",
+          "Judgement, it turns out, was the thing you did not teach."
+        ] },
+      { k: "B", t: "Postpone until the power is back", to: "appeal", set: { exam: "postponed" },
+        say: [
+          "10:15. Power returns. 180 laptops reboot at once.",
+          "The wifi, seeing this, leaves again.",
+          "The exam moves to a Saturday nobody can attend,",
+          "the only day 180 people have in common."
+        ] },
+      { k: "C", t: "Cancel it. Mark the vivas you already ran.", to: "appeal", set: { exam: "viva" },
+        when: F => F.assess === "viva",
+        say: [
+          "You already heard 180 people explain their own work.",
+          "The power cut has nothing to take. Estates are relieved.",
+          "",
+          "Assess the process and the lights become optional."
+        ] }
+    ]
+  },
+
+  appeal: {
+    banner: "WEEK 12: THE APPEALS PANEL",
+    text: F => [
+      ...(F.tool === "public" ? [
+        "First, the chair asks which tool drafted your extension",
+        "replies in week 2, and where the medical notes are now."
+      ] : []),
+      ...(F.marking === "stamp" ? [
+        "The Kant student appeals. The panel has both documents",
+        "and a highlighter."
+      ] : F.disclosure === "report" ? [
+        "The honest student appeals. Their evidence is the page",
+        "they wrote you. The panel finds it persuasive."
+      ] : [
+        "A student appeals a mark. It happens every year.",
+        "The panel has the essay, the comments, and a question."
+      ]),
+      "",
+      "The chair asks: 'Who marked this?'"
+    ],
+    opts: [
+      { k: "A", t: "'The system marked it. I approved.'", to: "end", set: { owned: false },
+        say: [
+          "'Approved' is doing a lot of work in that sentence.",
+          "",
+          "Responsibility did not transfer with the file."
+        ] },
+      { k: "B", t: "'I did. Here is how, and what changed.'", to: "end", set: { owned: true },
+        say: F => F.marking === "review" ? [
+          "You show the four you caught.",
+          "The panel has never seen a marker bring evidence",
+          "of checking. They look almost moved."
+        ] : [
+          "You show nothing, because there is nothing to show.",
+          "But you said 'I'. The panel writes it down.",
+          "",
+          "It counts."
+        ] },
+      { k: "C", t: "'The department's policy marked it.'", to: "end", set: { owned: false },
+        say: [
+          "The policy is not in the room.",
+          "",
+          "You are."
+        ] }
+    ]
+  }
+};
+
+// First match wins. Governance outranks everything: the medical notes left
+// the building in week 2 and nothing after that brings them back.
+const ENDINGS = [
+  { id: "governance", when: F => F.tool === "public",
+    banner: "SOMEONE HAS NOTICED: INFORMATION GOVERNANCE",
+    text: () => [
+      "Forty-one medical notes went to a free chatbot in week 2.",
+      "The chatbot has improved its service.",
+      "The rest of your term was, in places, excellent.",
+      "Nobody will ask about it.",
+      "",
+      ["Approved tools with your CU sign-in exist for this.", "warn"]
+    ] },
+  { id: "stamp", when: F => F.marking === "stamp" && !F.owned,
+    banner: "THE MACHINE MARKED IT",
+    text: () => [
+      "Appeal upheld. 180 marks redone by a human",
+      "over a weekend. The human is you.",
+      "The tool sends no apology.",
+      "It was never accountable.",
+      "",
+      ["That was always the point.", "warn"]
+    ] },
+  { id: "dark", when: F => !F.taught,
+    banner: "THE DARK EXAM",
+    text: F => [
+      "Exam voided. The cohort could use the tool.",
+      "They could not do without it, because nobody asked",
+      "them to, once, in a lit room.",
+      F.exam === "postponed"
+        ? "The Saturday resit is still pending. It always will be."
+        : "Next term you have one lecture to fix that.",
+      "",
+      ["Teach the judgement. Then the tool can go dark.", "warn"]
+    ] },
+  { id: "record", when: () => true,
+    banner: "MARKER OF RECORD",
+    text: F => [
+      "Your name is on every mark and you can say why.",
+      "The tool drafted, checked, summarised,",
+      "and once invented an author. You noticed.",
+      ...(F.marking === "review" ? ["Four wrong drafts caught. The panel took notes."] : []),
+      ...(F.disclosure === "mark" || F.disclosure === "viva"
+        ? ["Next term's students tell you what they used."] : []),
+      "",
+      ["'The human value is in the review.'", "warn"]
+    ] }
+];
+
+const SAVE_KEY = "responsibleAiAdventure.v1";
+const PREF_KEY = "responsibleAiAdventure.prefs";
+
+/* ------------------------------------------------------------------ state */
+
+let S = freshState();
+let phase = "scene";          // scene | response | resume | ending
+let typing = null;            // active typewriter job
+let prefs = { lg: false, hc: false, motion: true };
+
+function freshState() { return { node: "start", flags: {}, path: [] }; }
+
+const L = (x, F) => typeof x === "function" ? x(F) : x;
+
+// Pure: no DOM. The verification walker calls these directly.
+function applyChoice(state, o) {
+  if (o.set) Object.assign(state.flags, o.set);
+  if (o.add) for (const k in o.add) state.flags[k] = (state.flags[k] || 0) + o.add[k];
+  state.path.push(state.node + ":" + o.k);
+  state.node = o.to;
+  return state;
+}
+function pickEnding(F) { return ENDINGS.find(e => e.when(F)); }
+function liveOpts(node, F) { return L(node.opts, F).filter(o => !o.when || o.when(F)); }
+
+/* ------------------------------------------------------------------ dom */
+
+const term = document.getElementById("term");
+const choices = document.getElementById("choices");
+const $ = id => document.getElementById(id);
+
+function line(text, cls) {
+  const el = document.createElement("span");
+  el.className = "l" + (cls ? " " + cls : "");
+  el.textContent = text;
+  term.appendChild(el);
+  return el;
+}
+
+// Rules run the full width of the terminal. Column count is measured from
+// the live font.
+function columns() {
+  const probe = document.createElement("span");
+  probe.textContent = "0000000000";
+  probe.style.cssText = "position:absolute;visibility:hidden;white-space:pre";
+  term.appendChild(probe);
+  const cw = probe.getBoundingClientRect().width / 10 || 9;
+  term.removeChild(probe);
+  return Math.max(24, Math.floor(term.clientWidth / cw));
+}
+function banner(title) {
+  const rule = "-".repeat(columns());
+  return [[rule, "box"], [title, "box"], [rule, "box"]];
+}
+
+// Print a list of lines with a typewriter. Each item is a string or
+// [string, cls]. Resolves when done. Any key or click flushes the rest.
+function print(lines, done) {
+  const queue = lines.map(l => Array.isArray(l) ? l : [l, ""]);
+  const job = { queue, done, el: null, i: 0, text: "" };
+  if (typing) flush();
+  typing = job;
+  if (!prefs.motion) { flush(); return; }
+  step();
+}
+
+function step() {
+  const job = typing; if (!job) return;
+  if (!job.el) {
+    if (!job.queue.length) { finish(); return; }
+    const [text, cls] = job.queue.shift();
+    job.text = text; job.i = 0;
+    job.el = line("", cls + " cursor");
+    if (!text) { job.el.classList.remove("cursor"); job.el = null; job.timer = setTimeout(step, 40); return; }
+  }
+  job.i += 2;
+  job.el.textContent = job.text.slice(0, job.i);
+  scrollDown();
+  if (job.i >= job.text.length) {
+    job.el.classList.remove("cursor"); job.el = null;
+    job.timer = setTimeout(step, 90);
+  } else {
+    job.timer = setTimeout(step, 14);
+  }
+}
+
+function flush() {
+  const job = typing; if (!job) return;
+  clearTimeout(job.timer);
+  if (job.el) { job.el.textContent = job.text; job.el.classList.remove("cursor"); }
+  job.queue.forEach(([t, c]) => line(t, c));
+  job.queue = [];
+  finish();
+}
+
+function finish() {
+  const job = typing; typing = null;
+  scrollDown();
+  trim();
+  if (job && job.done) job.done();
+  promptLine();
+}
+
+// The idle prompt: a blinking block after "> ", the way a terminal waits.
+function promptLine() {
+  if (term.querySelector(".prompt")) return;
+  const el = line("> ", "prompt cursor");
+  el.setAttribute("aria-hidden", "true");
+}
+
+function scrollDown() {
+  const y = document.body.scrollHeight;
+  if (y <= window.innerHeight) return;
+  window.scrollTo({ top: y, behavior: prefs.motion ? "smooth" : "auto" });
+}
+
+function trim() {
+  while (term.children.length > 420) term.removeChild(term.firstChild);
+}
+
+function clearChoices() { choices.innerHTML = ""; }
+
+// One scene per screen. The terminal is wiped, the page goes back to the
+// top, and the new scene types in. No scrollback, like the games it copies.
+function screen(lines, done) {
+  if (typing) flush();
+  term.innerHTML = "";
+  clearChoices();
+  window.scrollTo(0, 0);
+  print(lines, done);
+}
+
+function button(label, key, onClick, primary) {
+  const b = document.createElement("button");
+  b.type = "button";
+  if (key) {
+    const k = document.createElement("span"); k.className = "k"; k.textContent = key + ")";
+    b.appendChild(k);
+  }
+  b.appendChild(document.createTextNode(label));
+  b.dataset.key = key || "";
+  b.addEventListener("click", onClick);
+  choices.appendChild(b);
+  return b;
+}
+
+/* ------------------------------------------------------------------ flow */
+
+function save() {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) {}
+}
+function loadSave() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return null;
+    const s = JSON.parse(raw);
+    return s && typeof s.node === "string" && NODES[s.node] && s.flags && Array.isArray(s.path) ? s : null;
+  } catch (e) { return null; }
+}
+function wipe() { try { localStorage.removeItem(SAVE_KEY); } catch (e) {} }
+
+function scene(id) {
+  phase = "scene";
+  S.node = id; save();
+  const n = NODES[id];
+  const opts = liveOpts(n, S.flags);
+  const lines = [...banner(n.banner), "", ...L(n.text, S.flags)];
+  if (id !== "start") lines.push("", ["What do you do?", "warn"]);
+  screen(lines, () => {
+    opts.forEach(o => button(o.t, o.k, () => choose(o)));
+    choices.firstChild.focus();
+  });
+}
+
+function choose(o) {
+  if (phase !== "scene") return;
+  const n = NODES[S.node];
+  applyChoice(S, o); save();
+  if (!o.say) { scene(S.node); return; }
+  phase = "response";
+  const say = L(o.say, S.flags);
+  const last = S.node === "end";
+  screen([...banner(n.banner), ["> " + (o.k ? o.k + ") " : "") + o.t, "dim"], "", ...say], () => {
+    button(last ? "END OF TERM" : "CONTINUE", "", () => last ? ending() : scene(S.node), true).focus();
+  });
+}
+
+function ending() {
+  phase = "ending";
+  const F = S.flags;
+  const e = pickEnding(F);
+  wipe();
+  const lines = [...banner(e.banner), "", ...e.text(F)];
+  if (F.runs > 0) lines.push("", ["Energy: " + F.runs + " Deep Research run" + (F.runs === 1 ? "" : "s") + ", hundreds of pages each.", "dim"]);
+  if (F.librarian) lines.push(["The librarian sends regards.", "dim"]);
+  screen(lines, () => {
+    button("PLAY AGAIN", "", () => { S = freshState(); scene("start"); }, true).focus();
+  });
+}
+
+function offerResume(saved) {
+  phase = "resume";
+  S = saved;
+  screen([
+    ...banner("SESSION FOUND"),
+    "",
+    "A previous term was interrupted at",
+    [NODES[S.node].banner + ".", "warn"],
+    "",
+    "Nobody has noticed yet."
+  ], () => {
+    button("CONTINUE THAT TERM", "A", () => scene(S.node), true);
+    button("START A NEW TERM", "B", () => { S = freshState(); wipe(); scene("start"); });
+    choices.firstChild.focus();
+  });
+}
+
+/* ------------------------------------------------------------------ input */
+
+document.addEventListener("keydown", e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  const tag = (e.target && e.target.tagName) || "";
+  if (typing) {
+    // Any key skips the typing, and is consumed so it does not also choose.
+    if (!(e.key === "Tab")) { e.preventDefault(); flush(); }
+    return;
+  }
+  const k = e.key.toUpperCase();
+  const map = { "1": "A", "2": "B", "3": "C" };
+  const want = map[k] || (["A", "B", "C"].includes(k) ? k : null);
+  if (want && (phase === "scene" || phase === "resume")) {
+    const b = choices.querySelector('button[data-key="' + want + '"]');
+    if (b) { e.preventDefault(); b.click(); }
+    return;
+  }
+  if ((e.key === "Enter" || e.key === " ") && tag !== "BUTTON") {
+    const b = choices.querySelector("button");
+    if (b && choices.querySelectorAll("button").length === 1) { e.preventDefault(); b.click(); }
+  }
+});
+term.addEventListener("click", () => { if (typing) flush(); });
+
+/* ------------------------------------------------------------------ prefs */
+
+function applyPrefs() {
+  document.body.classList.toggle("lg", prefs.lg);
+  document.body.classList.toggle("hc", prefs.hc);
+  document.body.classList.toggle("nomo", !prefs.motion);
+  $("tgl-text").textContent = "TEXT: " + (prefs.lg ? "LARGE" : "NORMAL");
+  $("tgl-text").setAttribute("aria-pressed", String(prefs.lg));
+  $("tgl-hc").textContent = "CONTRAST: " + (prefs.hc ? "HIGH" : "NORMAL");
+  $("tgl-hc").setAttribute("aria-pressed", String(prefs.hc));
+  $("tgl-motion").textContent = "MOTION: " + (prefs.motion ? "ON" : "OFF");
+  $("tgl-motion").setAttribute("aria-pressed", String(prefs.motion));
+  try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {}
+}
+$("btn-settings").addEventListener("click", () => {
+  const open = $("toggles").hidden;
+  $("toggles").hidden = !open;
+  $("btn-settings").setAttribute("aria-expanded", String(open));
+  if (open) $("tgl-text").focus();
+});
+$("tgl-text").addEventListener("click", () => { prefs.lg = !prefs.lg; applyPrefs(); });
+$("tgl-hc").addEventListener("click", () => { prefs.hc = !prefs.hc; applyPrefs(); });
+$("tgl-motion").addEventListener("click", () => { prefs.motion = !prefs.motion; applyPrefs(); if (!prefs.motion) flush(); });
+$("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); scene("start"); });
+
+/* ------------------------------------------------------------------ boot */
+
+(function boot() {
+  try {
+    const p = JSON.parse(localStorage.getItem(PREF_KEY) || "null");
+    if (p && typeof p === "object") prefs = Object.assign(prefs, p);
+    else if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) prefs.motion = false;
+  } catch (e) {}
+  applyPrefs();
+  const saved = loadSave();
+  if (saved && saved.node !== "start" && saved.node !== "end") offerResume(saved); else scene("start");
+})();
+</script>
+</body>
+</html>

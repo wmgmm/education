@@ -19,17 +19,18 @@ export default function MissionGallery({ progress }) {
             <span className="directive__label">WHY YOU&rsquo;RE HERE</span>
           </div>
           <p className="directive__text">
-            I&rsquo;m Chris, your new line manager. I got a new job as Sustainability
-            Engagement Officer, and the Sustainable Futures policy landed on my desk in
-            week one, so I have volunteered our team to work out what we actually do about
-            it. Remember Responsible AI: this is your work, and AI is your assistant.
+            I&rsquo;m Chris, your new line manager. I got a new job as Digital Education
+            Officer, and in week one I was asked to run a staff briefing on responsible AI.
+            Staff need to understand it before they can explain it to students, so I have
+            volunteered our team to build the pack. Remember Responsible AI: this is your
+            work, and AI is your assistant.
           </p>
-          <span className="directive__sig">— Chris Gravitas, Sustainability Engagement Officer (and your new line manager, apparently)</span>
+          <span className="directive__sig">— Chris Gravitas, Digital Education Officer (and your new line manager, apparently)</span>
         </div>
         <img
           className="intro-row__image"
           src={`${BASE}${HERO_IMAGE}`}
-          alt="Cartoon in the style of an 8-bit ZX Spectrum game: a grinning manager in a striped suit holds out a document titled Sustainable Futures across an otherwise empty desk to an alarmed colleague in a green hoodie clutching a laptop. A whiteboard behind them reads STAFF BRIEFING, a Welsh dragon pennant hangs on the desk, and the clock says five to twelve."
+          alt="Cartoon in the style of an 8-bit ZX Spectrum game: a grinning manager in a striped suit holds out a document titled Responsible AI across an otherwise empty desk to an alarmed colleague in a green hoodie clutching a laptop. A whiteboard behind them reads STAFF BRIEFING, a Welsh dragon pennant hangs on the desk, and the clock says five to twelve."
         />
       </div>
 

@@ -9,7 +9,7 @@ export default function TaglineBar({ compact = false }) {
       {/* The wordmark is the home link, the Apple and thematts convention.
           Underlined on hover so it reads as one; the small text link on each
           exercise page covers anyone who does not expect it to be. */}
-      <a href="#/" className="tagline-bar__title">AI IN THE WORKPLACE PART 2</a>
+      <a href="#/" className="tagline-bar__title">AI IN THE WORKPLACE PART 2: EDUCATION EDITION</a>
       {!compact && (
         <>
           <span className="tagline-bar__sep">&mdash;</span>

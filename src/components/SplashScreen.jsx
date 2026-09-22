@@ -27,17 +27,17 @@ export default function SplashScreen({ onStart }) {
 
         {/* Stamps row */}
         <div className="splash-hero">
-          <div className="cover-brand-stamp cover-brand-stamp--main">THE MATTS PRESENT AI IN THE WORKPLACE PART 2</div>
+          <div className="cover-brand-stamp cover-brand-stamp--main">THE MATTS PRESENT AI IN THE WORKPLACE PART 2: EDUCATION EDITION</div>
           <div className="cover-brand-stamp cover-brand-stamp--uni">CARDIFF UNIVERSITY</div>
         </div>
 
         {/* Headline */}
-        <h1 className="splash-headline">AI in the Workplace Part 2</h1>
+        <h1 className="splash-headline">AI in the Workplace Part 2: Education Edition</h1>
         <p className="splash-deck">
-          One Real Cardiff Document, Six Exercises,<br />Skills You Will Use on Monday
+          One Deep Research Report, Six Exercises,<br />Skills You Will Use on Monday
         </p>
         <p className="splash-byline">
-          Your new line manager: <strong>Chris Gravitas</strong>, Sustainability Engagement Officer
+          Your new line manager: <strong>Chris Gravitas</strong>, Digital Education Officer
         </p>
 
         {/* 3-step instructions */}
@@ -61,9 +61,9 @@ export default function SplashScreen({ onStart }) {
           <li className="splash-step">
             <span className="splash-step__num">2</span>
             <span className="splash-step__text">
-              <strong>Download the public PDF</strong> we will be using:{' '}
-              <a href={`${BASE}placeholders/Sustainable-Futures-en.pdf`} target="_blank" rel="noopener noreferrer" className="splash-link">
-                the sustainability plan
+              <strong>Download the backup report</strong> in case Deep Research is slow:{' '}
+              <a href={`${BASE}placeholders/Deep_research_output.pdf`} target="_blank" rel="noopener noreferrer" className="splash-link">
+                the Matts&rsquo; report
               </a>.
             </span>
           </li>

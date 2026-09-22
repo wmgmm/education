@@ -30,7 +30,7 @@ Core step time is 86 minutes, bonus excluded, so nobody runs all six.
 | 01 | The Landscape | Deep Research + Copilot | Research the plan, then make Copilot fact-check and rebuild it |
 | 02 | The Image | Copilot | Clone a photo's style into a reusable prompt, then audit an image |
 | 03 | The Game | Gemini Canvas | Build a playable 8-bit game from the plan, then fix it in words |
-| 04 | The Module | Gemini or Copilot | Run `Training_Module_Builder.md` on the plan |
+| 04 | The Module | Copilot | Run `Training_Module_Builder.md` on the revised report |
 | 05 | The Brand | Gemini Notebook | One source, two skills, two decks that differ only by the skill |
 | 06 | The Story | Gemini Canvas | Build a dashboard from real HESA data, compare it with ours, repair it |
 | B1 | Analyse the Numbers | Copilot then Gemini | **Bonus**, off the tally: analyse the data, verify one figure with a skill |
@@ -137,7 +137,7 @@ an exercise, edit the data file.
 | `choice`, `hook`, `toolChip`, `collapsed` | the accordion rows under the stretch heading |
 
 `mission.toolsJoin` sets how the picker card joins tool names: default `+` for tools used in
-sequence, `'or'` where either will do (Exercise 04). `mission.bonus: true` keeps a mission in
+sequence, `'or'` where either will do (none since 04 went Copilot-only). `mission.bonus: true` keeps a mission in
 `MISSIONS` (routing and `?doctor` see it) but puts it in the gallery's red-headed strip, not a
 card, leaves it out of the "n of 6" tally, and sets the eyebrow to BONUS EXERCISE.
 
@@ -172,13 +172,13 @@ thumbnails, attach lists, `attachExtra` and logos, derived from `MISSIONS` so it
 **A new field naming a file must be added to `collectUrls` in `DoctorPanel.jsx` in the same
 commit.** Missed twice, both times reporting all-clear over an invisible asset.
 
-Sixteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan),
-`Deep_research_output.pdf` (01's fallback), `Example_Training_Session.pdf` (05's backup source),
-`HESA_Estates_Management.xlsx` (13 MB, **unlinked**, the generator's input); real tool runs:
-`Cardiff_Estates_Dashboard.html` (06 step 2), `Demand_First_Game.html` (03 step 4, rescored to rank
-the four stages as the plan does), `Demand_First_Purchasing.pptx` (05, the brand skill in
-Notebook), `Example_Bubble_Chart.html` (fabricated, **unlinked**); and
-`Demand_First_Adventure.html`, a text adventure built to a PRD, beside the game on 03 step 4.
+Eighteen files ship. **Not generated:** `Sustainable-Futures-en.pdf` (the plan, **unlinked**),
+`Deep_research_output.pdf` (01's fallback), `Deep_Research_Report_Revised_By_Copilot.pdf` (03's
+fallback), `Half_Hour_Responsible_AI_Training.pdf` (05's backup source; `Example_Training_Session.pdf` **unlinked**), `HESA_Estates_Management.xlsx`
+(13 MB, **unlinked**, the generator's input); real tool runs: `Cardiff_Estates_Dashboard.html`
+(06 step 2), `Demand_First_Purchasing.pptx` (05), `Example_Bubble_Chart.html`,
+`Demand_First_Game.html` and `Demand_First_Adventure.html` (all three **unlinked**); and
+`Responsible_AI_Adventure.html`, a branching text adventure on 03 step 4.
 **Generated:** the five skills, `Example_Style_Block.md` and `HESA_Estates_Workshop.csv`/`.xlsx`.
 
 ## Styling
