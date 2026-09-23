@@ -496,3 +496,12 @@ Exercise 03 Responsible AI step reworded with Matt (sharing is allowed, public s
 and the safest move is to leave C1/C2 data out): "Share responsibly: share the link with
 colleagues, not publicly, if the game holds confidential (C1 or C2) data. Reduce the risk by
 leaving C1 and C2 data out in the first place." Committed and pushed on Matt's ask.
+
+Gallery sign-ins (Matt: the pills looked uneven; then "more like the original workshop website,
+big cards, little logo, more rectangle"): now the same `.tool-card` markup the exercise pages
+use (logo, "Click to open X", the URL), three cards of fixed width 13.5rem on the title's row;
+the title's clamp drops to max 2rem so the row holds at 1366. Note the trap: rewriting the gallery-header CSS block by slicing to end-of-file dropped
+the phone-width wordmark-wrap rule beneath it; re-appended. Not committed.
+Then (Matt): the cards lost their blue URL line, and the "n of 6 exercises complete" header line
+(and its all-complete variant) is gone to save vertical space; `completedCount` removed from the
+gallery. Progress still shows on each card. Committed and pushed on Matt's ask.

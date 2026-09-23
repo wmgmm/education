@@ -9,7 +9,6 @@ export default function MissionGallery({ progress }) {
   // and not counted, so "n of 6" stays true to the day's six.
   const main = MISSIONS.filter(m => !m.bonus);
   const bonus = MISSIONS.filter(m => m.bonus);
-  const completedCount = main.filter(m => progress[m.id]).length;
 
   return (
     <section className="evidence-section">
@@ -38,25 +37,17 @@ export default function MissionGallery({ progress }) {
         <div className="evidence-section__lead">
           <h1 className="evidence-section__title">BUILD THE STAFF BRIEFING PACK</h1>
           {/* The three sign-ins beside the title, so nobody hunts for a tab. */}
-          <nav className="tool-links" aria-label="Open your tools">
+          <nav className="tool-cards__row tool-cards__row--gallery" aria-label="Open your tools">
             {[APPS.copilot, APPS.gemini, APPS.notebook].map(app => (
-              <a key={app.name} className="tool-link" href={app.url} target="_blank" rel="noopener noreferrer" title={app.note}>
-                <img src={`${BASE}logos/${app.logo}`} alt="" />
-                <span>{app.name}</span>
+              <a key={app.name} className="tool-card" href={app.url} target="_blank" rel="noopener noreferrer" title={app.note}>
+                <img className="tool-card__logo" src={`${BASE}logos/${app.logo}`} alt="" />
+                <span className="tool-card__text">
+                  <span className="tool-card__label">Click to open {app.name}</span>
+                </span>
               </a>
             ))}
           </nav>
         </div>
-        {completedCount === main.length ? (
-          <p className="mission-progress-line mission-progress-line--done">
-            All {main.length} complete. &ldquo;The briefing pack exists. The real
-            work is making this how the team works every week.&rdquo; &mdash; C.G.
-          </p>
-        ) : (
-          <p className="mission-progress-line">
-            {completedCount} of {main.length} exercises complete
-          </p>
-        )}
       </div>
 
       <div className="evidence-grid mission-grid">
