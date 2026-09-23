@@ -562,7 +562,7 @@ const A = {
   // prompt, not just the line on the page.
   stepOnePrompt: {
     label: 'YOUR STEP 1 PROMPT',
-    filename: 'the prompt from step 1, subject replaced',
+    filename: 'Copilot\'s reply from step 1, subject replaced',
     thumb: PROMPT_ICON,
     paste: true,
   },
@@ -596,12 +596,12 @@ export const MISSIONS = [
     estMinutesCore: 14,
     toolInfo: {
       feature:
-        'Deep Research browses the web on its own and comes back with a cited report. Copilot then marks it against a rubric and rewrites it in full as a learning resource.',
+        'Deep Research browses the web on its own and comes back with a cited report. Copilot then marks it against a nine-point marking scheme and rewrites it in full as a learning resource.',
       apps: [APPS.gemini, APPS.copilot],
     },
     workflow: ['Deep Research on Gemini', 'Copilot marks and revises it', 'Copilot draws a visual guide'],
     brief:
-      'Research how UK universities use generative AI, have Copilot mark and rewrite the report, then draw it as a one-page visual guide. Exercises 03 to 05 reuse the revised report.',
+      'Research how UK universities use generative AI, have Copilot mark and rewrite the report, then draw it as a one-page visual guide. Exercises 03 and 04 attach the revised report.',
     artifacts: [A.deepResearch],
     steps: [
       {
@@ -609,14 +609,14 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Run Deep Research in Gemini',
         body:
-          'In Gemini, click the + and select Deep Research, then paste the brief and send. Edit the plan if you like, then Start research. When it finishes, use Share and export to copy it into a Word document, and save it.',
-        attachLabel: 'ENABLE',
+          'In Gemini, click the + and select Deep Research, then paste the brief and send. Edit the plan if you like, then Start research. When it finishes, click Share and export, then Copy contents, paste it into a Word document and save it.',
+        attachLabel: 'SELECT',
         attachExtra: {
           src: 'deep_research_button.png',
           alt: 'The Deep Research item in Gemini\'s + menu, ticked.',
         },
         promptLabel: 'THE BRIEF',
-        promptNote: '[takes several minutes: if yours is still running, use the Matts\' report at the top for step 2]',
+        promptNote: '[takes several minutes, and runs are limited: if yours is still running or will not start, use the Matts\' report at the top for step 2]',
         prompt: DR_HE_BRIEF,
       },
       {
@@ -624,7 +624,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Mark and revise it in Copilot',
         body:
-          'In a new Copilot chat, attach your report with the paperclip (or the Matts\' copy from the top), paste the prompt and send. If it summarises, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the note, into Word and save it: Exercises 03 to 05 use it.',
+          'In a new Copilot chat, attach your report with the paperclip (or the Matts\' copy from the top), paste the prompt and send. If it summarises, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the examiner\'s note, into Word and save it as your revised report: Exercises 03 and 04 attach it.',
         promptLabel: 'MARK IT, THEN REWRITE IT',
         attachLabel: 'NEW CHAT',
         attach: [A.yourReport, A.thisPrompt],
@@ -654,7 +654,7 @@ export const MISSIONS = [
     ],
     verdictBy: 'The Matts',
     verdict:
-      'A model anchors on what it has already written, so it is a weak marker of its own work. That is why Gemini wrote the report and Copilot marked it: a new chat, a different model, a rubric it did not write towards. Review your own drafts the same way.',
+      'A model anchors on what it has already written, so it is a weak marker of its own work. That is why Gemini wrote the report and Copilot marked it: a new chat, a different model, a marking scheme it did not write towards. Review your own drafts the same way.',
   },
 
   {
@@ -674,7 +674,7 @@ export const MISSIONS = [
     },
     workflow: ['Clone the style', 'Draw with your style prompt', 'Audit for accessibility'],
     brief:
-      'Turn a picture you like into a prompt you own, then freeze it as a reusable style block.',
+      'Turn a picture you like into a reusable prompt, draw a new image with it, then check that someone who cannot see it would still get the message you intended.',
     artifacts: [A.studySpace, A.styleExample],
     steps: [
       {
@@ -682,7 +682,7 @@ export const MISSIONS = [
         estMinutes: 3,
         title: 'Clone the style of the image into a reusable prompt',
         body:
-          'Use Copilot. Download the picture from the card above, attach it with the paperclip, and paste the prompt.',
+          'In a new Copilot chat, download the picture from the card above, attach it with the paperclip, paste the prompt and send. Keep the reply: step 2 reuses it. If it did not come back as a prompt, use the Matts\' one from the top.',
         attach: [A.studySpace],
         image: {
           src: 'cardiff_study_space.jpg',
@@ -697,7 +697,7 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Draw a new image with the prompt from step 1',
         body:
-          'Copy the whole prompt from step 1 into a new chat, replace [INSERT SUBJECT HERE] with the subject below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
+          'Copy the prompt Copilot wrote in step 1 (or the Matts\' one from the top) into a new chat, replace [INSERT SUBJECT HERE] with the subject below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
         attachLabel: 'NEW CHAT',
         attach: [A.stepOnePrompt],
         promptLabel: 'THE SUBJECT: PASTE THIS OVER [INSERT SUBJECT HERE]',
@@ -720,7 +720,7 @@ export const MISSIONS = [
         estMinutes: 3,
         title: 'Audit your new image for accessibility',
         body:
-          'Download your new image, then attach it in a new chat with the audit prompt. If the description does not match what you meant, the image failed.',
+          'Download your new image. In a new chat, attach it with the paperclip, paste the audit prompt and send. If the description does not match what you meant, the image failed.',
         attachLabel: 'NEW CHAT',
         attach: [A.yourImage, A.thisPrompt],
         promptLabel: 'THE ACCESSIBILITY AUDIT',
@@ -731,7 +731,7 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'AI can support accessibility: alt text, a plain description, what a screen reader would give. A start, but not a substitute for asking the people who actually rely on it.',
+          'AI can support accessibility: alt text (the short description a screen reader reads out in place of an image), or a plain description of a picture. A start, but not a substitute for asking the people who actually rely on it.',
       },
     ],
     verdictBy: 'The Matts',
@@ -756,7 +756,7 @@ export const MISSIONS = [
     },
     workflow: ['Run the detailed prompt', 'Read the code', 'Give AI feedback'],
     brief:
-      'Build a playable 8-bit game from your revised report from Exercise 01, fully specified, without writing code.',
+      'Build a playable 8-bit game from the report you revised in Exercise 01 without writing a line of code, read what Canvas built, then fix the one thing that spoils it in plain words.',
     artifacts: [],
     steps: [
       {
@@ -764,7 +764,7 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Attach your revised report and run the prompt',
         body:
-          'In a new Gemini chat, attach your revised report with the + (or the Matts\' copy below), paste the prompt, turn Canvas on and send. Change [responsible AI] to any subject your report covers. If the game falls short, try it on Pro.',
+          'In a new Gemini chat, attach your revised report with the + (or the Matts\' copy below) and paste the prompt. Keep [responsible AI] or swap it for another subject your report covers, turn Canvas on and send. If the game falls short, switch the model to Pro and send again.',
         promptLabel: 'THE DETAILED PROMPT',
         promptEmphasis: '[responsible AI]',
         attachLabel: 'NEW CHAT',
@@ -797,7 +797,7 @@ export const MISSIONS = [
         title: 'Play the one the Matts made earlier',
         artifact: [A.responsibleAiAdventure],
         body:
-          'One of ours. Five minutes, nine choices; the early ones come back for you. Keys A to C work.',
+          'One of ours, a text adventure rather than an arcade game. Play two or three choices; keys A to C work.',
       },
       {
         tier: 'core',
@@ -837,7 +837,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Attach the skill and your revised report, then send the prompt',
         body:
-          'In Copilot, attach both files from the cards at the top with the paperclip: the skill and your revised report (or the Matts\' copy). Check both names show above the box, then paste the prompt and send.',
+          'In a new Copilot chat, attach two files with the paperclip: the skill from the card at the top, and your revised report (or the Matts\' copy beside it). Check both names show above the box, then paste the prompt and send.',
         attach: [A.trainingSkill, A.yourImprovedReport],
         promptLabel: 'YOUR PROMPT, PLUS ONE LINE',
         promptNote: '[attach both files first, then send]',
@@ -862,7 +862,7 @@ export const MISSIONS = [
         estMinutes: 2,
         title: 'Copy your training module for Exercise 05',
         body:
-          'Copy the whole answer: that is your training module, and Exercise 05 pastes it straight in. If it did not run, move on: Exercise 05 has the Matts\' module.',
+          'Copy the whole answer into a Word document and save it as your training module: Exercise 05 pastes it into Notebook. If it did not run, move on: Exercise 05 has the Matts\' module.',
       },
       {
         tier: 'core',
@@ -874,7 +874,7 @@ export const MISSIONS = [
     ],
     verdictBy: 'The Matts',
     verdict:
-      'Jisc calls where most teams sit stage two: experimenting. Stage three is operational. Nothing you did today was hard; doing it the same way twice is the hard part, and the only part that scales.',
+      'Jisc\'s maturity model puts most teams at stage two, experimenting. Stage three is operational. Nothing you did today was hard; doing it the same way twice is the hard part, and the only part that scales.',
   },
 
   {
@@ -884,7 +884,7 @@ export const MISSIONS = [
     level: 2,
     title: 'The Brand',
     pageTitle: 'Turn Your Training Module Into Slides That Look Like Cardiff',
-    summary: 'One skill, one internal Cardiff-branded deck.',
+    summary: 'Two skills, two decks from one training module.',
     tools: [TOOLS.notebook],
     estMinutesCore: 23,
     toolInfo: {
@@ -894,7 +894,7 @@ export const MISSIONS = [
     },
     workflow: ['Paste in your training module', 'Cardiff skill makes the deck', 'Rerun with the Matts\' skill'],
     brief:
-      'Turn your training module from Exercise 04 into a slide deck that looks like it came from this university.',
+      'Turn your training module from Exercise 04 into a slide deck that looks like it came from this university, then rerun it with a second skill and compare the two.',
     artifacts: [A.exampleTraining],
     steps: [
       {
@@ -902,7 +902,7 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Add your training module to a new notebook',
         body:
-          'Create a new Gemini Notebook, then add as a source the training module text from Exercise 04, or just upload the Matts\' training module from the card at the top.',
+          'Create a new Gemini Notebook, click Add source and paste in the training module text from Exercise 04 as copied text, or just upload the Matts\' training module from the card at the top.',
       },
       {
         tier: 'core',
@@ -923,7 +923,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Generate the deck, then export',
         body:
-          'Press Generate, and read the brand skill while you wait. When the deck appears, the three-dot menu on the slide viewer exports PowerPoint or PDF.',
+          'Press Generate, and read the brand skill while you wait. When the deck appears, use the three-dot menu on the slide viewer to export PowerPoint and save it: step 5 needs both decks.',
       },
       {
         tier: 'core',
@@ -931,7 +931,7 @@ export const MISSIONS = [
         title: 'Generate a second deck with the Matts\' brand skill',
         artifact: A.mattsBrandSkill,
         body:
-          'Once the first deck is saved, open Slide Deck again. Same source, but paste this skill into the description box instead. One notebook, two skills, two very different decks.',
+          'Open Slide Deck again. Same source, but COPY this skill from the card below and paste it into the description box instead, then Generate and export it the same way. One notebook, two skills, two very different decks.',
       },
       {
         tier: 'core',
@@ -979,7 +979,7 @@ export const MISSIONS = [
         estMinutes: 8,
         title: 'Build the dashboard in Gemini\'s Canvas',
         body:
-          'In a new Gemini chat, attach the CSV with the +, turn Canvas on, paste the prompt and send. If no preview appears, switch to Flash. While it builds, open ours in step 2.',
+          'In a new Gemini chat, pick Pro if you have it, attach the CSV with the +, turn Canvas on, paste the prompt and send. If no preview appears, choose Flash in the model menu at the top and resend. While it builds, open ours in step 2.',
         promptLabel: 'THE BUILD PROMPT',
         attachLabel: 'NEW CHAT',
         attach: [A.hesaData],
@@ -1002,7 +1002,7 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 5,
-        title: 'Always verify, and repair if required',
+        title: 'Verify it, then repair it',
         body:
           'Our first dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair yours: in the same chat, attach the CSV again and paste the repair prompt.',
         // {download} in the body renders Matt's screenshot of the Canvas Download
@@ -1020,7 +1020,7 @@ export const MISSIONS = [
         backup: {
           label: 'OPTIONAL: THE CLEANER AUDIT',
           text:
-            'A new chat is the better audit: a model checking its own work tends to defend it. Download the HTML {download}, open a new Gemini chat with Canvas on, and attach the app and the CSV together. Canvas sometimes will not display an uploaded app, which is why this is optional.',
+            'Optional, because Canvas sometimes will not display an uploaded page. A fresh chat audits more honestly: a model checking its own work tends to defend it. Download the HTML {download}, open a new Gemini chat with Canvas on, attach the dashboard and the CSV, then paste the line below followed by the repair prompt.',
           attachLabel: 'NEW CHAT',
           attach: [A.yourChart, A.hesaData],
           attachExtra: {
@@ -1038,7 +1038,7 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'Human evaluation is a key part of the workflow, but AI can still augment this verification.',
+          'A person still signs off the numbers. AI can help with the checking, as the repair prompt just did.',
       },
     ],
     verdictBy: 'The Matts',
@@ -1057,7 +1057,7 @@ export const MISSIONS = [
     level: 3,
     title: 'Analyse the Numbers',
     pageTitle: 'Ten Years of Real Data, Run Twice and Checked',
-    summary: 'Data analysis with Copilot and Verify with Gemini using a skill',
+    summary: 'Analyse the data in Copilot, then verify one figure in Gemini with a skill',
     tools: [TOOLS.copilot, TOOLS.gemini],
     estMinutesCore: 11,
     toolInfo: {
@@ -1075,7 +1075,7 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Attach the data and run the prompt',
         body:
-          'Start in Copilot. Download the HESA_Estates_Workshop.csv file from the card above and attach it.',
+          'In a new Copilot chat, attach the CSV from the card above with the paperclip, paste the prompt and send. Keep the reply open: step 2 takes its KEY FIGURE line.',
         attach: [A.hesaData],
         promptLabel: 'YOUR PROMPT',
         promptNote: '[attach HESA_Estates_Workshop.csv]',
@@ -1096,7 +1096,7 @@ export const MISSIONS = [
         title: 'Verify it in Gemini, with the skill',
         artifact: A.verifySkill,
         body:
-          'Now Gemini, in a new chat. Download the skill below, then attach it and the CSV with the +. Paste the prompt, then copy only Copilot\'s last line, starting KEY FIGURE, and paste it after FIGURE TO CHECK. Do not say where it came from.',
+          'Open a new Gemini chat. Download the skill below, then attach it and the CSV with the +. Paste the prompt, then paste Copilot\'s KEY FIGURE line after FIGURE TO CHECK, and nothing else: do not say where it came from.',
         attachLabel: 'NEW CHAT',
         attach: [A.verifySkill, A.hesaData],
         promptLabel: 'THE VERIFY PROMPT',

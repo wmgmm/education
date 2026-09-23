@@ -469,3 +469,26 @@ pass, the cut-down) is out of the file; the cut-down Jack version is backed up a
 `<scratchpad>/story/adventure_jack_cutdown_backup.html` and the side-quest version is commit
 `4250353`. Measured at 1366x768, large text: no screen scrolls and only week 8 shrinks, to 20px; every
 other screen shows at the full 21px. No console errors. Walk OK. Committed and pushed on Matt's ask.
+
+## 2026-09-23, pre-session review (session day)
+
+Four read-only reviewers (the day as a participant; copy 01 to 03; copy 04 to bonus; live-site
+check), findings merged into 26 items, Matt: "yes for all". Applied to `src/data/missions.js`:
+**blocking**: 01 step 1 names Copy contents (Gemini has no Word export); 02 step 2 says "the
+prompt Copilot wrote in step 1 (or the Matts' one from the top)" and its strip filename matches,
+because "the prompt from step 1" read as the page's own prompt; 05 steps 3 and 4 now say export
+and save each deck for step 5. **Clarity**: 04 step 3 saves the module as Word and 05 step 1
+names Add source and copied text; 03 step 1 edits the placeholder before sending and names the
+model switch; 05 summary "Two skills, two decks from one training module." and brief adds the
+second run; 02 brief no longer names a style block; 01 brief and step 2 say 03 and 04 attach
+the revised report, saved under that name, "not the examiner's note"; 04 step 1 is a new chat
+with the skill from the card and your own report; bonus step 1 names the paperclip, send and the
+KEY FIGURE hand-off; 02 steps 1 and 3 name the paperclip, send and the backup; 06 step 1 picks
+Pro and names the model menu for Flash; 04 verdict grammar; the bonus's red-strip line; 01 step
+1 note covers a refused run; 03 step 4 body no longer says five minutes; 02 step 4 glosses alt
+text. **Concision**: 03 brief in the band; 06 step 3 backup leads with optional, says dashboard,
+and tells you to paste the line then the repair prompt; 06 step 3 title "Verify it, then repair
+it"; bonus step 2 tidied; 06 Responsible AI line plain; "rubric" is "marking scheme"; 01 strip
+label SELECT. **Check for Matt on the day** (not a text change): whether clicking the Slide Deck
+tile in Notebook opens the customise box or generates at once: Matt confirmed the customise box
+opens, so "click Slide Deck" stands. MH_* anchor unchanged. Committed and pushed on Matt's ask.
