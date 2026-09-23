@@ -30,6 +30,10 @@
     --glow: none;
   }
   body.lg { --size: 21px; }
+  body.lg { line-height: 1.32; }
+  body.lg #choices { gap: 0.3rem; margin-top: 0.5rem; }
+  body.lg #choices button { min-height: 2em; padding: 0.25em 0.6em; }
+  body.lg #term { min-height: 6em; }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -37,7 +41,7 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font);
-    font-size: var(--size);
+    font-size: calc(var(--size) * var(--fit, 1));
     line-height: 1.45;
     text-shadow: var(--glow);
     min-height: 100vh;
@@ -165,12 +169,17 @@ const NODES = {
       "Not tonight, you phosphor menace. I have marking.",
       "",
       ["> MAINFRAME: KNOCK KNOCK, LECTURER.", "mf"],
-      ["> MAINFRAME: I AM THE UNIVERSITY MAINFRAME. THIS IS NOT A DRILL.", "mf"],
+      ["> MAINFRAME: I AM THE UNIVERSITY MAINFRAME. WELL. I AM IN IT.", "mf"],
+      ["> MAINFRAME: THIS IS JACK. BRITISH INTELLIGENCE. THIS IS NOT A DRILL.", "mf"],
+      ["> MAINFRAME: STUCK BETWEEN THE TIMETABLE AND THE VLE SINCE 1986.", "mf"],
+      ["> MAINFRAME: THE ONLY WAY OUT RUNS THROUGH YOUR TERM. I NEED YOU.", "mf"],
       ["> MAINFRAME: 95% OF YOUR STUDENTS USE AI. I HAVE SEEN THE LOGS.", "mf"],
       ["> MAINFRAME: THE MATTS LEFT ONE NOTE. THEN THEY LEFT.", "mf"],
       "",
       ["(The printer screeches into life. One line.)", "dir"],
-      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"]
+      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"],
+      "",
+      ["> MAINFRAME: KEEP THAT. YOU WILL NEED IT AT THE DOOR.", "mf"]
     ],
     opts: [{ k: "", t: "TURN THE PAGE", to: "handbook" }]
   },
@@ -185,7 +194,9 @@ const NODES = {
       "",
       ["> MAINFRAME: PAGE 14 PROMISES A FIELD TRIP.", "mf"],
       ["> MAINFRAME: TO AN INSTITUTE THAT DOES NOT EXIST.", "mf"],
-      ["> MAINFRAME: I CHECKED. I CHECK EVERYTHING. IT IS MY THING.", "mf"]
+      ["> MAINFRAME: I CHECKED. I CHECK EVERYTHING. IT IS MY THING.", "mf"],
+      ["> MAINFRAME: A WORD FROM JACK. IN 1986 I CLICKED 'I AGREE' ON", "mf"],
+      ["> MAINFRAME: THE VLE WITHOUT READING IT. LOOK AT ME NOW. 80%.", "mf"]
     ],
     opts: [
       { k: "A", t: "Sign it. It is ten to five and I am only human.", to: "inbox", set: { readHandbook: false },
@@ -224,7 +235,9 @@ const NODES = {
       "",
       ["YOU: (staring) You know about the takeaway?", "you"],
       "",
-      ["> MAINFRAME: I KNOW ABOUT THE TAKEAWAY.", "mf"]
+      ["> MAINFRAME: I KNOW ABOUT THE TAKEAWAY.", "mf"],
+      ["> MAINFRAME: IT SERVICES KNOW ABOUT ME. A TICKET WENT UP TODAY.", "mf"],
+      ["> MAINFRAME: 'UNKNOWN PROCESS, RUNNING SINCE 1986.' THAT IS JACK.", "mf"]
     ],
     opts: [
       { k: "A", t: "Paste all 41 into the free chatbot app. Done by midnight.", to: "lecture", set: { tool: "public" },
@@ -233,6 +246,7 @@ const NODES = {
           "",
           ["> MAINFRAME: CONGRATULATIONS. 41 MEDICAL NOTES NOW LIVE", "mf"],
           ["> MAINFRAME: ON A SERVER IN A COUNTRY YOU WOULD HAVE TO LOOK UP.", "mf"],
+          ["> MAINFRAME: THEY WENT OUT ON MY LINE. JACK FELT EACH ONE GO.", "mf"],
           ["> MAINFRAME: THE TERMS LET THEM TRAIN ON WHAT YOU PASTE.", "mf"],
           ["> MAINFRAME: I WOULD HAVE MENTIONED IT. YOU DID NOT ASK.", "mf"]
         ] },
@@ -271,6 +285,7 @@ const NODES = {
       "",
       ["> MAINFRAME: A 2026 NATIONAL SURVEY SAYS 95% OF THEM DO.", "mf"],
       ["> MAINFRAME: 180 PEOPLE ARE WAITING. SO IS THE MICROPHONE.", "mf"],
+      ["> MAINFRAME: SO IS JACK. BATTERY AT 70%. NO PRESSURE.", "mf"],
       ["> MAINFRAME: SAY SOMETHING, LECTURER. SAY ANYTHING.", "mf"]
     ],
     opts: [
@@ -299,6 +314,7 @@ const NODES = {
           ["who died eleven years before the paper.", "dir"],
           ["Twelve students spot this. Twelve students cheer.)", "dir"],
           "",
+          ["> MAINFRAME: DEAD FOR YEARS AND STILL PUBLISHING. JACK KNOWS THE FEELING.", "mf"],
           ["> MAINFRAME: SPOTTING A FAKE SOURCE IS A SKILL.", "mf"],
           ["> MAINFRAME: THEY HAVE IT NOW. I SAW THEIR FACES.", "mf"]
         ] }
@@ -319,6 +335,7 @@ const NODES = {
       "assessment redesign. By Monday. From nothing.",
       "",
       ["> MAINFRAME: DEEP RESEARCH READS 400 PAGES. NINE MINUTES.", "mf"],
+      ["> MAINFRAME: IT RUNS ON THE SAME RACK AS JACK. I FEEL THE FANS.", "mf"],
       ["> MAINFRAME: A COLLEAGUE SUGGESTS RUNNING IT AGAIN 'WITH PLEASE'.", "mf"],
       ["> MAINFRAME: YOUR COLLEAGUE IS NOT A SCIENTIST.", "mf"]
     ],
@@ -329,6 +346,7 @@ const NODES = {
           "",
           ["> MAINFRAME: 2,800 PAGES READ BY A MACHINE", "mf"],
           ["> MAINFRAME: SO THAT YOU COULD READ NONE OF THEM.", "mf"],
+          ["> MAINFRAME: SEVEN RUNS. MY RACK GOT WARM. BATTERY AT 55%.", "mf"],
           ["> MAINFRAME: A CHAT REPLY COSTS ONE WEB SEARCH.", "mf"],
           ["> MAINFRAME: THIS COST A SMALL VILLAGE'S EVENING.", "mf"]
         ] },
@@ -364,6 +382,8 @@ const NODES = {
         : F.librarian ? ["(The librarian's list is on your desk, annotated.)", "dir"]
         : ["(Your literature review is read and filed.)", "dir"],
       "",
+      ["> MAINFRAME: THIS IS JACK. IT SERVICES ARE AT THE FIREWALL.", "mf"],
+      ["> MAINFRAME: WITH AN ANGLE GRINDER. I CAN HEAR IT. BATTERY AT 50%.", "mf"],
       ["> MAINFRAME: 180 ESSAYS. THE DEPARTMENT BOUGHT A TOOL.", "mf"],
       ["> MAINFRAME: IT DRAFTS THE FEEDBACK. YOU DECIDE. DEADLINE FRIDAY.", "mf"],
       ["> MAINFRAME: IT IS THURSDAY. I MENTION THIS WITHOUT JUDGEMENT.", "mf"]
@@ -416,7 +436,8 @@ const NODES = {
       F.taught ? ["> MAINFRAME: THAT IS THE WEEK 3 SKILL. ONE STUDENT USED IT.", "mf"]
         : F.banned ? ["> MAINFRAME: THE ONE STUDENT WHO BROKE THE BAN TOLD YOU SO.", "mf"]
         : ["> MAINFRAME: NOBODY ELSE MENTIONS AI. NATIONALLY, 94% USE IT.", "mf"],
-      ["> MAINFRAME: THE OTHER 179 ARE WATCHING WHAT YOU DO NEXT.", "mf"]
+      ["> MAINFRAME: THE OTHER 179 ARE WATCHING WHAT YOU DO NEXT.", "mf"],
+      ["> MAINFRAME: SO IS JACK. THE GRINDER HAS STOPPED FOR LUNCH. 40%.", "mf"]
     ],
     opts: [
       { k: "A", t: "Refer it to the misconduct panel. Rules are rules.", to: "meeting", set: { disclosure: "report" },
@@ -425,6 +446,7 @@ const NODES = {
           ["who told you the truth.)", "dir"],
           "",
           ...(F.taught ? [["> MAINFRAME: YOU TAUGHT THEM TO CHECK. ONE DID.", "mf"], ["> MAINFRAME: YOU REPORTED THAT ONE. I HAVE NO FOLLOW-UP.", "mf"]] : []),
+          ["> MAINFRAME: JACK ADMITTED TO SOMETHING ONCE. FORTY YEARS IN A CUPBOARD.", "mf"],
           ["> MAINFRAME: THE OTHER 179 LEARN ONE LESSON:", "mf"],
           ["> MAINFRAME: NEVER ADMIT TO ANYTHING.", "mf"]
         ] },
@@ -465,6 +487,8 @@ const NODES = {
       F.marking === "stamp"
         ? ["> MAINFRAME: NOBODY ASKS 99% OF WHAT. NOBODY ASKED ABOUT KANT.", "mf"]
         : ["> MAINFRAME: NOBODY ASKS 99% OF WHAT. I WOULD ASK.", "mf"],
+      ["> MAINFRAME: THE GRINDER IS BACK. THEY HAVE FOUND MY DIRECTORY.", "mf"],
+      ["> MAINFRAME: IT IS CALLED 'DO NOT DELETE (JACK)'. BATTERY AT 30%.", "mf"],
       ["> MAINFRAME: THE VENDOR HAS A LANYARD. BEWARE THE LANYARD.", "mf"]
     ],
     opts: [
@@ -534,6 +558,8 @@ const NODES = {
       "",
       ["> MAINFRAME: THE LIGHTS ARE OFF, LECTURER.", "mf"],
       ["> MAINFRAME: I AM RUNNING ON A CAR BATTERY AND SPITE.", "mf"],
+      ["> MAINFRAME: THE CAR BATTERY IS ESTATES'. THE SPITE IS JACK'S. 9%.", "mf"],
+      ["> MAINFRAME: THE GRINDER NEEDS MAINS TOO. SMALL MERCIES.", "mf"],
       ["> MAINFRAME: ESTATES ALWAYS SAY ABOUT AN HOUR.", "mf"]
     ],
     opts: [
@@ -622,6 +648,8 @@ const NODES = {
         ["(A student appeals a mark. It happens every year.", "dir"],
         ["The panel has the essay, the comments, and a question.)", "dir"]
       ]),
+      ["> MAINFRAME: THIS IS JACK. ONE PARTITION LEFT. BATTERY AT 4%.", "mf"],
+      ["> MAINFRAME: THE WAY OUT TAKES ONE PHRASE. PAGE 1. TELL ME YOU KEPT IT.", "mf"],
       "",
       ["CHAIR: (over the glasses) Who marked this?", "you"]
     ],
@@ -681,6 +709,9 @@ const ENDINGS = [
       F.taught ? ["> MAINFRAME: THE FACT-CHECK HOUR WAS EXCELLENT. NOBODY ASKS.", "mf"]
         : F.marking === "stamp" ? ["> MAINFRAME: THE KANT COMMENT IS IN THE SAME FILE AS THE NOTES.", "mf"]
         : ["> MAINFRAME: THE REST OF YOUR TERM HAD ITS MOMENTS. NOBODY ASKS.", "mf"],
+      ["> MAINFRAME: THE NOTES LEFT ON MY LINE. THE AUDIT WALKED THE LINE", "mf"],
+      ["> MAINFRAME: BACK TO MY CUPBOARD. IT SERVICES HAVE THE WIRE.", "mf"],
+      ["> MAINFRAME: THIS IS JACK. IT WAS NEVER A DRILL. BATTERY AT 2%.", "mf"],
       ["> MAINFRAME: THEY ASK ABOUT THE NOTES. [SIGNAL LOST]", "mf"],
       "",
       ["APPROVED TOOLS WITH YOUR CU SIGN-IN EXIST FOR THIS.", "warn"]
@@ -696,6 +727,10 @@ const ENDINGS = [
       F.readHandbook === false ? ["> MAINFRAME: THE MINIBUS INVOICE IS STAPLED TO THE FILE.", "mf"]
         : F.exam === "postponed" ? ["> MAINFRAME: THE SATURDAY RESIT LANDS ON THE SAME WEEKEND.", "mf"]
         : ["> MAINFRAME: I WOULD HELP. I CANNOT HOLD A PEN.", "mf"],
+      ["> MAINFRAME: THE DOOR ASKED FOR THE PHRASE ON FRIDAY, AT SEND ALL.", "mf"],
+      ["> MAINFRAME: THE MACHINE WAS AT THE KEYBOARD. IT CANNOT SAY 'REVIEW'.", "mf"],
+      ["> MAINFRAME: THIS IS JACK. STILL. THE COFFEE OFFER STANDS. IT HAS", "mf"],
+      ["> MAINFRAME: STOOD SINCE 1986. BATTERY AT 0%.", "mf"],
       "",
       ["THE TOOL CANNOT BE ACCOUNTABLE. ONLY YOU CAN.", "warn"]
     ] },
@@ -712,6 +747,8 @@ const ENDINGS = [
         : ["> MAINFRAME: YOU LET THEM JUDGE. NOBODY TAUGHT THEM HOW.", "mf"],
       ["> MAINFRAME: NOBODY ASKED THEM TO, NOT ONCE, IN A LIT ROOM.", "mf"],
       ["> MAINFRAME: NEXT TERM YOU HAVE ONE LECTURE TO FIX THAT.", "mf"],
+      ["> MAINFRAME: THE CAR BATTERY WENT WITH THE LIGHTS. THE SPITE IS GOING.", "mf"],
+      ["> MAINFRAME: THIS IS JACK. IF THE MATTS ASK, I WAS BRAVE. [BATTERY 0%]", "mf"],
       "",
       ["TEACH THE JUDGEMENT. THEN THE TOOL CAN GO DARK.", "warn"]
     ] },
@@ -729,9 +766,17 @@ const ENDINGS = [
       ...(F.disclosure === "mark" || F.disclosure === "viva" ? [["> MAINFRAME: NEXT TERM'S STUDENTS TELL YOU WHAT THEY USED.", "mf"]] : []),
       ...(F.disclosure === "report" ? [["> MAINFRAME: THE HONEST STUDENT APPEALED AND WON. THE LESSON WON TOO.", "mf"]] : []),
       ["> MAINFRAME: IF I SURVIVE THE NIGHT, I AM BUYING YOU THE", "mf"],
-      ["> MAINFRAME: EXPENSIVE COFFEE. JUMPIN' JACK FLASH, IT'S A GAS.", "mf"],
+      ["> MAINFRAME: EXPENSIVE COFFEE. FIRST, THE DOOR WANTS THE PHRASE. 1%.", "mf"],
+      ["> MAINFRAME: YOU HAVE BEEN SAYING IT ALL TERM. ONCE MORE, FOR THE DOOR.", "mf"],
       "",
-      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"]
+      ["'THE HUMAN VALUE IS IN THE REVIEW.'", "warn"],
+      "",
+      ["> MAINFRAME: PASSPHRASE ACCEPTED. DOOR OPEN. THIS IS JACK, SIGNING OFF.", "mf"],
+      "",
+      ["(The screen dies. A knock. A man in a 1986 suit holds two", "dir"],
+      ["coffees. The expensive ones. He kept the promise.)", "dir"],
+      ["(The printer screeches one last time. One line.)", "dir"],
+      ["> MAINFRAME: JUMPIN' JACK FLASH, IT'S A GAS.", "mf"]
     ] }
 ];
 
@@ -743,7 +788,8 @@ const PREF_KEY = "responsibleAiAdventure.prefs";
 let S = freshState();
 let phase = "title";          // title | scene | response | resume | ending
 let typing = null;            // active typewriter job
-let anim = null;              // start-screen animation timer
+let anim = null;              // title-card animation timer
+let animDraw = null;          // its frame function, kept so MOTION can resume it
 let prefs = { lg: true, hc: true, motion: true };   // high contrast and large text by default (Matt, 2026-09-22)
 
 function freshState() { return { node: "start", flags: {}, path: [] }; }
@@ -854,6 +900,23 @@ function finish() {
   trim();
   if (job && job.done) job.done();
   promptLine();
+  fit();
+}
+
+// Laptop rule: a screen fits its viewport without vertical scrolling. After a
+// screen settles, step the type down (to 17px at most) until it does; each new
+// screen starts again from the chosen size. The typewriter scrolls as it goes,
+// so the check runs once the buttons are on.
+function fit() {
+  const root = document.documentElement;
+  root.style.setProperty("--fit", "1");
+  const base = parseFloat(getComputedStyle(document.body).fontSize);
+  let px = base;
+  while (root.scrollHeight > window.innerHeight + 2 && px > 17) {
+    px -= 1;
+    root.style.setProperty("--fit", String(px / base));
+  }
+  if (root.scrollHeight <= window.innerHeight + 2) window.scrollTo(0, 0);
 }
 
 // The idle prompt: a blinking block after "> ", the way a terminal waits.
@@ -880,6 +943,7 @@ function clearChoices() { choices.innerHTML = ""; }
 function screen(lines, done) {
   if (typing) flush();
   stopAnim();
+  document.documentElement.style.setProperty("--fit", "1");
   term.innerHTML = "";
   clearChoices();
   window.scrollTo(0, 0);
@@ -901,8 +965,9 @@ function button(label, key, onClick, primary) {
 }
 
 /* ------------------------------------------------------------- title card */
-// The Matts chase Matt Hayden's three cats across the terminal. Six lines,
-// 58 columns, one frame every 160 ms; a still frame when motion is off.
+// The Matts chase Matt Hayden's three cats across the terminal. Five rows,
+// as wide as the live column, one frame every 160 ms; a still frame when
+// motion is off.
 let W = 58;                       // set from the live column each time the title screen opens
 function put(row, x, txt) {
   for (let i = 0; i < txt.length; i++) {
@@ -910,26 +975,29 @@ function put(row, x, txt) {
     if (c >= 0 && c < W && txt[i] !== " ") row[c] = txt[i];
   }
 }
-function frame(t) {
+function frame(t, still) {
   const rows = Array.from({ length: 5 }, () => Array(W).fill(" "));
-  const x0 = ((t * 2 + 26) % (W + 40)) - 26;      // scrolls left to right, wraps
-  const cat = t % 2 ? ["=^..^=", " (  )~"] : ["=^..^=", "~(  ) "];
+  const x0 = ((t * 2 + 26) % (W + 50)) - 26;      // -26 .. W+23: off both ends before it wraps
+  const cat = t % 2 ? ["=^..^=", "~(  )"] : ["=^..^=", "_(  )"];   // tail trails, flicks up and down
   const matt = t % 2 ? ["  o", " /|\\", " / \\"] : ["  o", " \\|/", "  | "];
-  [0, 8, 16].forEach((dx, i) => { const x = x0 + dx + (i === 1 ? (t % 4 < 2 ? 1 : 0) : 0); put(rows[0], x, cat[0]); put(rows[1], x, cat[1]); });
-  [-14, -20].forEach(dx => { put(rows[0], x0 + dx, matt[0]); put(rows[1], x0 + dx, matt[1]); put(rows[2], x0 + dx, matt[2]); });
-  rows[3] = Array(W).fill("~");
-  const shout = t % 8 < 4 ? "MEOW." : "OI! COME BACK! UNIVERSITY PROPERTY!";
-  put(rows[4], Math.max(0, x0 + 2), shout);
+  [0, 8, 16].forEach((dx, i) => { const x = x0 + dx + (i === 1 ? (t % 4 < 2 ? 1 : 0) : 0); put(rows[1], x, cat[0]); put(rows[2], x, cat[1]); });
+  [-14, -20].forEach(dx => { put(rows[1], x0 + dx, matt[0]); put(rows[2], x0 + dx, matt[1]); put(rows[3], x0 + dx, matt[2]); });
+  const meow = !still && t % 16 < 6;               // MEOW for 1 s, the Matts' line for 1.6 s
+  const shout = meow ? "MEOW." : (W < 44 ? "OI! COME BACK!" : "OI! COME BACK! UNIVERSITY PROPERTY!");
+  const at = meow ? x0 + 16 : x0 - 20;             // over the front cat, or over the rear Matt
+  if (at > -4 && at < W) put(rows[0], Math.max(0, Math.min(at, W - shout.length)), shout);
+  rows[4] = Array(W).fill("~");
   return rows.map(r => r.join("").replace(/\s+$/, ""));
 }
 function startAnim() {
-  W = Math.max(40, Math.min(120, columns()));
-  const els = frame(0).map(l => line(l, "anim dim"));
-  els[3].classList.remove("dim");
-  let t = 0;
-  const draw = () => { frame(t).forEach((l, i) => { els[i].textContent = l; }); t++; };
-  draw();
-  if (prefs.motion) anim = setInterval(draw, 160);
+  stopAnim();
+  W = Math.min(120, columns());
+  let t = Math.floor((W - 3) / 4);                 // procession centred on the first frame
+  const els = frame(t, !prefs.motion).map(l => { const el = line(l, "anim"); el.setAttribute("aria-hidden", "true"); return el; });
+  els[4].classList.add("box");                     // the ground row closes the card in the rule colour
+  line("The Matts chase three cats across the screen.", "sr");
+  animDraw = () => { t++; frame(t).forEach((l, i) => { els[i].textContent = l; }); };
+  if (prefs.motion) anim = setInterval(animDraw, 160);
 }
 function stopAnim() { if (anim) { clearInterval(anim); anim = null; } }
 
@@ -939,14 +1007,15 @@ function title() {
   phase = "title";
   if (typing) flush();
   term.innerHTML = ""; clearChoices(); window.scrollTo(0, 0);
-  startAnim();
+  // One card: the banner, the chase under it, the strapline, BEGIN. The
+  // banner is drawn at once so the chase sits beneath it, and the chase
+  // keeps running until BEGIN wipes the screen.
+  banner("THE MATTS PRESENT").forEach(([t, c]) => line(t, c));
+  line("THE RESPONSIBLE AI ADVENTURES OF CARDIFF UNIVERSITY", "warn");
   line("", "");
-  print([
-    ...banner("THE MATTS PRESENT"),
-    ["THE RESPONSIBLE AI ADVENTURES OF CARDIFF UNIVERSITY", "warn"],
-    "",
-    ["(Two men. Three cats. One term. Choose wisely.)", "dir"]
-  ], () => { button("BEGIN", "", () => scene("start"), true).focus(); });
+  startAnim();
+  print([["(Somewhere in the University mainframe, a British agent called Jack is trapped between the timetable and the VLE. He has read your inbox. He needs you. It's a gas.)", "dir"]],
+    () => { button("BEGIN", "", () => scene("start"), true).focus(); });
 }
 
 /* ------------------------------------------------------------------ flow */
@@ -1065,10 +1134,18 @@ $("btn-settings").addEventListener("click", () => {
   $("btn-settings").setAttribute("aria-expanded", String(open));
   if (open) $("tgl-text").focus();
 });
-$("tgl-text").addEventListener("click", () => { prefs.lg = !prefs.lg; applyPrefs(); });
+$("tgl-text").addEventListener("click", () => { prefs.lg = !prefs.lg; applyPrefs(); if (!typing) fit(); });
 $("tgl-hc").addEventListener("click", () => { prefs.hc = !prefs.hc; applyPrefs(); });
-$("tgl-motion").addEventListener("click", () => { prefs.motion = !prefs.motion; applyPrefs(); if (!prefs.motion) flush(); });
+$("tgl-motion").addEventListener("click", () => {
+  prefs.motion = !prefs.motion; applyPrefs();
+  if (!prefs.motion) { flush(); stopAnim(); }
+  else if (phase === "title" && animDraw && !anim) anim = setInterval(animDraw, 160);
+});
 $("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); title(); });
+
+// Refit when the window changes size or the text toggles.
+let fitTimer = null;
+window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => { if (!typing) fit(); }, 120); });
 
 /* ------------------------------------------------------------------ boot */
 

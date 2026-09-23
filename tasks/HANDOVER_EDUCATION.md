@@ -330,3 +330,67 @@ a sentence (dropping a repeated "> MAINFRAME:" prefix), so text runs to the full
 wraps only where the screen does. Banner rules and title-card frames are exempt. Walked all
 paths: no stray prefix. Not committed.
 Committed and pushed on Matt's ask (gallery pills, wordmark wrap, adventure title screen and flow).
+
+## 2026-09-22, evening: Jack's side-quest and the title card as one screen
+
+**Jack** (Matt: "have we got this sidequest story of Jack through the stories?"). A writing
+subagent threaded it, editing only the adventure file: page 1 the mainframe says who he is
+("THIS IS JACK. BRITISH INTELLIGENCE... STUCK BETWEEN THE TIMETABLE AND THE VLE SINCE 1986.
+THE ONLY WAY OUT RUNS THROUGH YOUR TERM.") and tells you to keep The Matts' note; each scene
+carries one or two Jack lines (his 1986 'I AGREE' on the VLE, IT Services' ticket, the angle
+grinder at the firewall, the DO NOT DELETE (JACK) directory, a battery falling 80, 70, 50, 40,
+30, 9, 4); the appeal makes the note the passphrase; the victory ending accepts it, the door
+opens, a man in a 1986 suit brings the expensive coffee, the printer closes with JUMPIN' JACK
+FLASH, IT'S A GAS; the three bad endings leave him trapped in a way that follows from each
+failure. Structure untouched: 12,636 paths, same four ending counts, every flag and cascade
+as before. Strapline on the title card (Matt chose it): "(Somewhere in the University mainframe,
+a British agent called Jack is trapped between the timetable and the VLE. He has read your
+inbox. He needs you. It's a gas.)"
+
+**Title card** (Matt: banner above the cats, animated until BEGIN, one screen; then a subagent
+review). Applied from the review: THE MATTS PRESENT banner, the game's name, the chase, the
+strapline, BEGIN, with no blank line after the chase and the ground row in the rule colour so
+the card has a top and bottom rule; the shout sits above the figures; the frame width follows
+the live column with no 40-column floor (phones no longer wrap every row); `startAnim` stops any
+running timer first (RESTART no longer leaks one per press); the MOTION toggle now stops and
+resumes the chase; frames are `aria-hidden` with one visually hidden description line; the
+Matts no longer pop off eight columns early, the shout is never clipped or shown with nobody
+under it, the cat's tail trails, and the reduced-motion still frame shows the whole procession
+(at 44 columns or more). Frames tested under node at 27, 40, 58, 79 and 120 columns.
+
+Verified in Chrome: DOM order banner, title, chase, strapline, BEGIN with nothing between chase
+and strapline; chase animating until BEGIN; one timer after two RESTARTs; MOTION off stops it and
+on resumes it; frames hidden from the live region; page 1 opens with Jack's introduction; no
+console errors. Not committed.
+
+## 2026-09-22, evening: story skills installed for the adventure
+
+Matt asked for two GitHub skill repositories to be used, via subagents, to improve the adventure,
+scope "rewrite within the current structure" (scenes, options, flags, endings fixed; words only).
+Installed under `~/.claude/skills` (not in this repo): `storyteller` (ringofai, CC BY 4.0, the
+HOOK / SHAPE / FLESH / JUDGE / LAND coaching loop) and four of danjdewhurst/story-skills (MIT):
+`theme-craft`, `scene-craft`, `revision-continuity`, `voice-style`; the bible CLI and the other
+twelve were not installed. Sources and licences noted in `~/.claude/llm-learnings.md`.
+Method: a node script renders four canonical playthroughs through `flow()` to plain text in the
+session scratchpad; three read-only reviewers (storyteller; theme + scene; continuity + voice)
+each return at most fifteen ranked findings with exact current and proposed lines; the lists are
+consolidated for Matt's yes; a writer applies exact replacements; the walker (12,636 paths, same
+ending counts) and the Chrome pass re-run. Plan file:
+`~/.claude/plans/now-i-loved-the-inherited-peacock.md`.
+
+**Laptop rule** (Matt: with the large font, no vertical scrolling on a laptop). Measured at
+1366x768, large text, motion off, all 84 screens of the four canonical paths: 30 overflowed,
+worst by 170px (page 1, week 2, week 8, the victory ending). Two fixes in the adventure: tighter
+large-text rhythm (`body.lg` line-height 1.32, choices gap 0.3rem, buttons 2em) and `fit()`,
+run after every screen settles and on resize or the TEXT toggle: it steps the type down via a
+`--fit` multiplier on the body font-size, no lower than 17px, until `scrollHeight` fits the
+viewport; each new screen starts again at the chosen size. (First attempt failed silently: the
+calc rule sat above the main `body` rule in the cascade; it now lives in that rule.) After: at
+1366x768 one screen over by 12px (victory ending, at the floor), 16 screens shrink to 17 to 20px;
+at 1280x720 eight screens over by up to 24px. The remaining overflow is text volume on page 1,
+week 8 and the endings, so the story rewrite carries a per-screen line budget. Not committed.
+Committed and pushed on Matt's ask (2026-09-23): Jack's side-quest, the one-card title screen
+with the review fixes, the laptop auto-fit, high contrast and large text by default, the Jack
+strapline. The four story-skill review passes (storyteller; theme and scene; continuity and
+voice; the opening) are complete and consolidated into groups A (opening rewrite), B (structural
+fixes) and C (polish), presented to Matt and **awaiting his yes**; nothing from them is applied.
