@@ -492,3 +492,7 @@ it"; bonus step 2 tidied; 06 Responsible AI line plain; "rubric" is "marking sch
 label SELECT. **Check for Matt on the day** (not a text change): whether clicking the Slide Deck
 tile in Notebook opens the customise box or generates at once: Matt confirmed the customise box
 opens, so "click Slide Deck" stands. MH_* anchor unchanged. Committed and pushed on Matt's ask.
+Exercise 03 Responsible AI step reworded with Matt (sharing is allowed, public sharing is not,
+and the safest move is to leave C1/C2 data out): "Share responsibly: share the link with
+colleagues, not publicly, if the game holds confidential (C1 or C2) data. Reduce the risk by
+leaving C1 and C2 data out in the first place." Committed and pushed on Matt's ask.

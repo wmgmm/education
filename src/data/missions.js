@@ -804,7 +804,7 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'Share responsibly: a Canvas link is public, so no confidential (C1 or C2) data goes in it, nothing about staff, students, finances or research.',
+          'Share responsibly: share the link with colleagues, not publicly, if the game holds confidential (C1 or C2) data. Reduce the risk by leaving C1 and C2 data out in the first place.',
       },
     ],
     verdictBy: 'The Matts',
