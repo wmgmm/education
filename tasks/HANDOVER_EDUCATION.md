@@ -394,3 +394,78 @@ with the review fixes, the laptop auto-fit, high contrast and large text by defa
 strapline. The four story-skill review passes (storyteller; theme and scene; continuity and
 voice; the opening) are complete and consolidated into groups A (opening rewrite), B (structural
 fixes) and C (polish), presented to Matt and **awaiting his yes**; nothing from them is applied.
+
+## 2026-09-23: story-skills pass applied, opening first
+
+Matt: Jack from the start and throughout; most people will not play past the first screens, so
+weight the opening. Applied from the consolidated review: **group A in full** (strapline names
+the want, "a lecturer who reads before signing"; page 1 down to 15 source lines with Jack and the
+gap in the first mainframe line, "YOU WANT THE MARKING DONE. I NEED IT READ. THAT GAP IS MY
+CELL."; week 1 Jack withholds page 14 so signing is a gamble, both routes cost something, both
+consequences end on Jack's stake and a pull forward; week 2 carries week 1 forward, plants the
+coffee promise, the IT ticket and a twenty-minute clock, the free app is the sensible-sounding
+option, every consequence points to week 3). **B1 to B6, B12, B13** (branch contradictions in
+week 8 D and the appeal fixed; the chair's second question; the note paid on the governance and
+dark endings and touched in week 6; week 10 tense; 94% named as the assessed-work measure) and
+the mechanical fixes (long lines split, speaker gap, battery format). **Skipped by Matt's call**:
+B7 to B11 and group C (weeks 3 to 12 polish). Walk: 12,636 paths, same counts, no long source
+lines, battery monotonic. Laptop measurement and a play of the opening below. Not committed.
+Trims for the laptop budget after the pass: week 2's rules line and ticket lines merged (two
+rows fewer), week 8 lost one blank line, the victory ending's coffee line became "THE DOOR WANTS
+THE PHRASE. BATTERY AT 1%." (the coffee is already promised in week 2 and delivered in the
+closing direction). Walk still OK, no source line over 72. Verified in the front tab: page 1's
+first mainframe line is Jack and the gap; week 1 withholds page 14 and the consequence reveals
+it and pulls to week 2; week 2 opens on the week 1 result and plants the coffee.
+
+**Stricter laptop rule** (Matt: "no scrolling on a laptop, week 2 is too long to me"): every
+screen must fit 1366x768 at the full large size, 21px; `fit()` stays as a safety net only.
+Measured with the shrink disabled: six screens over at full size: victory ending 4 rows, appeal
+2, week 8 meeting 2, week 2 inbox 2, week 11 exam 2, page 1 one row (27.7px a row). These cuts
+go in with the clarity review's findings (Matt pre-approved that review, "yes for all").
+
+**Clarity and wit pass** (Matt: "I don't get 'It's a gas'"; pre-approved "yes for all"). Rule:
+every line must land without the film or the song. Eighteen findings applied: the lyric gone
+from the strapline, the taught power-cut line ("WRITE THAT DOWN. IN PEN.") and the victory
+closer, which is now the printer's last line 'READ BEFORE SIGNING. SIGNED, JACK.'; page 1 opens
+identity first ("THIS IS JACK. BRITISH AGENT. STUCK IN HERE SINCE 1986."), then the deal, then
+the cell, and says what the door, the phrase and the battery are; "KNOCK KNOCK" and "NOT A
+DRILL" gone, with the governance callback; jargon out (partition, rack, VLE) and viva glossed
+once; the appeal's "(Points at door)" no longer collides with Jack's door; a dangling "either",
+"SPEED IS TRUE", "never taught without it", "NOT A PROTEST", "HAVE THE WIRE" and "a third of
+them the question" rewritten plain; the stamp ending's doubled accountability line and the
+refrain's third instance cut. Roughly forty lines on the reviewer's do-not-touch list were left
+alone. Laptop cuts in the same pass: blank lines out of week 2, week 8, week 11 and the appeal;
+the appeal's public-tool block three rows; the victory ending four rows shorter.
+Page 1 trimmed one more row (the door-check line is one row: "THE DOOR ASKS AT THE END. IT
+KNOWS IF YOU READ OR SIGNED." then "SO DO I. I AM ON BATTERY. ONE TERM'S WORTH. TURN THE
+PAGE."). Target met at 1366x768: with the shrink disabled, no screen on the four canonical paths
+exceeds the viewport at the full 21px. At 1280x720 (a small window rather than a laptop) about
+nine screens still shrink a step via fit(). Walk OK, no long source lines. Not committed.
+
+**Less text, everywhere** (Matt: "I preferred the less text, like it's too much"; he cut page 1
+himself to eight lines: identity, one fact, the door, "THE MATTS TOLD ME SOMETHING...", the
+printout). A writer subagent then halved every other scene, consequence and ending to row
+budgets (scene text 7 rows, consequence 5, ending 9, at 79 columns after `flow()`), keeping the
+structure, every callback in one line, every number, Jack in one line per screen with the
+battery in order, and the twenty-five lines the clarity review protected. Its judgement calls,
+all reasonable and left as made: the takeaway, the 1986 'I AGREE' line, the face-down printout,
+"Can I get them back? NO.", and "He kept the promise" are gone; the vendor's slide is one
+line; the honest student's page is "AI invented two references. I found and cut them."
+Verified: walk OK (12,636 paths, same counts, no long source lines, battery monotonic); with
+the shrink disabled, **no screen exceeds 1366x768 or 1280x720 at the full 21px**; no console
+errors; page 1, week 1 and week 2 read as intended in the front tab. File is 994 lines.
+Helpers in the scratchpad: `walk.js`, `rows.js`, `show.js`. Not committed.
+
+## 2026-09-23: back to the story before Jack was made prominent (Matt's call)
+
+Matt: "let's go back to the version before we made Jack more prominent but the story was good."
+That is commit `d6c5499` (2026-09-22 18:53): the Jumpin' Jack Flash voice with the threaded
+scenes and the cascade fixes, Jack only as the mainframe's voice plus the one closing line, the
+strapline "(Two men. Three cats. One term. Choose wisely.)". Done by splicing that commit's
+`NODES` and `ENDINGS` block and strapline into today's engine, so the title-card review fixes,
+the laptop auto-fit, the resize hook and the high-contrast and large-text defaults are kept.
+Everything text-side from today (Jack's side-quest, the story-skills groups A and B, the clarity
+pass, the cut-down) is out of the file; the cut-down Jack version is backed up at
+`<scratchpad>/story/adventure_jack_cutdown_backup.html` and the side-quest version is commit
+`4250353`. Measured at 1366x768, large text: no screen scrolls and only week 8 shrinks, to 20px; every
+other screen shows at the full 21px. No console errors. Walk OK. Committed and pushed on Matt's ask.
