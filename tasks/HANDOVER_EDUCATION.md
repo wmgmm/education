@@ -505,3 +505,22 @@ the phone-width wordmark-wrap rule beneath it; re-appended. Not committed.
 Then (Matt): the cards lost their blue URL line, and the "n of 6 exercises complete" header line
 (and its all-complete variant) is gone to save vertical space; `completedCount` removed from the
 gallery. Progress still shows on each card. Committed and pushed on Matt's ask.
+
+Laptop vertical space (Matt, 2026-09-23, session day: "for laptop screens which are shaped
+differently, a review for any minor tweaks to reduce vertical scrolling"). Measured in iframes
+on the preview at 1366x768 first: the splash ran to 984px because the headline hit its 5.5rem
+cap and wrapped to five lines (405px), so START sat about 180px below the fold; the gallery ran
+to 962px. Applied as one block at the end of `src/styles.css` inside `@media (max-height: 900px)`,
+so monitors and the projector keep the old spacing: splash headline cap 4.25rem (now three lines
+of 68px), splash padding and gap; gallery section padding, memo image basis 280px, header gap,
+card floor 150px (the selector must be `.evidence-card.mission-card`, the plain class loses to
+the 168px rule), big-code cap 3.5rem, bonus strip, discreet callout margin (its own
+`--discreet` rule sets margin-top, so that is the selector to override), footer padding;
+exercise pages: artifact card margin and padding, page top, workflow, INSTRUCTIONS rule,
+complete block, step gap and padding. Measured after: splash 768 (fits at 768, START bottom at
+658), gallery 813 (from 962; fold lands on the bonus strip), 05 2514 (from 2687), 01 3046,
+bonus 1944; at 390 wide no horizontal scroll and the card panels fit their 150px floor. Left
+alone on purpose: the prompt box 24rem cap (06's first prompt would scroll inside) and the step
+screengrab height. Two measurement traps: an iframe that is not in front carries framer-motion's
+entrance offset (24px on the layout, 53px on the splash), so subtract it from scrollHeight; and
+give frames 1500ms, or lazy step images have not laid out and the totals read low. Not committed.

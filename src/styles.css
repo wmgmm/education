@@ -2545,3 +2545,37 @@ main:focus {
     line-height: 1.35;
   }
 }
+
+/* Laptop heights (2026-09-23). Trim vertical air on screens 900px tall or less so the
+   splash fits at 1366x768 and the gallery nearly does. Scoped by max-height so monitors
+   and the projector keep the original spacing. Measured savings in tasks/HANDOVER_EDUCATION.md. */
+@media (max-height: 900px) {
+  /* Splash */
+  .splash-headline { font-size: clamp(2.6rem, 12vw, 4.25rem); }
+  .splash-content { padding: 1.5rem 2rem 1.5rem; gap: 1rem; }
+  .splash-hero { padding-bottom: 0.8rem; }
+  .splash-steps { padding: 0.75rem 1.1rem; }
+
+  /* Gallery */
+  .evidence-section { padding: 1.25rem 2.5rem 0.5rem; }
+  .intro-row__image { flex-basis: 280px; }
+  .directive { padding: 0.8rem 1.2rem; }
+  .intro-row { margin-bottom: 0.8rem; }
+  .evidence-section__header { margin-bottom: 1rem; padding-bottom: 0.5rem; }
+  .mission-card__panel { padding: 0.6rem 1.2rem 0.5rem; }
+  .mission-card__big-code { font-size: clamp(2.5rem, 6vw, 3.5rem); }
+  .evidence-grid { grid-auto-rows: minmax(150px, auto); gap: 0.75rem; }
+  .evidence-card.mission-card { min-height: 150px; }
+  .bonus-strip { margin-top: 0.8rem; padding: 0.6rem 1.4rem; }
+  .governance-callout--discreet { margin: 0.8rem 0 0.5rem; }
+  .session-footer { padding: 0.5rem 0 0.75rem; }
+
+  /* Exercise pages */
+  .mission-artifact { margin: 0.8rem 0; padding: 0.8rem 1.3rem; }
+  .mission-detail { padding-top: 1rem; }
+  .workflow { margin: 0.8rem 0 0.3rem; }
+  .mission-detail__section { margin: 1.25rem 0 0.75rem; }
+  .mission-detail__complete { margin-top: 1.25rem; }
+  .mission-steps { gap: 0.75rem; }
+  .mission-step { padding: 0.8rem 1.1rem; }
+}
