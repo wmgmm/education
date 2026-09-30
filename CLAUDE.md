@@ -30,7 +30,7 @@ Core step time is 89 minutes, bonus excluded, so nobody runs all six.
 | 01 | The Landscape | Deep Research + Copilot | Research the plan, then make Copilot fact-check and rebuild it |
 | 02 | The Image | Copilot | Clone a photo's style into a reusable prompt, then audit an image |
 | 03 | The Game | Gemini Canvas | Build a playable 8-bit game from the plan, then fix it in words |
-| 04 | The Module | Copilot | Run `Training_Module_Builder.md` on the revised report |
+| 04 | The Module | Copilot | Paste `Training_Module_Builder.md` into a new Copilot agent, run it on the revised report |
 | 05 | The Brand | Gemini Notebook | One source, two skills, two decks that differ only by the skill |
 | 06 | The Story | Gemini Canvas | Build a dashboard from real HESA data, compare it with ours, repair it |
 | B1 | Analyse the Numbers | Copilot then Gemini | **Bonus**, off the tally: analyse the data, verify one figure with a skill |
@@ -74,8 +74,8 @@ budgets one per participant. **Exercise 05 deliberately spends two**, the one sa
 exception, because two decks differing only by the skill file are the day's clearest evidence
 that a skill is worth writing down. Do not add others; if the quota bites live, the second run
 is what gets dropped. See `docs/research/2026-09-04-tool-capabilities.md`.
-**Gems are deliberately avoided:** Cardiff staff accounts cannot create them (re-confirmed
-2026-09-04). Copilot Agent Builder and Gemini Skills in Chrome are gated stretch paths only.
+**Gems are avoided** (staff cannot create them, re-confirmed 2026-09-04). Copilot Agent Builder is
+core in 04 since 2026-09-30, attach route as fallback (tenant can switch it off); Chrome Skills stay gated.
 
 ### Exercise 06's dataset, and why it exists
 

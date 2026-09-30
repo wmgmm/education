@@ -473,7 +473,7 @@ export default function MissionDetail({ mission, lane, completed, onComplete }) 
           {mission.toolInfo?.apps && <ToolCards apps={mission.toolInfo.apps} />}
         </div>
         {/* Goal first, then what the tool is. The brief is what they came for. */}
-        <p className="mission-brief">{mission.brief}</p>
+        {mission.brief && <p className="mission-brief">{mission.brief}</p>}
         {mission.toolInfo?.feature && (
           <p className="tool-strap">{mission.toolInfo.feature}</p>
         )}

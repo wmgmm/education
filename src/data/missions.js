@@ -38,8 +38,9 @@
 //
 // NOTE: the site deliberately teaches skills as FILES YOU ATTACH, not Gems or
 // Copilot agents: Cardiff staff accounts cannot create Gems (re-confirmed
-// 2026-09-04). Do not reintroduce them as a core step. Copilot Agent Builder and
-// Gemini Skills in Chrome appear only as gated stretch paths. Participants
+// 2026-09-04). Do not reintroduce Gems as a core step. Copilot Agent Builder is
+// core in Exercise 04 since 2026-09-30, with the attach route as its fallback;
+// Gemini Skills in Chrome appears only as a gated stretch path. Participants
 // DOWNLOAD the skills rather than copying prompts: that is the lesson.
 // Regenerate the generated files with: python3 tools/make_artifacts.py
 //
@@ -260,7 +261,6 @@ const EXAMPLE_ICON = 'blue_peter_icon.webp';
 // The spreadsheet you attach in Exercise 06. Same folded-corner document shape
 // as the other two, so the set reads as one family.
 const EXCEL_ICON = 'excel_icon.webp';
-const HTML_ICON = 'html_icon.svg';
 const PROMPT_ICON = 'prompt_icon.svg';
 const IMAGE_ICON = 'image_icon.svg';
 const DOC_ICON = 'doc_icon.svg';
@@ -295,6 +295,8 @@ const A = {
     filename: 'Training_Module_Builder.md',
     downloadPath: `${BASE}placeholders/Training_Module_Builder.md`,
     note: 'Turns a document into a half-hour training module.',
+    // COPY because Exercise 04 pastes it into Agent Builder's Describe box.
+    copyable: true,
     thumb: SKILL_ICON,
   },
   // Matt's own slide skill, supplied verbatim 2026-09-05, for Exercise 05's
@@ -411,13 +413,6 @@ const A = {
     note: 'A real Canvas build from the prompt above. It looks superb, but after manual checking we had to adjust some of the numbers.',
     thumb: EXAMPLE_ICON,
     openOnly: true,
-  },
-  // Not a download: the reader already has this one, because Canvas made it.
-  // It exists so the attach strip can show what goes in the new chat.
-  yourChart: {
-    label: 'YOUR DASHBOARD',
-    filename: 'the HTML you downloaded',
-    thumb: HTML_ICON,
   },
   verifySkill: {
     label: 'SKILL 4: VERIFY AND REPAIR',
@@ -710,62 +705,92 @@ export const MISSIONS = [
 
   {
     id: 'm4',
-    stage: 'Training Skill',
+    stage: 'Copilot Agent',
     code: '04',
     level: 2,
     title: 'The Module',
-    pageTitle: 'Build a Staff Training Module With a Skill',
+    pageTitle: 'Build a Copilot Agent With a Skill File',
     summary: 'Run a skill, get a training module.',
     tools: [TOOLS.copilot],
-    estMinutesCore: 13,
+    estMinutesCore: 15,
     toolInfo: {
       feature:
-        'A skill is a file you attach alongside your document. Nothing to install.',
+        'An agent keeps your instructions, so you set it up once, then reuse it and share it. You build an Agent that creates Training modules from a source document.',
       apps: [APPS.copilot],
     },
-    workflow: ['Skill builds your training module', 'Review the gap note', 'Copy the module for Exercise 05'],
-    brief:
-      'Build a half-hour training module from your revised Deep Research report, using a skill file.',
+    workflow: ['Create your agent', 'Run it on your report', 'Read the gap note'],
     artifacts: [A.trainingSkill, A.revisedReport],
     steps: [
       {
         tier: 'core',
-        estMinutes: 6,
-        title: 'Attach the skill and your revised Deep Research report, then send the prompt',
+        estMinutes: 4,
+        title: 'Create your first Copilot agent with the skill',
+        // Agent Builder in standard Copilot Chat, core from 2026-09-30 on Matt's
+        // direction. The Describe box because it is easier for staff, knowing
+        // Copilot rewrites what is pasted there rather than storing it verbatim.
         body:
-          'In a new Copilot chat, attach two files with the paperclip: the skill from the card at the top, and your revised Deep Research report (or the Matts\' copy beside it). Check both names show above the box, then paste the prompt and send.',
-        attach: [A.trainingSkill, A.yourImprovedReport],
-        promptLabel: 'YOUR PROMPT, PLUS ONE LINE',
-        promptNote: '[attach both files first, then send]',
-        // The one line that never changes, so it is bolded in the box. "as your
-        // instructions" is the working part: with two attachments, the failure
-        // mode is the model treating the .md as a second document to summarise.
-        // Deliberately NOT "skill.md" -- no attached file has that name, and
-        // naming a file that is not there invites the model to hedge.
-        promptEmphasis: 'Follow the attached skill file as your instructions.',
-        prompt:
-          'Build me a half-hour training session on the attached report.\n\nAudience: academic and professional services staff who have not read it and will not.\nWhat matters most: that they could use one responsible AI practice from it in their own work on Monday.\n\nFollow the attached skill file as your instructions.',
+          'In Copilot Chat, click {new_agent} **New agent**, paste the Training Module Builder skill file into the Describe box and send. Name it Training Module Builder, then click Create.',
+        bodyIcons: {
+          new_agent: { src: 'new_agent_icon.png', alt: 'the New agent icon' },
+        },
+        image: {
+          src: 'new_agent_describe.png',
+          alt: 'Copilot\'s new agent page: the heading Build your own specialist agent above a chat box reading [PASTE SKILL FILE HERE].',
+          caption: 'Paste the whole skill into this box, then send.',
+          ui: true,
+        },
+        // Agent Builder is admin-toggleable per tenant, so the old route stays.
+        backup: {
+          label: 'NO NEW AGENT BUTTON?',
+          text:
+            'Your account may not allow agents. Use a normal chat: attach the skill and your report with the paperclip, and add this line to the step 2 prompt.',
+          prompt: 'Follow the attached skill file as your instructions.',
+          promptLabel: 'ADD THIS LINE',
+        },
       },
       {
         tier: 'core',
-        estMinutes: 4,
-        title: 'Review the gap note',
+        estMinutes: 5,
+        title: 'Run your agent on your revised Deep Research report',
         body:
-          'Read the gap note: what the module needed and the report does not say. In real life this is where you edit, delete and add; today, just look it over.',
+          'Open Training Module Builder, attach your revised Deep Research report with the paperclip (or the Matts\' copy at the top) and send. When it asks who the audience is, pick a suggestion or paste the answer below.',
+        // The agent asks for the audience itself, so the prompt box is the answer.
+        image: {
+          src: 'agent_in_sidebar.png',
+          alt: 'Copilot\'s sidebar: the heading Agents above Training Module Builder.',
+          caption: 'Your agent is listed under Agents in the sidebar.',
+        },
+        attach: [A.yourImprovedReport],
+        promptLabel: 'PICK ANY AUDIENCE',
+        prompt:
+          'Academic and professional services staff who have not read it and will not.',
+      },
+      {
+        tier: 'core',
+        estMinutes: 3,
+        title: 'Read the gap note',
+        body:
+          'Read the gap note at the end. It lists what the module needs but your report does not say. Today, just read it.',
       },
       {
         tier: 'core',
         estMinutes: 2,
-        title: 'Copy your training module for Exercise 05',
+        title: 'Export your new training module to a Word doc',
         body:
-          'Copy the whole answer into a Word document and save it as your training module: Exercise 05 pastes it into Notebook. If it did not run, move on: Exercise 05 has the Matts\' module.',
+          'Under the answer, click the three dots, then Export to, then Word. Save it: Exercise 05 uses it. If it did not run, move on: Exercise 05 has the Matts\' Training module.',
+        image: {
+          src: 'export_to_word.jpg',
+          alt: 'Copilot\'s three-dots menu under an answer, open at Export to, with Word offered.',
+          caption: 'Three dots, Export to, Word.',
+          ui: true,
+        },
       },
       {
         tier: 'core',
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'The human value is in the review and the improvement.',
+          'The human value is in the review and the improvement. Share your agent only with colleagues who need it.',
       },
     ],
     verdictBy: 'The Matts',
@@ -852,11 +877,11 @@ export const MISSIONS = [
 
   {
     id: 'm6',
-    stage: 'Dashboard',
+    stage: 'Data Visualisation',
     code: '06',
     level: 3,
     title: 'The Story',
-    pageTitle: 'Turn Ten Years of Real Data Into a Story You Can Show',
+    pageTitle: 'Data Visualisation',
     summary: 'Chart the real numbers, then check them.',
     tools: [TOOLS.gemini, TOOLS.canvas],
     estMinutesCore: 16,
@@ -867,7 +892,7 @@ export const MISSIONS = [
     },
     workflow: ['Canvas builds the dashboard', 'Compare with ours', 'Verify and repair'],
     brief:
-      'Students are rightly concerned about sustainability. Turn ten years of real university emissions data into an animated story a room can follow.',
+      'Turn a spreadsheet of real university emissions into an animated story using Canvas.',
     artifacts: [A.hesaData],
     steps: [
       {
@@ -890,22 +915,17 @@ export const MISSIONS = [
       {
         tier: 'core',
         estMinutes: 2,
-        title: 'Open ours and compare',
+        title: 'Open our Canvas app and compare',
         artifact: A.exampleChart,
         body:
-          'Open ours and run yours beside it. Same prompt, same file, so do they agree?',
+          'Open our Canvas app and run yours beside it. Same prompt, same file, so do they agree?',
       },
       {
         tier: 'core',
         estMinutes: 5,
-        title: 'Verify it, then repair it',
+        title: 'Get AI to check and repair your Canvas app',
         body:
-          'Our first dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now repair yours: in the same chat, attach the CSV again and paste the repair prompt.',
-        // {download} in the body renders Matt's screenshot of the Canvas Download
-        // button inline, so the reader sees the control they are looking for.
-        bodyIcons: {
-          download: { src: 'download_icon.png', alt: 'the Download button in Canvas' },
-        },
+          'Our first dashboard got the data slightly wrong, and it flattered Cardiff (Thanks Gemini 😂). Now get AI to check and repair your Canvas app: in the same chat, attach the CSV again and paste the repair prompt.',
         attachLabel: 'SAME CHAT',
         attach: [A.repairPromptBelow, A.hesaData],
         promptLabel: 'THE REPAIR PROMPT',
@@ -913,21 +933,6 @@ export const MISSIONS = [
         promptEmphasis: 'Check every number in the app against the CSV',
         prompt:
           'The app has a copy of its data written inside it. Check every number in the app against the CSV, which is the only source you should trust. List anything that does not match, then rebuild the file using the CSV values only. Do not retype, round or fill in any figure: if a cell is blank, show NEEDS DATA.',
-        backup: {
-          label: 'OPTIONAL: THE CLEANER AUDIT',
-          text:
-            'Optional, because Canvas sometimes will not display an uploaded page. A fresh chat audits more honestly: a model checking its own work tends to defend it. Download the HTML {download}, open a new Gemini chat with Canvas on, attach the dashboard and the CSV, then paste the line below followed by the repair prompt.',
-          attachLabel: 'NEW CHAT',
-          attach: [A.yourChart, A.hesaData],
-          attachExtra: {
-            src: 'canvas_button.webp',
-            alt: 'The Canvas button in Gemini, a small grey chip reading Canvas.',
-          },
-          // Only needed on this route, where an HTML file is actually uploaded.
-          promptLabel: 'PASTE THIS FIRST, THEN THE REPAIR PROMPT UNDER IT',
-          prompt:
-            'Open a Canvas workspace for the attached HTML file and rebuild it there, so it runs as an app rather than showing as code in the chat.',
-        },
       },
       {
         tier: 'core',
@@ -963,7 +968,7 @@ export const MISSIONS = [
     },
     workflow: ['Run it in Copilot', 'Verify in Gemini'],
     brief:
-      'Students are rightly concerned about sustainability. Analyse ten years of Cardiff\'s real emissions, then check the answer in a second tool before you trust it.',
+      'Analyse ten years of Cardiff\'s real emissions, then check the answer in a second tool before you trust it.',
     artifacts: [A.hesaData],
     steps: [
       {
