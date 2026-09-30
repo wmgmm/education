@@ -55,7 +55,15 @@ export default function SplashScreen({ onStart }) {
           <li className="splash-step">
             <span className="splash-step__num">2</span>
             <span className="splash-step__text">
-              <strong>Download the backup report</strong> in case Deep Research is slow:{' '}
+              <strong>Pick a topic</strong>: your own, or ours, how UK universities are using
+              generative AI. Stuck? Try something you would normally Google.
+            </span>
+          </li>
+          <li className="splash-step">
+            <span className="splash-step__num">3</span>
+            <span className="splash-step__text">
+              <strong>Download our report</strong> on how UK universities are using generative AI,
+              in case Deep Research is slow:{' '}
               <a href={`${BASE}placeholders/The_Matts_Deep_Research_Report.pdf`} target="_blank" rel="noopener noreferrer" className="splash-link">
                 the Matts&rsquo; report
               </a>.

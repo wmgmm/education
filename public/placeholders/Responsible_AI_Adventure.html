@@ -99,7 +99,6 @@
   #term .dir { color: var(--dim); font-style: italic; }
   #term .mf { color: var(--warn); }
   #term .you { font-weight: bold; }
-  #term .anim { min-height: 1.45em; }
   #term .prompt { margin-top: 0.4em; }
   .cursor::after { content: "\2588"; animation: blink 1s steps(1) infinite; }
   body.nomo .cursor::after { animation: none; }
@@ -747,8 +746,6 @@ const PREF_KEY = "responsibleAiAdventure.prefs";
 let S = freshState();
 let phase = "title";          // title | scene | response | resume | ending
 let typing = null;            // active typewriter job
-let anim = null;              // title-card animation timer
-let animDraw = null;          // its frame function, kept so MOTION can resume it
 let prefs = { lg: true, hc: true, motion: true };   // high contrast and large text by default (Matt, 2026-09-22)
 
 function freshState() { return { node: "start", flags: {}, path: [] }; }
@@ -901,7 +898,6 @@ function clearChoices() { choices.innerHTML = ""; }
 // top, and the new scene types in. No scrollback, like the games it copies.
 function screen(lines, done) {
   if (typing) flush();
-  stopAnim();
   document.documentElement.style.setProperty("--fit", "1");
   term.innerHTML = "";
   clearChoices();
@@ -921,60 +917,6 @@ function button(label, key, onClick, primary) {
   b.addEventListener("click", onClick);
   choices.appendChild(b);
   return b;
-}
-
-/* ------------------------------------------------------------- title card */
-// The Matts chase Matt Hayden's three cats across the terminal. Five rows,
-// as wide as the live column, one frame every 160 ms; a still frame when
-// motion is off.
-let W = 58;                       // set from the live column each time the title screen opens
-function put(row, x, txt) {
-  for (let i = 0; i < txt.length; i++) {
-    const c = x + i;
-    if (c >= 0 && c < W && txt[i] !== " ") row[c] = txt[i];
-  }
-}
-function frame(t, still) {
-  const rows = Array.from({ length: 5 }, () => Array(W).fill(" "));
-  const x0 = ((t * 2 + 26) % (W + 50)) - 26;      // -26 .. W+23: off both ends before it wraps
-  const cat = t % 2 ? ["=^..^=", "~(  )"] : ["=^..^=", "_(  )"];   // tail trails, flicks up and down
-  const matt = t % 2 ? ["  o", " /|\\", " / \\"] : ["  o", " \\|/", "  | "];
-  [0, 8, 16].forEach((dx, i) => { const x = x0 + dx + (i === 1 ? (t % 4 < 2 ? 1 : 0) : 0); put(rows[1], x, cat[0]); put(rows[2], x, cat[1]); });
-  [-14, -20].forEach(dx => { put(rows[1], x0 + dx, matt[0]); put(rows[2], x0 + dx, matt[1]); put(rows[3], x0 + dx, matt[2]); });
-  const meow = !still && t % 16 < 6;               // MEOW for 1 s, the Matts' line for 1.6 s
-  const shout = meow ? "MEOW." : (W < 44 ? "OI! COME BACK!" : "OI! COME BACK! UNIVERSITY PROPERTY!");
-  const at = meow ? x0 + 16 : x0 - 20;             // over the front cat, or over the rear Matt
-  if (at > -4 && at < W) put(rows[0], Math.max(0, Math.min(at, W - shout.length)), shout);
-  rows[4] = Array(W).fill("~");
-  return rows.map(r => r.join("").replace(/\s+$/, ""));
-}
-function startAnim() {
-  stopAnim();
-  W = Math.min(120, columns());
-  let t = Math.floor((W - 3) / 4);                 // procession centred on the first frame
-  const els = frame(t, !prefs.motion).map(l => { const el = line(l, "anim"); el.setAttribute("aria-hidden", "true"); return el; });
-  els[4].classList.add("box");                     // the ground row closes the card in the rule colour
-  line("The Matts chase three cats across the screen.", "sr");
-  animDraw = () => { t++; frame(t).forEach((l, i) => { els[i].textContent = l; }); };
-  if (prefs.motion) anim = setInterval(animDraw, 160);
-}
-function stopAnim() { if (anim) { clearInterval(anim); anim = null; } }
-
-// The title screen: the chase, full width, then BEGIN. Shown once per run;
-// page 1 (the mainframe's introduction) is an ordinary scene after it.
-function title() {
-  phase = "title";
-  if (typing) flush();
-  term.innerHTML = ""; clearChoices(); window.scrollTo(0, 0);
-  // One card: the banner, the chase under it, the strapline, BEGIN. The
-  // banner is drawn at once so the chase sits beneath it, and the chase
-  // keeps running until BEGIN wipes the screen.
-  banner("THE MATTS PRESENT").forEach(([t, c]) => line(t, c));
-  line("THE RESPONSIBLE AI ADVENTURES OF CARDIFF UNIVERSITY", "warn");
-  line("", "");
-  startAnim();
-  print([["(Two men. Three cats. One term. Choose wisely.)", "dir"]],
-    () => { button("BEGIN", "", () => scene("start"), true).focus(); });
 }
 
 /* ------------------------------------------------------------------ flow */
@@ -1027,7 +969,7 @@ function ending() {
   if (F.runs > 0) lines.push("", ["> MAINFRAME: ENERGY: " + F.runs + " DEEP RESEARCH RUN" + (F.runs === 1 ? "" : "S") + ", HUNDREDS OF PAGES EACH.", "dim"]);
   if (F.librarian) lines.push(["> MAINFRAME: THE LIBRARIAN SENDS REGARDS.", "dim"]);
   screen(lines, () => {
-    button("PLAY AGAIN", "", () => { S = freshState(); title(); }, true).focus();
+    button("PLAY AGAIN", "", () => { S = freshState(); scene("start"); }, true).focus();
   });
 }
 
@@ -1043,7 +985,7 @@ function offerResume(saved) {
     "Nobody has noticed yet."
   ], () => {
     button("CONTINUE THAT TERM", "A", () => scene(S.node), true);
-    button("START A NEW TERM", "B", () => { S = freshState(); wipe(); title(); });
+    button("START A NEW TERM", "B", () => { S = freshState(); wipe(); scene("start"); });
     choices.firstChild.focus();
   });
 }
@@ -1097,10 +1039,9 @@ $("tgl-text").addEventListener("click", () => { prefs.lg = !prefs.lg; applyPrefs
 $("tgl-hc").addEventListener("click", () => { prefs.hc = !prefs.hc; applyPrefs(); });
 $("tgl-motion").addEventListener("click", () => {
   prefs.motion = !prefs.motion; applyPrefs();
-  if (!prefs.motion) { flush(); stopAnim(); }
-  else if (phase === "title" && animDraw && !anim) anim = setInterval(animDraw, 160);
+  if (!prefs.motion) flush();
 });
-$("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); title(); });
+$("btn-restart").addEventListener("click", () => { if (typing) flush(); S = freshState(); wipe(); scene("start"); });
 
 // Refit when the window changes size or the text toggles.
 let fitTimer = null;
@@ -1116,7 +1057,10 @@ window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = set
   } catch (e) {}
   applyPrefs();
   const saved = loadSave();
-  if (saved && saved.node !== "start" && saved.node !== "end") offerResume(saved); else title();
+  // No title card (2026-09-30): open on page 1, drawn at once so the page is
+  // readable the moment it loads; later pages keep the typewriter.
+  if (saved && saved.node !== "start" && saved.node !== "end") offerResume(saved);
+  else { scene("start"); flush(); }
 })();
 </script>
 </body>
