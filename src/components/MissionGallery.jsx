@@ -18,13 +18,14 @@ export default function MissionGallery({ progress }) {
             <span className="directive__label">WHY YOU&rsquo;RE HERE</span>
           </div>
           <p className="directive__text">
-            I&rsquo;m Chris, your new line manager. I got a new job as Digital Education
-            Officer, and in week one I was asked to run a staff briefing on responsible AI.
-            Staff need to understand it before they can explain it to students, so I have
-            volunteered our team to build the pack. Remember Responsible AI: this is your
-            work, and AI is your assistant.
+            I&rsquo;m Chris, your new line manager. In week one as Digital Education
+            Officer I was asked to brief staff on how UK universities are using AI, so
+            naturally I volunteered you. That&rsquo;s our topic, but feel free to choose a
+            different one: a grant bid, a new gaming laptop or whether to finally replace
+            the office kettle. Remember Responsible AI: this is your work, and AI is your
+            assistant.
           </p>
-          <span className="directive__sig">— Chris Gravitas, Digital Education Officer (and your new line manager, apparently)</span>
+          <span className="directive__sig">Chris Gravitas, Digital Education Officer (and your new line manager, apparently)</span>
         </div>
         <img
           className="intro-row__image"

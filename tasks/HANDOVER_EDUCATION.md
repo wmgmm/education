@@ -524,3 +524,40 @@ alone on purpose: the prompt box 24rem cap (06's first prompt would scroll insid
 screengrab height. Two measurement traps: an iframe that is not in front carries framer-motion's
 entrance offset (24px on the layout, 53px on the splash), so subtract it from scrollHeight; and
 give frames 1500ms, or lazy step images have not laid out and the totals read low. Not committed.
+
+## 2026-09-30: post-release revision pass (cards, Exercises 01 to 03, naming)
+
+The live site was snapshotted first as local tag `live-2026-09-23` (commit 49565ca, verified by
+rebuilding it: bundle names matched the live index-BIZo9NVw.js and index-CXM37T6m.css). Then,
+all on Matt's direction, wording approved item by item:
+
+- Gallery cards: summary line removed; an "EXERCISE" eyebrow above the numeral; 05's stage word is
+  now "Slides". Chris's memo rewritten: how UK universities use AI is our topic, but choose any
+  (grant bid, gaming laptop, office kettle). Signature lost its em dash.
+- Exercise 01 is now "any topic": the Deep Research prompt is cut to its two-sentence core; the
+  step 2 Copilot prompt is rewritten as audit, verify (web search), improve, ending in an
+  "Audit note"; the step 3 image prompt is rewritten to learning-design rules, starting CREATE AN
+  IMAGE and ending OUTPUT TYPE: IMAGE. The toolInfo.feature line is gone; the brief invites a
+  different topic.
+- Exercise 02: MH_ACCESSIBILITY_AUDIT gained a role line and its headings went from nine to five,
+  ending FIX THIS FIRST (deck slide 19 still shows nine: Matt to tell Matt Hayden). One name for
+  the step 1 output throughout: "style prompt" / "the ready-made style prompt".
+- Exercise 03: the [responsible AI] slot is gone and CANVAS_GAME is rewritten for any document with
+  an educational game design role; the "Read the code tab" step is removed (estMinutesCore 12 to
+  10, so the site's core total is now 87, not 89).
+- Naming: every "WE MADE EARLIER" card label is now READY-MADE (a stand-in) or EXAMPLE ... TO
+  COMPARE / TO PLAY; "your revised Deep Research report" is used throughout 01, 03 and 04.
+
+Verified: `npm run build` green; each change found in the bundle and read back from the rendered
+page in the preview build; long card labels measured at one line (14px). **Untested in the real
+tools:** the new 01 audit and image prompts, the 02 audit headings and the 03 game prompt.
+
+Traps found today:
+- The CLAUDE.md `MH_*` hash check anchors on `MH_DEEP_RESEARCH` and `MH_CANVAS_GAME`, which no
+  longer exist, so it cannot run. It needs new anchors and a new hash.
+- A card label wraps when the card carries three buttons: the info column is only 355px. Measure
+  with `scrollWidth` under `white-space: nowrap` before choosing wording.
+- Hash navigation in a background tab keeps the old exercise on screen (framer-motion); load a new
+  cache-busting URL per exercise when probing.
+- `Example_Style_Block.md` keeps its old filename; renaming it touches the generator, the card's
+  downloadPath and `public/placeholders/`.

@@ -106,145 +106,48 @@ export const APPS = {
 
 // ============================================================================
 // EXERCISE 01 PROMPTS - MATT MORT'S. Editable on his say-so.
-// The Deep Research brief is his text verbatim (2026-09-22). The rubric and
+// The Deep Research brief is his text verbatim (2026-09-22), cut to its
+// two-sentence core on his direction on 2026-09-30. The rubric and
 // the augment prompt were drafted to docs/PROMPT_GUIDANCE_2026.md.
 // ============================================================================
 
 // Exercise 01, step 1. Gemini Deep Research.
-const DR_HE_BRIEF = `Act as a higher education innovation researcher.
+const DR_HE_BRIEF = `Research how UK universities are using generative AI to improve teaching, learning, assessment, research and professional services. Focus on developments from the last 12 months.`;
 
-Research how UK universities are using generative AI to improve teaching, learning, assessment, research and professional services. Focus on developments from the last 12 months.
+// Exercise 01, step 2. Copilot, new chat, the Deep Research report attached.
+// Audit, verify with web search, improve: prints the full improved report,
+// then a five-line audit note. Generic on purpose: nothing in it names the
+// topic, so it runs on any Deep Research report. Rewritten 2026-09-30 on
+// Matt's direction, replacing the nine-criterion examiner prompt of 2026-09-22.
+const SCORE_AND_IMPROVE = `Audit, verify and improve the attached Deep Research report. Do not summarise it, describe a plan or ask questions: start with the improved report.
 
-Identify:
-• The five most important developments.
-• What is changing right now.
-• Examples of universities redesigning teaching or assessment because of AI.
-• How institutions are preparing students for AI-enabled workplaces.
+1. Audit. Read it critically. Find what is missing, out of date, vague or unsupported.
+2. Verify. Use web search to check every key claim, figure, date and link. Correct anything wrong. Mark anything you cannot confirm [UNVERIFIED]. Never invent sources, quotations or statistics.
+3. Improve. Fill the gaps you found, adding recent, named sources with links and dates.
 
-When reviewing examples, evaluate how they address:
+Reply with the complete improved report, not a list of changes: every section in full, plain language under clear headings, 1,500 to 2,500 words, ready to hand on.
 
-• Secure and institutionally approved AI tools.
-• Privacy, data protection and information governance.
-• Data as a strategic asset for improving services and enabling AI-native processes.
-• AI as augmentation rather than replacement of human expertise.
-• Human verification, oversight and accountability.
-• Human judgement, empathy, relationships and other uniquely human capabilities.
-• Bias, fairness, accessibility and alignment with institutional values.
-• Whether AI improves learning outcomes or merely automates existing processes.
-• Ongoing staff and student AI literacy, training and capability development.
-• Individual responsibility for work produced with AI support: AI may assist, but people remain accountable. Their work represents them.
-• Risks of over-reliance, skill atrophy, dependency or reduced critical thinking.
+After the report, under "Audit note", at most five lines: what you corrected, what you added, and what is still [UNVERIFIED].`;
 
-For every example, explain:
-• The problem being solved.
-• The approach taken.
-• Benefits achieved.
-• Risks, limitations or concerns.
-• Skills students develop.
-• Why human judgement remains important.
-
-Produce:
-1. Executive summary.
-2. Five key developments.
-3. What is changing now.
-4. Eight practical examples from UK universities.
-5. Ten ideas a university team could try.
-6. Three low-cost pilots that could be implemented within 90 days.
-7. Key risks and implementation considerations.
-
-Prioritise UK university, sector and research sources. Cite all claims with direct links and publication dates. Distinguish evidence from opinion and flag unverified claims.
-
-Throughout, focus on how universities are helping staff teach differently, helping students become responsible AI users, and preparing graduates to work effectively alongside AI.`;
-
-// Exercise 01, step 2. Copilot, new chat, the report attached or pasted.
-// One prompt, two steps: mark the source report against a nine-point rubric
-// silently, then print only the rewritten report as a standalone learning
-// resource, plus a five-line examiner's note. Generic on purpose: nothing in
-// it names the topic, so it runs on any Deep Research report. Reworked
-// 2026-09-22 after a live run returned "targeted additions only".
-const SCORE_AND_IMPROVE = `Act as an external examiner, then as the report's editor. Be critical but constructive: find what is missing, then fix it by rewriting the report as a learning resource.
-
-INPUT. One Deep Research report, attached or pasted after the last line of this prompt. Call it the source report. Do not summarise it, ask questions or describe a plan: start with the new report.
-
-STEP 1, SILENTLY. Mark the source report 1 to 5 on each criterion (1 absent, 3 present but thin, 5 specific, evidenced and dated). Note the weakest five. Do not print the marks.
-1. Coverage: every section the original brief asked for is present.
-2. Recency: developments are recent and dated.
-3. Sourcing: claims cite named sources with direct links.
-4. Evidence versus opinion: the two are kept apart and unverified claims are flagged.
-5. Clarity: a newcomer could follow it without prior knowledge.
-6. Examples: each states the problem, the approach, the benefit and the risk.
-7. Practicality: recommendations are specific and feasible.
-8. Risks and limits: what could go wrong, and what the reader must still judge for themselves.
-9. Learning: the key points are explicit enough that a reader could explain the topic to someone else.
-
-STEP 2, THE REPLY. Write the new report: the source rewritten so every criterion reaches 4 or 5.
-- Complete and standalone, every section in full. Never refer to "the original" and never give additions only.
-- Keep the source's structure and every cited claim and link, unless you found one to be wrong.
-- Use web search to add recent, named sources with links and dates. Never invent sources, quotations or statistics; mark anything you could not verify [UNVERIFIED].
-- Plain language, flowing prose under clear headings. Use the problem, approach, benefit, risk pattern for the case studies only, not as headings everywhere.
-- No markers, scorecards or change logs inside the report: it will be handed on as a finished document.
-- 1,500 to 2,500 words. If the reply limit cuts you off, stop at a section boundary, write [CONTINUED], and carry on when I reply "continue".
-
-After the report, under the heading "Examiner's note", at most five lines: the weakest five criteria, their marks, and what the new report did about each.
-
-If anything is unclear, make a sensible choice; do not ask.
-
----
-
-DEEP RESEARCH REPORT, PASTED BELOW (leave this empty if the file is attached):`;
-
-// Exercise 01, step 3. Copilot, same chat as the report. Image only. This
-// text is Copilot's own suggestion, chosen by Matt on 2026-09-22 after the
-// prose version worked but slowly: image trigger first, role second, bullet
-// rules, and a closing block naming every text behaviour it must not do.
-// Keep verbatim, including the en dash in "4–7" and "whitespace".
+// Exercise 01, step 3. Copilot, same chat as the report. Image only. Rewritten
+// on Matt's direction on 2026-09-30 to learning-design rules (message headline,
+// 3-5 chunked ideas, icon plus label plus example, a closing action), replacing
+// Copilot's own longer suggestion of 2026-09-22. Image trigger first and last.
 const VISUAL_GUIDE = `CREATE AN IMAGE.
-Output type: IMAGE.
 
-You are an innovative visual learning designer.
+Turn the revised report above into one portrait infographic that teaches its main message to busy staff who will never read the report.
 
-Your task is to teach the report above visually, not to summarise it.
+Design it as a learning designer would:
+• A headline that states the main message as a plain sentence, not a topic.
+• 3–5 key ideas from the report, in a numbered path from top to bottom.
+• Each idea: one simple icon, a bold label of five words or fewer, and one short line with a concrete example from the report.
+• End with "Try this": one action a reader could take this week.
+• Clean and flat: white background, one accent colour used only for what matters most, large text, plenty of whitespace, no paragraphs, no jargon.
+• Use only information from the report.
 
-Generate a single portrait infographic image for staff who have not read the report and will not.
+Return only the completed image: no summary, description, explanation or markdown.
 
-They should:
-• understand the key ideas at a glance
-• remember the main message
-• be able to explain at least one idea afterwards
-
-Design the page as a visual learning journey:
-
-• one clear headline
-• 4–7 essential ideas from the report
-• one simple illustration per idea
-• short plain-English labels
-• a clear visual path leading to one final takeaway
-
-Use only information from the report.
-
-Style:
-
-• clean and flat
-• white background
-• one accent colour
-• large readable text
-• plenty of whitespace
-• user-centred
-• jargon free
-• no paragraphs
-• no clutter
-
-The finished page should look like something a professional learning designer created for busy staff.
-
-Important:
-Generate the infographic as an image.
-Do not provide a summary.
-Do not explain your reasoning.
-Do not describe the image.
-Do not provide markdown.
-Do not provide instructions.
-
-Return only the completed image.`;
+OUTPUT TYPE: IMAGE.`;
 
 // ============================================================================
 // MATT HAYDEN'S PROMPTS - VERBATIM. DO NOT EDIT. Exercise 02.
@@ -257,8 +160,10 @@ Return only the completed image.`;
 // from the deck: MH_IMAGE_REVERSE is Matt's rewrite (output-only, fixed
 // section format, pinned placeholder); MH_ACCESSIBILITY_AUDIT keeps his three
 // opening sentences and adds eight labelled output headings ending in a ranked
-// list of changes (Part 2 tasks/todo.md addenda 107 and 108). Nothing else
-// was changed. His Exercise 03 game prompt was replaced on 2026-09-22 (see
+// list of changes (Part 2 tasks/todo.md addenda 107 and 108). On 2026-09-30
+// Matt cut MH_ACCESSIBILITY_AUDIT's headings from nine to five, ending in one
+// FIX THIS FIRST line, to shorten the output, and added a role line above its
+// otherwise unchanged opening three paragraphs. Deck slide 19 still shows nine. Nothing else was changed. His Exercise 03 game prompt was replaced on 2026-09-22 (see
 // CANVAS_GAME above) when the workshop's document changed.
 // ============================================================================
 
@@ -306,7 +211,9 @@ Consistency requirement: Match all previously generated images in style, palette
 Subject: [Replace only this section for each image]`;
 
 // Deck slide 19. Exercise 02, step 4.
-const MH_ACCESSIBILITY_AUDIT = `Describe this image for someone who cannot see it. What is the main message? What might be ambiguous or misleading? Do not guess anyone's age, background or feelings.
+const MH_ACCESSIBILITY_AUDIT = `Act as a digital accessibility specialist reviewing this image before it is published.
+
+Describe this image for someone who cannot see it. What is the main message? What might be ambiguous or misleading? Do not guess anyone's age, background or feelings.
 
 Be concise: about 60 words for the description, then one sentence for each answer except the last. No preamble, no hedging, no lists of maybes. No percentages, ratios or measurements.
 
@@ -315,29 +222,29 @@ Answer under these headings, in this order:
 DESCRIPTION:
 MAIN MESSAGE:
 AMBIGUOUS OR MISLEADING:
-WORDS IN THE IMAGE: quote exactly what you can read, name what you cannot, or say "none".
-ALT TEXT: under 125 characters, most important thing first, written for what the image is doing on the page rather than a list of what is in it. Assume it needs alt text, and do not start it with "image of".
-ONE CLEAR SUBJECT: could you write that alt text without leaving something important out? Say "yes", or name the one thing that crowded it out.
-IN GREYSCALE: does any meaning depend on colour alone? Say "nothing" if not. Do not name colours and do not judge contrast.
-I ASSUMED: the one guess you had to make about where this image will be used. Name one, not a list.
-CHANGES TO THE PICTURE: up to three, numbered, most important first, drawn only from the checks above and only where you can point at what you saw. Say what you want in the new picture rather than what to take out. Then give one line containing all of them, ready to paste into an image prompt. Changes to the picture only, never a caption and never wording placed beside the image.`;
+ALT TEXT: under 125 characters, most important thing first, saying what the image is for rather than listing what is in it. Do not start with "image of".
+FIX THIS FIRST: the single change that would most improve this image for everyone, including anyone relying on the alt text. Check for garbled or unreadable words and for meaning carried by colour alone, but name only the most important problem you can point at. Say what the new picture should show, in one line ready to paste into an image prompt. Change the picture only, never add a caption.`;
 
 // Exercise 03, step 1. Matt Mort's, 2026-09-22, on the skeleton of Matt
 // Hayden's dining-hall game prompt (deck slide 22): the document is now the
-// report from Exercise 01. His thin version (slide 21) went with it.
-const CANVAS_GAME = `Create a learning game about [responsible AI], using the attached document as the only source of content.
+// report from Exercise 01. His thin version (slide 21) went with it. The
+// [responsible AI] topic slot was removed on 2026-09-30 and the prompt rewritten
+// for any document, with an educational game design role, on Matt's direction.
+const CANVAS_GAME = `Act as an expert in educational game design and gamification who turns any document into a game people want to play.
 
-Learning goal: after one play, the player can name the document's key points about [responsible AI] and tell good practice from risk.
+Create a playable game using the attached document as the only source of content.
 
-Game: a playable 8-bit web game in a single HTML file (JavaScript and CSS), styled like a vintage ZX Spectrum title: black background, bright blocky neon colours, keyboard controls. Readable first: the pixel font is for the title only; everything else is a plain sans-serif at 18px or larger, and never more than three short lines of text on screen during play. Choose the game mechanic yourself to fit the content, so long as the player scores by telling the good practices in the document from the risks it names.
+Game: an 8-bit web game in a single HTML file (JavaScript and CSS), styled like a vintage ZX Spectrum title: black background, bright blocky neon colours, keyboard controls. Readable first: the pixel font is for the title only; everything else is a plain sans-serif at 18px or larger, with no more than three short lines of text on screen during play.
 
-Learning rules:
-- Every item is a name of at most five words and a why of at most twelve words, both in the document's own wording. Invent nothing.
-- Each right or wrong move shows the item's why for two seconds, then play continues.
-- Each level cleared shows one of the document's key points on screen, and the difficulty rises.
-- Game over shows a recap: the key points seen, then a three-question quiz drawn from the document.
+Choose the game mechanic yourself to suit the document, whatever it is about. The player scores by making the choices the document supports and loses points for the ones it does not.
 
-Take the title, the introductory screen text and the game-over messages from the document. Make it fully playable, then list the document quotes you used.`;
+Rules:
+- Every item on screen is a name of at most five words and a reason of at most twelve words, both in the document's own wording. Invent nothing.
+- After each move, show the item's reason for two seconds, then play on.
+- Each level cleared shows one key point from the document, and the difficulty rises.
+- Game over shows the key points the player met.
+
+Take the title, the intro screen and the game-over messages from the document. Make it fully playable, then list the document quotes you used.`;
 
 
 // The three skills share one file-type icon, because that is what it is: a
@@ -370,14 +277,14 @@ const A = {
     thumb: 'sustainable_futures_cover.webp',
   },
   deepResearch: {
-    label: 'OPTIONAL: THE DEEP RESEARCH REPORT WE MADE EARLIER',
+    label: 'OPTIONAL: A READY-MADE DEEP RESEARCH REPORT',
     filename: 'The_Matts_Deep_Research_Report.pdf',
     downloadPath: `${BASE}placeholders/The_Matts_Deep_Research_Report.pdf`,
     note: 'The Matts\' Deep Research report. Use it in step 2 if your own run is still going.',
     thumb: EXAMPLE_ICON,
   },
   revisedReport: {
-    label: 'OPTIONAL: THE REVISED REPORT WE MADE EARLIER',
+    label: 'OPTIONAL: A READY-MADE REVISED DEEP RESEARCH REPORT',
     filename: 'The_Matts_Revised_Report.pdf',
     downloadPath: `${BASE}placeholders/The_Matts_Revised_Report.pdf`,
     note: 'The Matts\' revised report from Exercise 01. Attach it if you do not have your own.',
@@ -409,7 +316,7 @@ const A = {
     thumb: SKILL_ICON,
   },
   exampleTraining: {
-    label: 'OPTIONAL: THE TRAINING MODULE WE MADE EARLIER',
+    label: 'OPTIONAL: A READY-MADE TRAINING MODULE',
     filename: 'The_Matts_Training_Module.pdf',
     downloadPath: `${BASE}placeholders/The_Matts_Training_Module.pdf`,
     note: "The Matts' training module, in case Exercise 04 did not run for you. Upload it to Notebook as a source.",
@@ -418,7 +325,7 @@ const A = {
   // A real run of Cardiff_Brand_SKILL.md, exported from Notebook: the deck
   // Exercise 05 is asking for, so the room can see the target first.
   brandDeckExample: {
-    label: 'OPTIONAL: THE MATTS\' SKILL DECK WE MADE EARLIER',
+    label: 'OPTIONAL: AN EXAMPLE DECK MADE WITH THE MATTS\' SKILL, TO COMPARE',
     filename: 'The_Matts_Slide_Deck.pptx',
     downloadPath: `${BASE}placeholders/The_Matts_Slide_Deck.pptx`,
     note: 'A real Notebook run with the Matts\' brand skill on the training module, 13 slides. This is what a skill does to a deck.',
@@ -427,7 +334,7 @@ const A = {
   // Same training module, Cardiff brand skill: the deck step 4 asks you to
   // compare with your own.
   cardiffDeckExample: {
-    label: 'OPTIONAL: THE CARDIFF DECK WE MADE EARLIER',
+    label: 'OPTIONAL: AN EXAMPLE DECK MADE WITH THE CARDIFF SKILL, TO COMPARE',
     filename: 'The_Matts_Cardiff_Deck.pptx',
     downloadPath: `${BASE}placeholders/The_Matts_Cardiff_Deck.pptx`,
     note: 'The Matts\' Notebook run with the Cardiff brand skill on the training module, 15 slides. Same source, same skill as yours.',
@@ -445,10 +352,10 @@ const A = {
   // The reusable prompt Matt got from step 1 on the study-space picture, for
   // anyone whose own run did not return one. Text in tools/make_artifacts.py.
   styleExample: {
-    label: 'OPTIONAL: A REUSABLE PROMPT WE MADE EARLIER',
+    label: 'OPTIONAL: A READY-MADE STYLE PROMPT',
     filename: 'Example_Style_Block.md',
     downloadPath: `${BASE}placeholders/Example_Style_Block.md`,
-    note: 'Our step 1 result on this picture. Use it in step 2 if yours did not come back as a prompt.',
+    note: 'Made from this picture, ready to reuse. Use it in step 2 if yours did not come back as a prompt.',
     copyable: true,
     thumb: EXAMPLE_ICON,
   },
@@ -487,7 +394,7 @@ const A = {
   // Branching text adventure for Exercise 03: one lecturer, one term, nine
   // choices that cascade. Demand_First_Adventure.html is its unlinked ancestor.
   responsibleAiAdventure: {
-    label: 'THE TEXT ADVENTURE WE MADE EARLIER',
+    label: 'AN EXAMPLE TEXT ADVENTURE TO PLAY',
     filename: 'Responsible_AI_Adventure.html',
     downloadPath: `${BASE}placeholders/Responsible_AI_Adventure.html`,
     note: 'One lecturer, one term, 180 essays and a power cut. Nine choices, and the early ones come back for you.',
@@ -495,7 +402,7 @@ const A = {
     openOnly: true,
   },
   exampleChart: {
-    label: 'OPTIONAL: THE DASHBOARD WE MADE EARLIER',
+    label: 'OPTIONAL: AN EXAMPLE DASHBOARD TO COMPARE',
     filename: 'Cardiff_Estates_Dashboard.html',
     downloadPath: `${BASE}placeholders/Cardiff_Estates_Dashboard.html`,
     // The finished build, repaired against the CSV (verify_chart_data.py exits 0).
@@ -535,12 +442,12 @@ const A = {
   // can show what goes into Copilot rather than only describing it.
   yourReport: {
     label: 'YOUR DEEP RESEARCH REPORT',
-    filename: 'the Word file from step 1',
+    filename: 'the Deep Research Report from step 1',
     thumb: DOC_ICON,
   },
   yourImprovedReport: {
-    label: 'YOUR REVISED REPORT',
-    filename: 'the Word file you saved in Exercise 01',
+    label: 'YOUR REVISED DEEP RESEARCH REPORT',
+    filename: 'your revised Deep Research report, the Word file from Exercise 01',
     thumb: DOC_ICON,
   },
   // Strip-only: the picture the reader has just generated, so the audit step
@@ -561,7 +468,7 @@ const A = {
   // Strip-only too: Exercise 02 step 3's new-chat retry needs the whole step 2
   // prompt, not just the line on the page.
   stepOnePrompt: {
-    label: 'YOUR STEP 1 PROMPT',
+    label: 'YOUR STYLE PROMPT',
     filename: 'Copilot\'s reply from step 1, subject replaced',
     thumb: PROMPT_ICON,
     paste: true,
@@ -588,34 +495,32 @@ export const MISSIONS = [
     code: '01',
     level: 1,
     title: 'The Landscape',
-    pageTitle: 'Research How UK Universities Use AI, Then Have Copilot Mark It and Revise It',
+    pageTitle: 'Deep Research Any Topic, Copilot Audits and Improves the Report and Creates a Learning Infographic',
     summary: 'Research the sector, then have Copilot mark and revise it.',
     accentType: 'stamp-red',
     accentText: 'START HERE',
     tools: [TOOLS.deepResearch, TOOLS.copilot],
     estMinutesCore: 14,
     toolInfo: {
-      feature:
-        'Deep Research browses the web on its own and comes back with a cited report. Copilot then marks it against a nine-point marking scheme and rewrites it in full as a learning resource.',
       apps: [APPS.gemini, APPS.copilot],
     },
     workflow: ['Deep Research on Gemini', 'Copilot marks and revises it', 'Copilot draws a visual guide'],
     brief:
-      'Research how UK universities use generative AI, have Copilot mark and rewrite the report, then draw it as a one-page visual guide. Exercises 03 and 04 attach the revised report.',
+      'You can choose any topic for this exercise. As an example, we are using \'how UK universities are using Generative AI\'. Use our topic or pick your own: maybe you need a gaming laptop?',
     artifacts: [A.deepResearch],
     steps: [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Run Deep Research in Gemini',
+        title: 'Think of a topic, then run Deep Research in Gemini',
         body:
-          'In Gemini, click the + and select Deep Research, then paste the brief and send. Edit the plan if you like, then Start research. When it finishes, click Share and export, then Copy contents, paste it into a Word document and save it.',
+          'Deep Research works on anything: a grant, a new laptop, house prices in Cardiff. Use your own topic or our Deep Research Prompt. In Gemini, click the + and select Deep Research, then paste and send. Edit the plan if you like, then Start research. When it finishes, click Share and export, then Copy contents into Word and save.',
         attachLabel: 'SELECT',
         attachExtra: {
           src: 'deep_research_button.png',
           alt: 'The Deep Research item in Gemini\'s + menu, ticked.',
         },
-        promptLabel: 'THE BRIEF',
+        promptLabel: 'DEEP RESEARCH PROMPT',
         promptNote: '[takes several minutes, and runs are limited: if yours is still running or will not start, use the Matts\' report at the top for step 2]',
         prompt: DR_HE_BRIEF,
       },
@@ -624,24 +529,24 @@ export const MISSIONS = [
         estMinutes: 6,
         title: 'Mark and revise it in Copilot',
         body:
-          'In a new Copilot chat, attach your report with the paperclip (or the Matts\' copy from the top), paste the prompt and send. If it summarises, reply "Write the full report now"; at [CONTINUED], reply "continue". Copy the new report, not the examiner\'s note, into Word and save it as your revised report: Exercises 03 and 04 attach it.',
-        promptLabel: 'MARK IT, THEN REWRITE IT',
+          'In a new Copilot chat, attach your Deep Research report with the paperclip (or the Matts\' copy from the top), paste the prompt and send. Save a copy of your revised Deep Research report into Word: you will need it for Exercises 03 and 04.',
+        promptLabel: 'AUDIT, VERIFY AND IMPROVE WITH COPILOT',
         attachLabel: 'NEW CHAT',
         attach: [A.yourReport, A.thisPrompt],
-        promptNote: '[attach the file, or paste the report after the prompt\'s last line]',
-        promptEmphasis: 'Be critical but constructive',
+        promptNote: '[attach your Deep Research report with the paperclip before you send]',
+        promptEmphasis: 'Do not summarise it',
         prompt: SCORE_AND_IMPROVE,
       },
       {
         tier: 'core',
         estMinutes: 3,
-        title: 'Turn it into a visual learning guide',
+        title: 'Turn your revised Deep Research report into a visual learning infographic',
         body:
           'In the same chat, paste the prompt and send. Give it a minute or two; if it writes text instead, reply "Generate the image now". Compare the picture with the report: what it left out is the lesson.',
-        promptLabel: 'THE VISUAL GUIDE',
-        attachLabel: 'SAME CHAT',
+        promptLabel: 'THE VISUAL LEARNING INFOGRAPHIC',
+        attachLabel: 'SAME CHAT IN COPILOT',
         attach: [A.thisPrompt],
-        promptEmphasis: 'Return only the completed image.',
+        promptEmphasis: 'Return only the completed image',
         prompt: VISUAL_GUIDE,
       },
       {
@@ -663,41 +568,41 @@ export const MISSIONS = [
     code: '02',
     level: 2,
     title: 'The Image',
-    pageTitle: 'Analyse a Photo to Build a Reusable Prompt That Replicates Its Unique Style',
+    pageTitle: 'Analyse a Photo to Build a Style Prompt You Can Reuse',
     summary: 'Turn a picture back into the prompt.',
     tools: [TOOLS.copilot],
     estMinutesCore: 11,
     toolInfo: {
       feature:
-        'Copilot can read an image as well as make one. The same moves work in Gemini, so nothing here is Copilot-only.',
+        'This exercise would also work in Gemini, in case you run into issues.',
       apps: [APPS.copilot],
     },
     workflow: ['Clone the style', 'Draw with your style prompt', 'Audit for accessibility'],
     brief:
-      'Turn a picture you like into a reusable prompt, draw a new image with it, then check that someone who cannot see it would still get the message you intended.',
+      'Turn a picture you like into a style prompt, draw a new image with it, then check that someone who cannot see it would still get the message you intended.',
     artifacts: [A.studySpace, A.styleExample],
     steps: [
       {
         tier: 'core',
         estMinutes: 3,
-        title: 'Clone the style of the image into a reusable prompt',
+        title: 'Turn the image into a style prompt',
         body:
-          'In a new Copilot chat, download the picture from the card above, attach it with the paperclip, paste the prompt and send. Keep the reply: step 2 reuses it. If it did not come back as a prompt, use the Matts\' one from the top.',
+          'In a new Copilot chat, download the picture from the card above, attach it with the paperclip, paste the prompt and send. Keep the reply: step 2 reuses it. If it did not come back as a prompt, use the ready-made style prompt from the top.',
         attach: [A.studySpace],
         image: {
           src: 'cardiff_study_space.jpg',
           alt: 'Three students talking around a small round table in a bright Cardiff University social space, red sofas, a laptop and a vase of pink flowers on the table, floor-to-ceiling windows behind.',
           caption: 'The image to work from.',
         },
-        promptLabel: 'THE PROMPT THAT TURNS AN IMAGE INTO A PROMPT',
+        promptLabel: 'THE PROMPT THAT TURNS AN IMAGE INTO A STYLE PROMPT',
         prompt: MH_IMAGE_REVERSE,
       },
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Draw a new image with the prompt from step 1',
+        title: 'Draw a new image with your style prompt from step 1',
         body:
-          'Copy the prompt Copilot wrote in step 1 (or the Matts\' one from the top) into a new chat, replace [INSERT SUBJECT HERE] with the subject below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
+          'Copy your style prompt from step 1 (or the ready-made style prompt from the top) into a new chat, replace [INSERT SUBJECT HERE] with the subject below, and send. If Copilot describes the image instead of drawing it, reply "Generate the image now".',
         attachLabel: 'NEW CHAT',
         attach: [A.stepOnePrompt],
         promptLabel: 'THE SUBJECT: PASTE THIS OVER [INSERT SUBJECT HERE]',
@@ -745,49 +650,40 @@ export const MISSIONS = [
     code: '03',
     level: 2,
     title: 'The Game',
-    pageTitle: 'Vibe Code a Playable Game From Your Revised Report in Canvas',
+    pageTitle: 'Vibe Code a Playable Game From Your Revised Deep Research Report in Canvas',
     summary: 'Build a game out of your revised report.',
     tools: [TOOLS.canvas],
-    estMinutesCore: 12,
+    estMinutesCore: 10,
     toolInfo: {
-      feature:
-        'Canvas turns a description into working web apps, decks and documents you can edit in place. You write no code at any point.',
       apps: [APPS.gemini],
     },
-    workflow: ['Run the detailed prompt', 'Read the code', 'Give AI feedback'],
+    workflow: ['Run the detailed prompt', 'Give AI feedback'],
     brief:
-      'Build a playable 8-bit game from the report you revised in Exercise 01 without writing a line of code, read what Canvas built, then fix the one thing that spoils it in plain words.',
+      'Build a playable 8-bit game from the report you revised in Exercise 01 without writing a line of code, then chat with Gemini to fix any issues.',
     artifacts: [],
     steps: [
       {
         tier: 'core',
         estMinutes: 4,
-        title: 'Attach your revised report and run the prompt',
+        title: 'Attach your revised Deep Research report and run the prompt',
         body:
-          'In a new Gemini chat, attach your revised report with the + (or the Matts\' copy below) and paste the prompt. Keep [responsible AI] or swap it for another subject your report covers, turn Canvas on and send. If the game falls short, switch the model to Pro and send again.',
+          'In a new Gemini chat, attach your revised Deep Research report with the + (or the Matts\' copy below) and paste the prompt. Turn Canvas on and send. If the game falls short, switch the model to Pro and send again.',
         promptLabel: 'THE DETAILED PROMPT',
-        promptEmphasis: '[responsible AI]',
+        promptEmphasis: 'using the attached document as the only source of content',
         attachLabel: 'NEW CHAT',
         attach: [A.yourImprovedReport],
         attachExtra: {
           src: 'canvas_button.webp',
           alt: 'The Canvas button in Gemini, a small grey chip reading Canvas.',
         },
-        promptNote: '[Canvas on, attach your revised report]',
+        promptNote: '[Canvas on, attach your revised Deep Research report]',
         prompt: CANVAS_GAME,
         artifact: A.revisedReport,
       },
       {
         tier: 'core',
-        estMinutes: 2,
-        title: 'Read the code tab',
-        body:
-          'Click Code at the top of Canvas and skim the text in it: the title, the messages, the item names. Which came from your report?',
-      },
-      {
-        tier: 'core',
         estMinutes: 3,
-        title: 'Play it, then give AI feedback',
+        title: 'Give AI useful feedback to improve the app',
         body:
           'Type the one thing that spoils it into the chat, saying what is wrong and what you want instead: \"too fast, slow the items by half\". Canvas rebuilds it in place.',
       },
@@ -829,15 +725,15 @@ export const MISSIONS = [
     },
     workflow: ['Skill builds your training module', 'Review the gap note', 'Copy the module for Exercise 05'],
     brief:
-      'Build a half-hour training module from your revised report, using a skill file.',
+      'Build a half-hour training module from your revised Deep Research report, using a skill file.',
     artifacts: [A.trainingSkill, A.revisedReport],
     steps: [
       {
         tier: 'core',
         estMinutes: 6,
-        title: 'Attach the skill and your revised report, then send the prompt',
+        title: 'Attach the skill and your revised Deep Research report, then send the prompt',
         body:
-          'In a new Copilot chat, attach two files with the paperclip: the skill from the card at the top, and your revised report (or the Matts\' copy beside it). Check both names show above the box, then paste the prompt and send.',
+          'In a new Copilot chat, attach two files with the paperclip: the skill from the card at the top, and your revised Deep Research report (or the Matts\' copy beside it). Check both names show above the box, then paste the prompt and send.',
         attach: [A.trainingSkill, A.yourImprovedReport],
         promptLabel: 'YOUR PROMPT, PLUS ONE LINE',
         promptNote: '[attach both files first, then send]',
@@ -879,7 +775,7 @@ export const MISSIONS = [
 
   {
     id: 'm5',
-    stage: 'Shape the Brand',
+    stage: 'Slides',
     code: '05',
     level: 2,
     title: 'The Brand',

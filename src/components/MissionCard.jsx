@@ -23,11 +23,11 @@ export default function MissionCard({ mission, completed }) {
       aria-label={`Open exercise ${mission.code}: ${mission.title}${completed ? ' (completed)' : ''}`}
     >
       <span className="mission-card__panel">
+        <span className="mission-card__eyebrow">Exercise</span>
         <span className="mission-card__big-code">
           {mission.code}
           {mission.stage && <span className="mission-card__stage">{mission.stage}</span>}
         </span>
-        <span className="mission-card__summary">{mission.summary}</span>
       </span>
 
       {mission.accentText && (
