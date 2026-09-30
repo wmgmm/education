@@ -50,8 +50,8 @@ export default function App() {
     }
     const m = route ? getMission(route) : null;
     document.title = m
-      ? `${m.code ? `${m.code} ` : ''}${m.title} · AI in the Workplace Part 2: Education Edition`
-      : 'AI in the Workplace Part 2: Education Edition';
+      ? `${m.code ? `${m.code} ` : ''}${m.title} · AI in the Workplace Part 2`
+      : 'AI in the Workplace Part 2';
     if (firstRoute.current) {
       firstRoute.current = false;
       return;
