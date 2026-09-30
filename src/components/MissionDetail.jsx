@@ -540,7 +540,7 @@ export default function MissionDetail({ mission, lane, completed, onComplete }) 
             <span className="mission-verdict__stamp">CLEARED</span>
             <blockquote className="mission-verdict__quote">
               &ldquo;{mission.verdict}&rdquo;
-              <cite>— {mission.verdictBy || 'C. Gravitas'}</cite>
+              <cite>— {mission.verdictBy || 'The Matts'}</cite>
             </blockquote>
             <a href="#/" className="mission-verdict__next">All exercises →</a>
           </div>

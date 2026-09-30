@@ -1,9 +1,7 @@
 // All exercise content for the workshop site: AI in the Workplace, Part 2.
-// One running thread: Chris Gravitas, the participant's new line manager, has
-// been moved into the university's Sustainability Engagement job and has
-// volunteered the team to respond to one real document: Cardiff's Sustainable
-// Futures plan. Each exercise builds one piece of the team briefing pack. Every
-// exercise is SELF-CONTAINED: provided files stand in for any other exercise's
+// No story framing since 2026-09-30 (Chris Gravitas, the line manager, was
+// removed): participants choose a topic or use ours, how UK universities are
+// using generative AI. Every exercise is SELF-CONTAINED: provided files stand in for any other exercise's
 // output, so exercises work in any order.
 //
 // THE WORKSHOP IS SPLIT BETWEEN TWO PRESENTERS.
@@ -48,7 +46,7 @@
 // Mission fields worth knowing: toolsJoin sets how the card joins its tool
 // names, default '+' for tools used in sequence, 'or' where either will do.
 // verdictBy overrides who the completion quote is
-// attributed to (defaults to C. Gravitas).
+// attributed to (defaults to The Matts).
 // artifact (a download card rendered inside the step, for a file used only at
 // that point rather than for the whole exercise),
 // attach (an array of artifacts shown as an attachment strip of thumbnails and
@@ -74,8 +72,6 @@ export const TOOLS = {
   canvas: 'Gemini Canvas',
 };
 
-// Gallery hero image, shared with the ?doctor preflight so the check cannot drift.
-export const HERO_IMAGE = 'staff_briefing.webp';
 
 // Click-to-open sign-in cards (google.html copilot-card pattern).
 export const APPS = {
@@ -1185,7 +1181,7 @@ export const PROMPT_LIBRARY = {
       },
     ],
     verdict:
-      'You are leaving with my prompts in your pocket. Stealing from your new line manager in week one: exactly the initiative this team needs.',
+      'You are leaving with our prompts in your pocket.',
 };
 
 export function getMission(id) {

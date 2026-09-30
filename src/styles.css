@@ -184,23 +184,6 @@ h1, h2, h3 {
   color: var(--black);
 }
 
-.splash-deck {
-  font-family: var(--font-headline);
-  font-style: italic;
-  font-size: clamp(1rem, 3vw, 1.35rem);
-  line-height: 1.4;
-  color: var(--black);
-  border-left: 4px solid var(--black);
-  padding-left: 1rem;
-}
-
-.splash-byline {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #444;
-}
 
 .btn-start {
   align-self: flex-start;

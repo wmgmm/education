@@ -1,6 +1,6 @@
 import React from 'react';
 import MissionCard from './MissionCard.jsx';
-import { MISSIONS, HERO_IMAGE, APPS } from '../data/missions.js';
+import { MISSIONS, APPS } from '../data/missions.js';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -12,31 +12,9 @@ export default function MissionGallery({ progress }) {
 
   return (
     <section className="evidence-section">
-      <div className="intro-row">
-        <div className="directive">
-          <div className="directive__top">
-            <span className="directive__label">WHY YOU&rsquo;RE HERE</span>
-          </div>
-          <p className="directive__text">
-            I&rsquo;m Chris, your new line manager. In week one as Digital Education
-            Officer I was asked to brief staff on how UK universities are using AI, so
-            naturally I volunteered you. That&rsquo;s our topic, but feel free to choose a
-            different one: a grant bid, a new gaming laptop or whether to finally replace
-            the office kettle. Remember Responsible AI: this is your work, and AI is your
-            assistant.
-          </p>
-          <span className="directive__sig">Chris Gravitas, Digital Education Officer (and your new line manager, apparently)</span>
-        </div>
-        <img
-          className="intro-row__image"
-          src={`${BASE}${HERO_IMAGE}`}
-          alt="Cartoon in the style of an 8-bit ZX Spectrum game: a grinning manager in a striped suit holds out a document titled Responsible AI across an otherwise empty desk to an alarmed colleague in a green hoodie clutching a laptop. A whiteboard behind them reads STAFF BRIEFING, a Welsh dragon pennant hangs on the desk, and the clock says five to twelve."
-        />
-      </div>
-
       <div className="evidence-section__header">
         <div className="evidence-section__lead">
-          <h1 className="evidence-section__title">BUILD THE STAFF BRIEFING PACK</h1>
+          <h1 className="evidence-section__title">CHOOSE YOUR TOPIC, OR USE OURS</h1>
           {/* The three sign-ins beside the title, so nobody hunts for a tab. */}
           <nav className="tool-cards__row tool-cards__row--gallery" aria-label="Open your tools">
             {[APPS.copilot, APPS.gemini, APPS.notebook].map(app => (

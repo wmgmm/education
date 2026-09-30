@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MISSIONS, APPS, HERO_IMAGE } from '../data/missions.js';
+import { MISSIONS, APPS } from '../data/missions.js';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -40,7 +40,6 @@ function collectUrls() {
       Object.values(s.bodyIcons || {}).forEach(ic => add(`${BASE}${ic.src}`, `${m.code} · ${ic.src}`));
     });
   });
-  add(`${BASE}${HERO_IMAGE}`, 'Gallery · hero illustration');
   Object.values(APPS).forEach(app => {
     if (app.logo) add(`${BASE}logos/${app.logo}`, `Logo · ${app.logo}`);
   });

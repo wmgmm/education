@@ -33,12 +33,6 @@ export default function SplashScreen({ onStart }) {
 
         {/* Headline */}
         <h1 className="splash-headline">AI in the Workplace Part 2</h1>
-        <p className="splash-deck">
-          One Deep Research Report, Six Exercises,<br />Skills You Will Use on Monday
-        </p>
-        <p className="splash-byline">
-          Your new line manager: <strong>Chris Gravitas</strong>, Digital Education Officer
-        </p>
 
         {/* 3-step instructions */}
         <ol className="splash-steps" role="list">
@@ -71,7 +65,7 @@ export default function SplashScreen({ onStart }) {
 
         {/* Name + Email */}
         <div className="splash-register">
-          <p className="splash-register__label">OPERATIVE CREDENTIALS</p>
+          <p className="splash-register__label">YOUR DETAILS</p>
           <div className="splash-register__fields">
             <div className="splash-field">
               <input
@@ -117,7 +111,7 @@ export default function SplashScreen({ onStart }) {
           whileTap={{ scale: 0.97 }}
           transition={{ duration: 0.15 }}
         >
-          REPORT FOR DUTY
+          START
         </motion.button>
 
       </div>
