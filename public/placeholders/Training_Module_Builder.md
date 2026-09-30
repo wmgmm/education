@@ -1,6 +1,6 @@
 ---
 name: training-module-builder
-description: Build an engaging staff training module grounded in a source document, with observable objectives and a gap note listing everything the source did not support. Use when turning a policy, plan or strategy into something you can actually teach colleagues. UK English output.
+description: Build an engaging staff training module grounded in a source document, with observable objectives and a gap note listing everything the source did not support. Use when turning a policy, plan or strategy into something you can actually teach colleagues. UK English. Output as a Word Docx file
 ---
 
 # Training Module Builder
@@ -78,3 +78,5 @@ real case from their own team. One line, and name the action, not the content.
 The gap note is not optional and it is not an apology. It is the most useful
 thing in the document, because it tells whoever owns the policy what their policy
 does not yet say.
+
+Output: Word Docx file

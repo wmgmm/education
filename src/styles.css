@@ -2591,3 +2591,9 @@ main:focus {
   color: #6e6e73;
   margin-bottom: -0.2rem;
 }
+
+/* Step screenshots at their own size (2026-09-30): width auto, so a small grab is
+   no longer stretched soft to the column; the max-widths above still cap large ones. */
+.mission-step__figure img {
+  width: auto;
+}

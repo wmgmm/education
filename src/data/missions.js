@@ -705,20 +705,20 @@ export const MISSIONS = [
 
   {
     id: 'm4',
-    stage: 'Copilot Agent',
+    stage: 'My First Agent',
     code: '04',
     level: 2,
     title: 'The Module',
     pageTitle: 'Build a Copilot Agent With a Skill File',
     summary: 'Run a skill, get a training module.',
     tools: [TOOLS.copilot],
-    estMinutesCore: 15,
+    estMinutesCore: 12,
     toolInfo: {
       feature:
         'An agent keeps your instructions, so you set it up once, then reuse it and share it. You build an Agent that creates Training modules from a source document.',
       apps: [APPS.copilot],
     },
-    workflow: ['Create your agent', 'Run it on your report', 'Read the gap note'],
+    workflow: ['Create your agent', 'Run it on your report', 'Export it to Word'],
     artifacts: [A.trainingSkill, A.revisedReport],
     steps: [
       {
@@ -743,7 +743,7 @@ export const MISSIONS = [
         backup: {
           label: 'NO NEW AGENT BUTTON?',
           text:
-            'Your account may not allow agents. Use a normal chat: attach the skill and your report with the paperclip, and add this line to the step 2 prompt.',
+            'Your account may not allow agents. Use a normal chat: attach the skill and your report with the paperclip, send this line, then answer its question as in step 2.',
           prompt: 'Follow the attached skill file as your instructions.',
           promptLabel: 'ADD THIS LINE',
         },
@@ -767,21 +767,14 @@ export const MISSIONS = [
       },
       {
         tier: 'core',
-        estMinutes: 3,
-        title: 'Read the gap note',
-        body:
-          'Read the gap note at the end. It lists what the module needs but your report does not say. Today, just read it.',
-      },
-      {
-        tier: 'core',
         estMinutes: 2,
         title: 'Export your new training module to a Word doc',
         body:
-          'Under the answer, click the three dots, then Export to, then Word. Save it: Exercise 05 uses it. If it did not run, move on: Exercise 05 has the Matts\' Training module.',
+          'If it made a Word file, click Open in Word. If it gave you text instead, click the three dots under the answer, then Export to, then Word. Save it: Exercise 05 uses it. If it did not run, move on: Exercise 05 has the Matts\' Training module.',
         image: {
           src: 'export_to_word.jpg',
           alt: 'Copilot\'s three-dots menu under an answer, open at Export to, with Word offered.',
-          caption: 'Three dots, Export to, Word.',
+          caption: 'No Word file? Three dots, Export to, Word.',
           ui: true,
         },
       },
@@ -823,7 +816,7 @@ export const MISSIONS = [
         estMinutes: 4,
         title: 'Add your training module to a new notebook',
         body:
-          'Create a new Gemini Notebook, click Add source and paste in the training module text from Exercise 04 as copied text, or just upload the Matts\' training module from the card at the top.',
+          'Create a new Gemini Notebook, click Add source and upload the Word file of your training module from Exercise 04, or the Matts\' training module from the card at the top.',
       },
       {
         tier: 'core',

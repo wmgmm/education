@@ -561,3 +561,17 @@ Traps found today:
   cache-busting URL per exercise when probing.
 - `Example_Style_Block.md` keeps its old filename; renaming it touches the generator, the card's
   downloadPath and `public/placeholders/`.
+
+## 2026-09-30, later: Exercise 04 is a Copilot agent; 06 and bonus trims
+
+All on Matt's direction. 04 is now "My First Agent": New agent in standard Copilot Chat, paste
+`Training_Module_Builder.md` into the Describe box, name it Training Module Builder; run it on the
+revised report and pick an audience when it asks; Open in Word, or three dots, Export to, Word.
+The attach-the-skill route stays as a fallback card (Agent Builder can be switched off per tenant).
+The gap-note step is gone. The skill now asks for Word output twice (description and last line);
+the pre-edit skill is tag `skill-before-word-output`. 05 step 1 uploads the Word file. 06: Data
+Visualisation title and card, shorter intro, Canvas app step titles, cleaner-audit card removed.
+Step screenshots now show at their own width (`width: auto`), capped as before. Core total 86.
+
+Untested in the real tools: the Describe-box paste of a 4,173-char skill, whether the agent
+reliably returns a Word file, and whether Notebook's Add source takes a .docx.
