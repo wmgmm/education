@@ -808,7 +808,7 @@ export const MISSIONS = [
     },
     workflow: ['Paste in your training module', 'Cardiff skill makes the deck', 'Rerun with the Matts\' skill'],
     brief:
-      'Turn your training module from Exercise 04 into a slide deck that looks like it came from this university, then rerun it with a second skill and compare the two.',
+      'Turn your training module from Exercise 04 into an internal slide deck that looks like it came from this university, then rerun it with a second skill and compare the two.',
     artifacts: [A.exampleTraining],
     steps: [
       {
