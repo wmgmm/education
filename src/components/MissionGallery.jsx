@@ -65,6 +65,14 @@ export default function MissionGallery({ progress }) {
           <strong>• For other organisations:</strong> treat them as personal
           learning tools, stick to public, non-confidential work data.
         </p>
+        {/* The follow-on workshop, advertised quietly (2026-09-30). The flyer is
+            hosted on The Matts' Part 1 site. */}
+        <p>
+          <strong>Need more training on agents and AI governance?</strong>{' '}
+          <a href="https://wmgmm.github.io/thematts/TheMatts_Governance_Workshop_Flyer.pdf" target="_blank" rel="noopener noreferrer">
+            See our governance workshop (PDF)
+          </a>
+        </p>
       </div>
     </section>
   );
