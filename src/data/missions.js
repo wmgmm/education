@@ -789,7 +789,7 @@ export const MISSIONS = [
 
   {
     id: 'm5',
-    stage: 'Slides',
+    stage: 'Internal Slides',
     code: '05',
     level: 2,
     title: 'The Brand',
