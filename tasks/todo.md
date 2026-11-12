@@ -3925,3 +3925,14 @@ Verified in the preview build (chromium, outside requests blocked so no attendan
 recorded): at 1366x768 the whole gallery still fits one screen, strip 1286x64, heading on one
 line; at 412x889 the strip stacks (332x155), button inside it, no sideways scroll, no page
 errors. Committed and pushed on Matt's ask in the same message. Not checked: Safari's engine, the link clicked through.
+
+## 2026-11-12 (addendum 115): Exercise 05, on brand and the logo
+
+Matt said yes to two wording changes (side by side in chat). The `brief` now ends "AI content
+must still be on brand: use your judgement." (38 words). The Responsible AI step now says the
+logo the AI draws is never the real one and to paste the official logo over it in PowerPoint.
+Why paste-over: the exported deck is one PNG per slide (checked `The_Matts_Cardiff_Deck.pptx`:
+15 slides, 15 pictures, no text), so the logo can only be covered. A third idea, a line under
+the skill asking for an empty LOGO box, is **held until Matt tests it once in Notebook**:
+untested, and it contradicts the settled Cardiff skill's own logo line. `MH_*` untouched: the diff is these two lines only (the CLAUDE.md anchor check no longer runs, see below).
+Build green, both new sentences in the bundle. Committed and pushed on Matt's ask in the same message.

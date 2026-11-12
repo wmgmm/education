@@ -804,7 +804,7 @@ export const MISSIONS = [
     },
     workflow: ['Paste in your training module', 'Cardiff skill makes the deck', 'Rerun with the Matts\' skill'],
     brief:
-      'Turn your training module from Exercise 04 into an internal slide deck that looks like it came from this university, then rerun it with a second skill and compare the two.',
+      'Turn your Exercise 04 training module into an internal slide deck that looks like it came from this university, then rerun it with a second skill and compare. AI content must still be on brand: use your judgement.',
     artifacts: [A.exampleTraining],
     steps: [
       {
@@ -856,7 +856,7 @@ export const MISSIONS = [
         estMinutes: 1,
         title: 'Responsible AI',
         body:
-          'AI branding will not be as good as a human designer, so use it for low-risk work like that internal presentation, not for anything public facing.',
+          'AI branding will not match a human designer, and the logo it draws is never the real one. For internal use, paste the official logo over it in PowerPoint. Keep AI decks away from anything public facing.',
       },
     ],
     verdictBy: 'The Matts',
