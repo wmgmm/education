@@ -3911,3 +3911,17 @@ Body reworded to name the file (not "the plan", which collides with the research
 same step) and to say carry on without it if it refuses. `MH_*` untouched, hash `3ea04f3e…`.
 Verified in the preview build with a cache-busting query: strip text, both images present.
 Pushed on Matt's ask in the same message.
+
+## 2026-11-12 (addendum 114): share strip on the gallery
+
+Matt's ask: under the six cards, a heading bar "Share how you are using AI" and a landscape
+strip with a clear button to the share form on the Top of the Prompts site
+(https://wmgmm.github.io/leaderboard/share.html). Added to `MissionGallery.jsx` between the
+bonus strip and the governance note: a second `evidence-section__header` (h2, same black rule)
+and `.share-strip`, one link across the full width with a blue "Share yours" pill, opening in
+a new tab. Styles appended to `styles.css`. `MH_*` untouched.
+
+Verified in the preview build (chromium, outside requests blocked so no attendance was
+recorded): at 1366x768 the whole gallery still fits one screen, strip 1286x64, heading on one
+line; at 412x889 the strip stacks (332x155), button inside it, no sideways scroll, no page
+errors. Committed and pushed on Matt's ask in the same message. Not checked: Safari's engine, the link clicked through.

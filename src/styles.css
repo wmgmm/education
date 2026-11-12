@@ -2580,3 +2580,59 @@ main:focus {
 .mission-step__figure img {
   width: auto;
 }
+
+/* Share strip (2026-11-12): under the bonus strip, a second gallery heading and one
+   landscape strip linking to the share form on the Top of the Prompts site. The strip
+   borrows the bonus strip's card; the pill is the same blue as START. */
+.share-heading {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.share-strip {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.5rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  font-family: var(--font-body);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.share-strip:hover,
+.share-strip:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.share-strip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.share-strip__line {
+  font-size: 1rem;
+  color: #424245;
+  flex: 1 1 16rem;
+}
+.share-strip__line strong {
+  color: var(--black);
+  font-weight: 600;
+}
+.share-strip__btn {
+  flex: 0 0 auto;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 980px;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.share-strip:hover .share-strip__btn { background: var(--accent-hover); }
+@media (max-height: 820px) and (min-width: 900px) {
+  .share-heading { margin-top: 1.2rem; margin-bottom: 0.7rem; padding-bottom: 0.5rem; }
+  .share-strip { padding: 0.7rem 1.4rem; }
+}

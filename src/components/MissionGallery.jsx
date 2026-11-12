@@ -54,6 +54,25 @@ export default function MissionGallery({ progress }) {
         </button>
       ))}
 
+      {/* Share strip (2026-11-12): a second heading in the gallery's own style, then one
+          landscape strip whose whole width is the link, with a blue pill so the action is
+          plain. It opens the share form on the Top of the Prompts site in a new tab, so
+          nobody loses their place here. */}
+      <div className="evidence-section__header share-heading">
+        <h2 className="evidence-section__title">SHARE HOW YOU ARE USING AI</h2>
+      </div>
+      <a
+        className="share-strip"
+        href="https://wmgmm.github.io/leaderboard/share.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span className="share-strip__line">
+          <strong>Tell us one thing you use AI for at work.</strong> It takes a minute, and a rough idea is welcome.
+        </span>
+        <span className="share-strip__btn">Share yours &rarr;</span>
+      </a>
+
       <div className="governance-callout governance-callout--discreet">
         <p>
           <strong>✓ At Cardiff University:</strong> Gemini and Gemini Notebook (until
